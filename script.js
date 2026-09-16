@@ -1,36 +1,17 @@
 /* =========================================================
    KAVERI UNNATII APARTMENT
-   FINAL GALLERY SCRIPT
-   =========================================================
-
-   This version:
-   1. Uses the CURRENT GitHub Gallery image locations.
-   2. Restores the Home hero background automatically.
-   3. Supports the existing Gallery cards.
-   4. Supports the new album structure.
-   5. Uses .gallery-thumb to match the website CSS.
-   6. Does not remove or replace any Home page content.
-   ========================================================= */
-
-
-/* =========================================================
-   IMAGE PATHS
+   CORRECTED GALLERY SCRIPT
    ========================================================= */
 
 const KAVERI_IMAGES = {
+  apartment: "images/Gallery/Our%20Apartment/kaveri-apartment.webp",
+  brochure: "images/Gallery/Our%20Apartment/kaveri-brochure.jpg",
 
-    apartment:
-        "images/Gallery/Our%20Apartment/kaveri-apartment.webp",
+  archive1:
+    "images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg",
 
-    brochure:
-        "images/Gallery/Our%20Apartment/kaveri-brochure.jpg",
-
-    archive1:
-        "images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg",
-
-    archive2:
-        "images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"
-
+  archive2:
+    "images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"
 };
 
 
@@ -40,337 +21,266 @@ const KAVERI_IMAGES = {
 
 const galleryData = {
 
-    "our-apartment": {
-        title: "Our Apartment",
-        photos: [
-            {
-                src: KAVERI_IMAGES.apartment,
-                caption: "Kaveri Unnatii Apartment"
-            },
-            {
-                src: KAVERI_IMAGES.brochure,
-                caption: "Kaveri Unnatii Apartment brochure"
-            },
-            {
-                src: KAVERI_IMAGES.archive1,
-                caption: "Kaveri Unnatii community memory"
-            },
-            {
-                src: KAVERI_IMAGES.archive2,
-                caption: "Kaveri Unnatii community memory"
-            }
-        ]
-    },
+  "our-apartment": {
+    title: "Our Apartment",
+
+    photos: [
+      {
+        src: KAVERI_IMAGES.apartment,
+        caption: "Kaveri Unnatii Apartment"
+      },
+
+      {
+        src: KAVERI_IMAGES.brochure,
+        caption: "Kaveri Unnatii Apartment brochure"
+      },
+
+      {
+        src: KAVERI_IMAGES.archive1,
+        caption: "Kaveri Unnatii community memory"
+      },
+
+      {
+        src: KAVERI_IMAGES.archive2,
+        caption: "Kaveri Unnatii community memory"
+      }
+    ]
+  },
 
 
-    "sankranti-2023": {
-        title: "Sankranti 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-sankranti/community-feast-01.webp",
-                caption: "Sankranti community feast"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-feast-02.webp",
-                caption: "Sankranti community feast"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-group-01.webp",
-                caption: "Sankranti community gathering"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-group-02.webp",
-                caption: "Sankranti community gathering"
-            }
-        ]
-    },
+  "sankranti-2023": {
+    title: "Sankranti 2023",
+
+    photos: [
+      {
+        src:
+          "images/Gallery/2023-sankranti/community-feast-01.webp",
+        caption: "Sankranti community feast"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-sankranti/community-feast-02.webp",
+        caption: "Sankranti community feast"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-sankranti/community-group-01.webp",
+        caption: "Sankranti community gathering"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-sankranti/community-group-02.webp",
+        caption: "Sankranti community gathering"
+      }
+    ]
+  },
 
 
-    "holi-2023": {
-        title: "Holi 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-holi/family-01.webp",
-                caption: "Holi family celebration"
-            },
-            {
-                src: "images/Gallery/2023-holi/holi-community-01.webp",
-                caption: "Holi community celebration"
-            },
-            {
-                src: "images/Gallery/2023-holi/holi-fun-01.webp",
-                caption: "Holi celebrations at Kaveri Unnatii"
-            }
-        ]
-    },
+  "holi-2023": {
+    title: "Holi 2023",
+
+    photos: [
+      {
+        src:
+          "images/Gallery/2023-holi/family-01.webp",
+        caption: "Holi family celebration"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-holi/holi-community-01.webp",
+        caption: "Holi community celebration"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-holi/holi-fun-01.webp",
+        caption: "Holi celebrations at Kaveri Unnatii"
+      }
+    ]
+  },
 
 
-    "community-2023": {
-        title: "Community Memories 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-community/campus-visit-01.webp",
-                caption: "Community memory 2023"
-            },
-            {
-                src: "images/Gallery/2023-community/families-01.webp",
-                caption: "Kaveri Unnatii families"
-            }
-        ]
-    },
+  "community-2023": {
+    title: "Community Memories 2023",
+
+    photos: [
+      {
+        src:
+          "images/Gallery/2023-community/campus-visit-01.webp",
+        caption: "Community memory 2023"
+      },
+
+      {
+        src:
+          "images/Gallery/2023-community/families-01.webp",
+        caption: "Kaveri Unnatii families"
+      }
+    ]
+  },
 
 
-    "events-2026": {
-        title: "Community Events 2026",
-        photos: [
-            {
-                src: "images/Gallery/2026-events/event-photo-01.webp",
-                caption: "Community event 2026"
-            },
-            {
-                src: "images/Gallery/2026-events/event-photo-02.webp",
-                caption: "Community event 2026"
-            }
-        ]
-    }
+  "events-2026": {
+    title: "Community Events 2026",
+
+    photos: [
+      {
+        src:
+          "images/Gallery/2026-events/event-photo-01.webp",
+        caption: "Community event 2026"
+      },
+
+      {
+        src:
+          "images/Gallery/2026-events/event-photo-02.webp",
+        caption: "Community event 2026"
+      }
+    ]
+  }
 
 };
 
 
 /* =========================================================
-   RESTORE HOME PAGE BACKGROUND
-   =========================================================
-
-   The old CSS points to:
-
-       images/kaveri-apartment.webp
-
-   That file is no longer at that location.
-
-   The actual current file is:
-
-       images/Gallery/Our Apartment/kaveri-apartment.webp
-
-   We correct the path here without changing the visual
-   design, overlay, position or size.
+   GALLERY VARIABLES
    ========================================================= */
 
-function restoreHomeBackground() {
-
-    const hero = document.querySelector(".hero");
-
-    if (!hero) {
-        return;
-    }
-
-    hero.style.backgroundImage =
-        'url("images/Gallery/Our%20Apartment/kaveri-apartment.webp")';
-
-}
-
-
-/* =========================================================
-   FIX OLD IMAGE REFERENCES
-   =========================================================
-
-   This also repairs old cards/images if the current
-   index.html still contains the previous paths.
-   ========================================================= */
-
-function repairOldImagePaths() {
-
-    const replacements = {
-
-        "images/kaveri-apartment.webp":
-            KAVERI_IMAGES.apartment,
-
-        "images/kaveri-brochure.jpg":
-            KAVERI_IMAGES.brochure,
-
-        "images/ak_1636_1434620735-1636795039_700x700%20(1).jpeg":
-            KAVERI_IMAGES.archive1,
-
-        "images/ak_1636_1434620735-1636795039_700x700 (1).jpeg":
-            KAVERI_IMAGES.archive1,
-
-        "images/ak_284_410379319-1567147494_300x300.png":
-            KAVERI_IMAGES.archive2
-
-    };
-
-
-    document
-        .querySelectorAll("img")
-        .forEach(img => {
-
-            const original =
-                img.getAttribute("src");
-
-            if (!original) {
-                return;
-            }
-
-            if (replacements[original]) {
-
-                img.setAttribute(
-                    "src",
-                    replacements[original]
-                );
-
-            }
-
-        });
-
-
-    /* Repair inline background images */
-
-    document
-        .querySelectorAll("[style*='kaveri-apartment']")
-        .forEach(element => {
-
-            const style =
-                element.getAttribute("style");
-
-            if (!style) {
-                return;
-            }
-
-            element.setAttribute(
-                "style",
-                style.replace(
-                    /images\/kaveri-apartment\.webp/g,
-                    KAVERI_IMAGES.apartment
-                )
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   MODAL ELEMENTS
-   ========================================================= */
-
-let galleryModal;
-let galleryModalTitle;
-let galleryModalImage;
-let galleryModalCaption;
-let galleryModalClose;
-let galleryPrev;
-let galleryNext;
-let galleryThumbnails;
-
-
-/* =========================================================
-   GALLERY STATE
-   ========================================================= */
+let galleryModal = null;
+let galleryModalTitle = null;
+let galleryModalImage = null;
+let galleryModalCaption = null;
+let galleryModalCounter = null;
+let galleryModalClose = null;
+let galleryPrev = null;
+let galleryNext = null;
+let galleryThumbnails = null;
 
 let currentAlbum = null;
 let currentPhotoIndex = 0;
 
 
 /* =========================================================
-   GET MODAL ELEMENTS
+   GET GALLERY ELEMENTS
    ========================================================= */
 
 function getGalleryElements() {
 
-    galleryModal =
-        document.getElementById("galleryModal");
+  galleryModal =
+    document.getElementById("galleryModal");
 
-    galleryModalTitle =
-        document.getElementById("galleryModalTitle");
+  galleryModalTitle =
+    document.getElementById("galleryModalTitle");
 
-    galleryModalImage =
-        document.getElementById("galleryModalImage");
+  galleryModalImage =
+    document.getElementById("galleryModalImage");
 
-    galleryModalCaption =
-        document.getElementById("galleryModalCaption");
+  galleryModalCaption =
+    document.getElementById("galleryModalCaption");
 
-    galleryModalClose =
-        document.getElementById("galleryModalClose");
+  galleryModalCounter =
+    document.getElementById("galleryModalCounter");
 
-    galleryPrev =
-        document.getElementById("galleryPrev");
+  galleryModalClose =
+    document.getElementById("galleryModalClose");
 
-    galleryNext =
-        document.getElementById("galleryNext");
+  galleryPrev =
+    document.getElementById("galleryPrev");
 
-    galleryThumbnails =
-        document.getElementById("galleryThumbnails");
+  galleryNext =
+    document.getElementById("galleryNext");
 
+  galleryThumbnails =
+    document.getElementById("galleryThumbnails");
 }
 
 
 /* =========================================================
-   OPEN GALLERY
+   RESTORE HOME BACKGROUND
    ========================================================= */
 
-function openGallery(
-    albumId,
-    photoIndex = 0
-) {
+function restoreHomeBackground() {
 
-    const album =
-        galleryData[albumId];
+  const hero =
+    document.querySelector(".hero");
 
-    if (
-        !album ||
-        !album.photos ||
-        !album.photos.length
-    ) {
-        console.warn(
-            "Gallery album not found:",
-            albumId
+  if (!hero) {
+    return;
+  }
+
+  hero.style.backgroundImage =
+    'linear-gradient(90deg, rgba(39,24,13,.82), rgba(39,24,13,.52), rgba(39,24,13,.20)), url("images/Gallery/Our%20Apartment/kaveri-apartment.webp")';
+}
+
+
+/* =========================================================
+   REPAIR OLD IMAGE PATHS
+   ========================================================= */
+
+function repairOldImagePaths() {
+
+  const replacements = {
+
+    "images/kaveri-apartment.webp":
+      KAVERI_IMAGES.apartment,
+
+    "images/kaveri-brochure.jpg":
+      KAVERI_IMAGES.brochure,
+
+    "images/ak_1636_1434620735-1636795039_700x700%20(1).jpeg":
+      KAVERI_IMAGES.archive1,
+
+    "images/ak_1636_1434620735-1636795039_700x700 (1).jpeg":
+      KAVERI_IMAGES.archive1,
+
+    "images/ak_284_410379319-1567147494_300x300.png":
+      KAVERI_IMAGES.archive2
+  };
+
+
+  document
+    .querySelectorAll("img")
+    .forEach(img => {
+
+      const src =
+        img.getAttribute("src");
+
+      if (
+        src &&
+        replacements[src]
+      ) {
+
+        img.setAttribute(
+          "src",
+          replacements[src]
         );
 
-        return;
-    }
+      }
+
+    });
+}
 
 
-    currentAlbum = albumId;
+/* =========================================================
+   UPDATE PHOTO COUNTER
+   ========================================================= */
 
-    currentPhotoIndex = photoIndex;
+function updateCounter() {
 
+  if (
+    !galleryModalCounter ||
+    !currentAlbum
+  ) {
+    return;
+  }
 
-    if (galleryModalTitle) {
+  const album =
+    galleryData[currentAlbum];
 
-        galleryModalTitle.textContent =
-            album.title;
-
-    }
-
-
-    renderGalleryThumbnails();
-
-    showGalleryPhoto(
-        currentPhotoIndex
-    );
-
-
-    if (galleryModal) {
-
-        galleryModal.classList.add("active");
-
-        galleryModal.classList.add("open");
-
-        galleryModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-    }
-
-
-    document.body.classList.add(
-        "gallery-modal-open"
-    );
-
-    document.body.classList.add(
-        "no-scroll"
-    );
-
+  galleryModalCounter.textContent =
+    `${currentPhotoIndex + 1} / ${album.photos.length}`;
 }
 
 
@@ -380,318 +290,307 @@ function openGallery(
 
 function showGalleryPhoto(index) {
 
-    if (!currentAlbum) {
-        return;
-    }
+  if (!currentAlbum) {
+    return;
+  }
+
+  const album =
+    galleryData[currentAlbum];
+
+  if (
+    !album ||
+    !album.photos ||
+    !album.photos.length
+  ) {
+    return;
+  }
 
 
-    const album =
-        galleryData[currentAlbum];
+  if (index < 0) {
+
+    index =
+      album.photos.length - 1;
+  }
 
 
-    if (
-        !album ||
-        !album.photos ||
-        !album.photos.length
-    ) {
-        return;
-    }
+  if (
+    index >= album.photos.length
+  ) {
+
+    index = 0;
+  }
 
 
-    if (index < 0) {
-
-        index =
-            album.photos.length - 1;
-
-    }
+  currentPhotoIndex =
+    index;
 
 
-    if (
-        index >= album.photos.length
-    ) {
-
-        index = 0;
-
-    }
+  const photo =
+    album.photos[currentPhotoIndex];
 
 
-    currentPhotoIndex = index;
+  if (galleryModalImage) {
+
+    galleryModalImage.src =
+      photo.src;
+
+    galleryModalImage.alt =
+      photo.caption ||
+      album.title;
+  }
 
 
-    const photo =
-        album.photos[currentPhotoIndex];
+  if (galleryModalCaption) {
+
+    galleryModalCaption.textContent =
+      photo.caption || "";
+  }
 
 
-    if (galleryModalImage) {
+  updateCounter();
 
-        galleryModalImage.src =
-            photo.src;
-
-        galleryModalImage.alt =
-            photo.caption ||
-            album.title;
-
-    }
-
-
-    if (galleryModalCaption) {
-
-        galleryModalCaption.textContent =
-            photo.caption || "";
-
-    }
-
-
-    updateGalleryThumbnails();
-
+  updateGalleryThumbnails();
 }
 
 
 /* =========================================================
-   NEXT
-   ========================================================= */
-
-function nextGalleryPhoto() {
-
-    if (!currentAlbum) {
-        return;
-    }
-
-
-    const album =
-        galleryData[currentAlbum];
-
-
-    if (!album) {
-        return;
-    }
-
-
-    showGalleryPhoto(
-        currentPhotoIndex + 1
-    );
-
-}
-
-
-/* =========================================================
-   PREVIOUS
-   ========================================================= */
-
-function previousGalleryPhoto() {
-
-    if (!currentAlbum) {
-        return;
-    }
-
-
-    const album =
-        galleryData[currentAlbum];
-
-
-    if (!album) {
-        return;
-    }
-
-
-    showGalleryPhoto(
-        currentPhotoIndex - 1
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE
-   ========================================================= */
-
-function closeGallery() {
-
-    if (!galleryModal) {
-        return;
-    }
-
-
-    galleryModal.classList.remove(
-        "active"
-    );
-
-    galleryModal.classList.remove(
-        "open"
-    );
-
-
-    galleryModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    document.body.classList.remove(
-        "gallery-modal-open"
-    );
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-
-
-    currentAlbum = null;
-
-    currentPhotoIndex = 0;
-
-}
-
-
-/* =========================================================
-   THUMBNAILS
+   RENDER THUMBNAILS
    ========================================================= */
 
 function renderGalleryThumbnails() {
 
-    if (
-        !galleryThumbnails ||
-        !currentAlbum
-    ) {
-        return;
-    }
+  if (
+    !galleryThumbnails ||
+    !currentAlbum
+  ) {
+    return;
+  }
 
 
-    const album =
-        galleryData[currentAlbum];
+  const album =
+    galleryData[currentAlbum];
 
 
-    if (!album) {
-        return;
-    }
+  galleryThumbnails.innerHTML =
+    "";
 
 
-    galleryThumbnails.innerHTML = "";
+  album.photos.forEach(
+    (photo, index) => {
+
+      const button =
+        document.createElement("button");
 
 
-    album.photos.forEach(
-        (photo, index) => {
-
-            const thumbnail =
-                document.createElement(
-                    "button"
-                );
+      button.type =
+        "button";
 
 
-            thumbnail.type =
-                "button";
+      button.className =
+        "gallery-thumb";
 
 
-            /*
-             * IMPORTANT:
-             * Use gallery-thumb because
-             * this matches the website CSS.
-             */
-
-            thumbnail.className =
-                "gallery-thumb";
+      button.setAttribute(
+        "aria-label",
+        `Open photo ${index + 1}`
+      );
 
 
-            thumbnail.setAttribute(
-                "aria-label",
-                "Open photo " +
-                (index + 1)
-            );
+      const image =
+        document.createElement("img");
 
 
-            const image =
-                document.createElement(
-                    "img"
-                );
+      image.src =
+        photo.src;
 
 
-            image.src =
-                photo.src;
+      image.alt =
+        photo.caption || "";
 
 
-            image.alt =
-                photo.caption || "";
+      image.loading =
+        "lazy";
 
 
-            image.loading =
-                "lazy";
+      button.appendChild(
+        image
+      );
 
 
-            thumbnail.appendChild(
-                image
-            );
+      button.addEventListener(
+        "click",
+        () => {
 
-
-            thumbnail.addEventListener(
-                "click",
-                () => {
-
-                    showGalleryPhoto(
-                        index
-                    );
-
-                }
-            );
-
-
-            galleryThumbnails.appendChild(
-                thumbnail
-            );
+          showGalleryPhoto(index);
 
         }
-    );
+      );
 
+
+      galleryThumbnails.appendChild(
+        button
+      );
+
+    }
+  );
+
+
+  updateGalleryThumbnails();
 }
 
 
 /* =========================================================
-   ACTIVE THUMBNAIL
+   UPDATE ACTIVE THUMBNAIL
    ========================================================= */
 
 function updateGalleryThumbnails() {
 
-    if (!galleryThumbnails) {
-        return;
-    }
+  if (!galleryThumbnails) {
+    return;
+  }
 
 
-    const thumbnails =
-        galleryThumbnails.querySelectorAll(
-            ".gallery-thumb"
+  galleryThumbnails
+    .querySelectorAll(".gallery-thumb")
+    .forEach(
+      (button, index) => {
+
+        const active =
+          index === currentPhotoIndex;
+
+
+        button.classList.toggle(
+          "active",
+          active
         );
 
 
-    thumbnails.forEach(
-        (thumbnail, index) => {
+        if (active) {
 
-            thumbnail.classList.toggle(
-                "active",
-                index ===
-                currentPhotoIndex
-            );
+          button.setAttribute(
+            "aria-current",
+            "true"
+          );
 
+        } else {
 
-            if (
-                index ===
-                currentPhotoIndex
-            ) {
-
-                thumbnail.setAttribute(
-                    "aria-current",
-                    "true"
-                );
-
-            } else {
-
-                thumbnail.removeAttribute(
-                    "aria-current"
-                );
-
-            }
+          button.removeAttribute(
+            "aria-current"
+          );
 
         }
+
+      }
+    );
+}
+
+
+/* =========================================================
+   OPEN GALLERY
+   ========================================================= */
+
+function openGallery(
+  albumId,
+  photoIndex = 0
+) {
+
+  const album =
+    galleryData[albumId];
+
+
+  if (
+    !album ||
+    !album.photos ||
+    !album.photos.length
+  ) {
+
+    console.error(
+      "Gallery album not found:",
+      albumId
     );
 
+    return;
+  }
+
+
+  currentAlbum =
+    albumId;
+
+
+  currentPhotoIndex =
+    photoIndex;
+
+
+  if (galleryModalTitle) {
+
+    galleryModalTitle.textContent =
+      album.title;
+  }
+
+
+  renderGalleryThumbnails();
+
+  showGalleryPhoto(
+    photoIndex
+  );
+
+
+  if (galleryModal) {
+
+    galleryModal.classList.add(
+      "active",
+      "open"
+    );
+
+    galleryModal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+  }
+
+
+  document.body.classList.add(
+    "no-scroll",
+    "gallery-modal-open"
+  );
+}
+
+
+/* =========================================================
+   CLOSE GALLERY
+   ========================================================= */
+
+function closeGallery() {
+
+  if (!galleryModal) {
+    return;
+  }
+
+
+  galleryModal.classList.remove(
+    "active",
+    "open"
+  );
+
+
+  galleryModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  document.body.classList.remove(
+    "no-scroll",
+    "gallery-modal-open"
+  );
+
+
+  currentAlbum =
+    null;
+
+
+  currentPhotoIndex =
+    0;
 }
 
 
@@ -701,95 +600,65 @@ function updateGalleryThumbnails() {
 
 function initializeAlbumCards() {
 
-    const albumCards =
-        document.querySelectorAll(
-            ".album-card"
-        );
+  document
+    .querySelectorAll(".album-card")
+    .forEach(card => {
+
+      if (
+        card.dataset.galleryReady ===
+        "true"
+      ) {
+        return;
+      }
 
 
-    albumCards.forEach(
-        card => {
-
-            /*
-             * Prevent duplicate listeners
-             * if the script is accidentally
-             * initialized more than once.
-             */
-
-            if (
-                card.dataset.galleryReady ===
-                "true"
-            ) {
-                return;
-            }
+      card.dataset.galleryReady =
+        "true";
 
 
-            card.dataset.galleryReady =
-                "true";
+      const open =
+        () => {
+
+          const albumId =
+            card.dataset.album;
 
 
-            card.addEventListener(
-                "click",
-                event => {
+          if (albumId) {
 
-                    /*
-                     * Ignore clicks on actual
-                     * links/buttons inside card
-                     * when appropriate.
-                     */
-
-                    const albumId =
-                        card.dataset.album;
-
-
-                    if (!albumId) {
-                        return;
-                    }
-
-
-                    openGallery(
-                        albumId,
-                        0
-                    );
-
-                }
+            openGallery(
+              albumId,
+              0
             );
 
-
-            card.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key === "Enter" ||
-                        event.key === " "
-                    ) {
-
-                        event.preventDefault();
+          }
+        };
 
 
-                        const albumId =
-                            card.dataset.album;
+      card.addEventListener(
+        "click",
+        open
+      );
 
 
-                        if (!albumId) {
-                            return;
-                        }
+      card.addEventListener(
+        "keydown",
+        event => {
 
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
 
-                        openGallery(
-                            albumId,
-                            0
-                        );
+            event.preventDefault();
 
-                    }
+            open();
 
-                }
-            );
+          }
 
         }
-    );
+      );
 
+    });
 }
 
 
@@ -799,246 +668,356 @@ function initializeAlbumCards() {
 
 function initializeGalleryFilters() {
 
-    const filterButtons =
-        document.querySelectorAll(
-            "[data-gallery-filter]"
-        );
+  /*
+   * IMPORTANT:
+   *
+   * index.html uses:
+   *
+   * data-filter="2023"
+   *
+   * NOT:
+   *
+   * data-gallery-filter
+   *
+   */
 
-
-    const albumCards =
-        document.querySelectorAll(
-            ".album-card"
-        );
-
-
-    filterButtons.forEach(
-        button => {
-
-            if (
-                button.dataset.galleryReady ===
-                "true"
-            ) {
-                return;
-            }
-
-
-            button.dataset.galleryReady =
-                "true";
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const filter =
-                        (
-                            button.dataset
-                                .galleryFilter ||
-                            "all"
-                        ).toLowerCase();
-
-
-                    filterButtons.forEach(
-                        item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-
-                            item.setAttribute(
-                                "aria-selected",
-                                "false"
-                            );
-
-                        }
-                    );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    button.setAttribute(
-                        "aria-selected",
-                        "true"
-                    );
-
-
-                    albumCards.forEach(
-                        card => {
-
-                            const categories =
-                                (
-                                    card.dataset
-                                        .category ||
-                                    ""
-                                )
-                                .toLowerCase()
-                                .split(/\s+/)
-                                .filter(Boolean);
-
-
-                            const year =
-                                (
-                                    card.dataset
-                                        .year ||
-                                    ""
-                                )
-                                .toLowerCase();
-
-
-                            let show =
-                                false;
-
-
-                            if (
-                                filter === "all"
-                            ) {
-
-                                show = true;
-
-                            }
-
-
-                            else if (
-                                filter ===
-                                "apartment"
-                            ) {
-
-                                show =
-                                    categories.includes(
-                                        "apartment"
-                                    );
-
-                            }
-
-
-                            else if (
-                                filter ===
-                                "community"
-                            ) {
-
-                                show =
-                                    categories.includes(
-                                        "community"
-                                    );
-
-                            }
-
-
-                            else if (
-                                filter ===
-                                "festivals"
-                            ) {
-
-                                show =
-                                    categories.includes(
-                                        "festival"
-                                    ) ||
-                                    categories.includes(
-                                        "festivals"
-                                    );
-
-                            }
-
-
-                            else if (
-                                filter === "2023" ||
-                                filter === "2026"
-                            ) {
-
-                                show =
-                                    year === filter;
-
-                            }
-
-
-                            else {
-
-                                show =
-                                    categories.includes(
-                                        filter
-                                    ) ||
-                                    year === filter;
-
-                            }
-
-
-                            card.style.display =
-                                show
-                                    ? ""
-                                    : "none";
-
-                        }
-                    );
-
-                }
-            );
-
-        }
+  const filterButtons =
+    document.querySelectorAll(
+      ".gallery-filter"
     );
 
+
+  const albumCards =
+    document.querySelectorAll(
+      ".album-card"
+    );
+
+
+  const emptyMessage =
+    document.getElementById(
+      "galleryEmpty"
+    );
+
+
+  filterButtons.forEach(
+    button => {
+
+      if (
+        button.dataset.galleryReady ===
+        "true"
+      ) {
+        return;
+      }
+
+
+      button.dataset.galleryReady =
+        "true";
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const filter =
+            (
+              button.dataset.filter ||
+              "all"
+            ).toLowerCase();
+
+
+          let visibleCount =
+            0;
+
+
+          /*
+           * Update active button
+           */
+
+          filterButtons.forEach(
+            item => {
+
+              const active =
+                item === button;
+
+
+              item.classList.toggle(
+                "active",
+                active
+              );
+
+
+              item.setAttribute(
+                "aria-pressed",
+                active
+                  ? "true"
+                  : "false"
+              );
+
+            }
+          );
+
+
+          /*
+           * Filter albums
+           */
+
+          albumCards.forEach(
+            card => {
+
+              const categories =
+                (
+                  card.dataset.category ||
+                  ""
+                )
+                .toLowerCase()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+              const year =
+                (
+                  card.dataset.year ||
+                  ""
+                ).toLowerCase();
+
+
+              let show =
+                false;
+
+
+              if (
+                filter === "all"
+              ) {
+
+                show = true;
+
+              }
+
+
+              else if (
+                filter === "apartment"
+              ) {
+
+                show =
+                  categories.includes(
+                    "apartment"
+                  );
+
+              }
+
+
+              else if (
+                filter === "community"
+              ) {
+
+                show =
+                  categories.includes(
+                    "community"
+                  );
+
+              }
+
+
+              else if (
+                filter === "festival" ||
+                filter === "festivals"
+              ) {
+
+                show =
+                  categories.includes(
+                    "festival"
+                  ) ||
+                  categories.includes(
+                    "festivals"
+                  );
+
+              }
+
+
+              else if (
+                filter === "2023" ||
+                filter === "2026"
+              ) {
+
+                show =
+                  year === filter;
+
+              }
+
+
+              else {
+
+                show =
+                  categories.includes(
+                    filter
+                  ) ||
+                  year === filter;
+
+              }
+
+
+              card.style.display =
+                show
+                  ? ""
+                  : "none";
+
+
+              if (show) {
+
+                visibleCount++;
+
+              }
+
+            }
+          );
+
+
+          /*
+           * Empty message
+           */
+
+          if (emptyMessage) {
+
+            emptyMessage.hidden =
+              visibleCount !== 0;
+
+          }
+
+        }
+      );
+
+    }
+  );
 }
 
 
 /* =========================================================
-   MODAL EVENTS
+   MODAL CONTROLS
    ========================================================= */
 
 function initializeGalleryModal() {
 
-    if (galleryModalClose) {
+  if (!galleryModal) {
+    return;
+  }
 
-        galleryModalClose.addEventListener(
-            "click",
-            closeGallery
+
+  /*
+   * Close button
+   */
+
+  if (galleryModalClose) {
+
+    galleryModalClose.addEventListener(
+      "click",
+      closeGallery
+    );
+
+  }
+
+
+  /*
+   * Next button
+   */
+
+  if (galleryNext) {
+
+    galleryNext.addEventListener(
+      "click",
+      () => {
+
+        showGalleryPhoto(
+          currentPhotoIndex + 1
         );
 
-    }
+      }
+    );
+
+  }
 
 
-    if (galleryNext) {
+  /*
+   * Previous button
+   */
 
-        galleryNext.addEventListener(
-            "click",
-            nextGalleryPhoto
+  if (galleryPrev) {
+
+    galleryPrev.addEventListener(
+      "click",
+      () => {
+
+        showGalleryPhoto(
+          currentPhotoIndex - 1
         );
 
+      }
+    );
+
+  }
+
+
+  /*
+   * Backdrop
+   */
+
+  const backdrop =
+    galleryModal.querySelector(
+      ".gallery-modal-backdrop"
+    );
+
+
+  if (backdrop) {
+
+    backdrop.addEventListener(
+      "click",
+      closeGallery
+    );
+
+  }
+
+
+  /*
+   * Extra modal background close
+   */
+
+  galleryModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        galleryModal
+      ) {
+
+        closeGallery();
+
+      }
+
     }
+  );
 
 
-    if (galleryPrev) {
+  /*
+   * Image loading error
+   */
 
-        galleryPrev.addEventListener(
-            "click",
-            previousGalleryPhoto
-        );
+  if (galleryModalImage) {
 
-    }
+    galleryModalImage.addEventListener(
+      "error",
+      () => {
 
+        if (galleryModalCaption) {
 
-    if (galleryModal) {
+          galleryModalCaption.textContent =
+            "Unable to load this photo. Please check the image path.";
 
-        galleryModal.addEventListener(
-            "click",
-            event => {
+        }
 
-                if (
-                    event.target ===
-                    galleryModal
-                ) {
+      }
+    );
 
-                    closeGallery();
-
-                }
-
-            }
-        );
-
-    }
-
+  }
 }
 
 
@@ -1048,56 +1027,53 @@ function initializeGalleryModal() {
 
 function initializeKeyboardControls() {
 
-    document.addEventListener(
-        "keydown",
-        event => {
+  document.addEventListener(
+    "keydown",
+    event => {
 
-            if (
-                !galleryModal ||
-                (
-                    !galleryModal.classList.contains(
-                        "active"
-                    ) &&
-                    !galleryModal.classList.contains(
-                        "open"
-                    )
-                )
-            ) {
+      if (
+        !galleryModal ||
+        !galleryModal.classList.contains(
+          "open"
+        )
+      ) {
 
-                return;
-
-            }
+        return;
+      }
 
 
-            if (
-                event.key === "Escape"
-            ) {
+      if (
+        event.key === "Escape"
+      ) {
 
-                closeGallery();
+        closeGallery();
 
-            }
-
-
-            else if (
-                event.key === "ArrowRight"
-            ) {
-
-                nextGalleryPhoto();
-
-            }
+      }
 
 
-            else if (
-                event.key === "ArrowLeft"
-            ) {
+      else if (
+        event.key === "ArrowRight"
+      ) {
 
-                previousGalleryPhoto();
+        showGalleryPhoto(
+          currentPhotoIndex + 1
+        );
 
-            }
+      }
 
-        }
-    );
 
+      else if (
+        event.key === "ArrowLeft"
+      ) {
+
+        showGalleryPhoto(
+          currentPhotoIndex - 1
+        );
+
+      }
+
+    }
+  );
 }
 
 
@@ -1107,175 +1083,95 @@ function initializeKeyboardControls() {
 
 function initializeNavigation() {
 
-    const navLinks =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
+  document
+    .querySelectorAll(
+      'a[href^="#"]'
+    )
+    .forEach(link => {
 
-
-    navLinks.forEach(
-        link => {
-
-            if (
-                link.dataset.navigationReady ===
-                "true"
-            ) {
-                return;
-            }
-
-
-            link.dataset.navigationReady =
-                "true";
-
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
-
-function initializeMobileMenu() {
-
-    /*
-     * Your existing website uses .menu-btn.
-     * Support that as well as the previous names.
-     */
-
-    const menuButton =
-        document.querySelector(
-            ".menu-btn, .menu-toggle, .mobile-menu-toggle, #menuToggle"
-        );
-
-
-    const mobileMenu =
-        document.querySelector(
-            ".mobile-menu, #mobileMenu"
-        );
-
-
-    if (
-        !menuButton ||
-        !mobileMenu
-    ) {
+      if (
+        link.dataset.navigationReady ===
+        "true"
+      ) {
 
         return;
+      }
 
-    }
+
+      link.dataset.navigationReady =
+        "true";
 
 
-    menuButton.addEventListener(
+      link.addEventListener(
         "click",
-        () => {
+        event => {
 
-            const isOpen =
-                mobileMenu.classList.toggle(
-                    "active"
-                );
-
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                isOpen
-                    ? "true"
-                    : "false"
+          const targetId =
+            link.getAttribute(
+              "href"
             );
 
-        }
-    );
 
+          if (
+            !targetId ||
+            targetId === "#"
+          ) {
+
+            return;
+          }
+
+
+          const target =
+            document.querySelector(
+              targetId
+            );
+
+
+          if (!target) {
+            return;
+          }
+
+
+          event.preventDefault();
+
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
+      );
+
+    });
 }
 
 
 /* =========================================================
-   INITIALIZE
+   INITIALIZE EVERYTHING
    ========================================================= */
 
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+  "DOMContentLoaded",
+  () => {
 
-        /*
-         * FIRST:
-         * Restore Home background.
-         */
+    restoreHomeBackground();
 
-        restoreHomeBackground();
+    repairOldImagePaths();
 
+    getGalleryElements();
 
-        /*
-         * SECOND:
-         * Repair old image references.
-         */
+    initializeAlbumCards();
 
-        repairOldImagePaths();
+    initializeGalleryFilters();
 
+    initializeGalleryModal();
 
-        /*
-         * THIRD:
-         * Prepare Gallery.
-         */
+    initializeKeyboardControls();
 
-        getGalleryElements();
+    initializeNavigation();
 
-        initializeAlbumCards();
-
-        initializeGalleryFilters();
-
-        initializeGalleryModal();
-
-        initializeKeyboardControls();
-
-        initializeNavigation();
-
-        initializeMobileMenu();
-
-    }
+  }
 );
 
 
