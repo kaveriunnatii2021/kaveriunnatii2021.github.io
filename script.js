@@ -221,6 +221,9 @@ let galleryPrev = null;
 let galleryNext = null;
 let galleryModalClose = null;
 
+let galleryTouchStartX = 0;
+let galleryTouchEndX = 0;
+
 
 /* =========================================================
    CACHE GALLERY ELEMENTS
@@ -308,9 +311,13 @@ function openGallery(
     "gallery-modal-open"
   );
 
+  document.body.style.overflow = "hidden";
+
   renderGalleryThumbnails();
 
-  document.body.style.overflow = "hidden";
+  if (galleryModalClose) {
+    galleryModalClose.focus();
+  }
 }
 
 
@@ -538,7 +545,7 @@ function renderGalleryThumbnails() {
 
       button.setAttribute(
         "aria-label",
-        `Open image ${index + 1}`
+        `Open image ${index + 1}: ${image.title || ""}`
       );
 
 
@@ -598,11 +605,41 @@ function updateActiveThumbnail() {
       );
     }
   );
+
+
+  const activeThumbnail =
+    galleryThumbnails.querySelector(
+      ".gallery-thumbnail.active"
+    );
+
+  if (activeThumbnail) {
+
+    activeThumbnail.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
 }
 
 
 /* =========================================================
-   GALLERY FILTER
+   IMPROVED GALLERY FILTER
+   =========================================================
+   
+   Supports:
+   - all
+   - apartment
+   - festival
+   - community
+   - 2026
+   
+   Also allows a gallery item to have multiple
+   categories separated by spaces.
+   Example:
+   
+   data-category="community 2026"
+   
    ========================================================= */
 
 function filterGallery(filter = "all") {
@@ -616,8 +653,18 @@ function filterGallery(filter = "all") {
   items.forEach(
     (item) => {
 
-      const category =
-        item.dataset.category;
+      const categoryString =
+        (
+          item.dataset.category ||
+          ""
+        ).trim();
+
+
+      const categories =
+        categoryString
+          .split(/\s+/)
+          .filter(Boolean);
+
 
       let visible = false;
 
@@ -626,16 +673,25 @@ function filterGallery(filter = "all") {
 
         visible = true;
 
-      } else if (
-        filter === category
-      ) {
+      } else {
 
-        visible = true;
+        visible =
+          categories.includes(filter);
       }
 
 
       item.style.display =
-        visible ? "" : "none";
+        visible
+          ? ""
+          : "none";
+
+
+      item.setAttribute(
+        "aria-hidden",
+        visible
+          ? "false"
+          : "true"
+      );
     }
   );
 
@@ -668,6 +724,27 @@ function filterGallery(filter = "all") {
       );
     }
   );
+
+
+  /* Smoothly reposition the gallery
+     after filtering. */
+
+  const gallery =
+    document.querySelector(
+      ".gallery-mosaic"
+    );
+
+  if (gallery) {
+
+    gallery.style.opacity = "0.75";
+
+    requestAnimationFrame(
+      () => {
+
+        gallery.style.opacity = "1";
+      }
+    );
+  }
 }
 
 
@@ -713,6 +790,12 @@ function setupGalleryTiles() {
       item.setAttribute(
         "tabindex",
         "0"
+      );
+
+
+      item.setAttribute(
+        "role",
+        "button"
       );
 
 
@@ -778,6 +861,21 @@ function setupGalleryFilters() {
       );
     }
   );
+
+
+  /* Make sure the gallery starts
+     with "All" selected. */
+
+  const activeButton =
+    document.querySelector(
+      ".gallery-filter.active"
+    );
+
+  filterGallery(
+    activeButton
+      ? activeButton.dataset.filter
+      : "all"
+  );
 }
 
 
@@ -817,6 +915,10 @@ function setupGalleryModal() {
   }
 
 
+  /* Clicking the dark background closes
+     the lightbox, but clicking the content
+     does not. */
+
   galleryModal.addEventListener(
     "click",
     (event) => {
@@ -825,17 +927,6 @@ function setupGalleryModal() {
         event.target ===
         galleryModal
       ) {
-
-        closeGallery();
-      }
-
-
-      if (
-        event.target.classList.contains(
-          "gallery-lightbox-backdrop"
-        )
-      ) {
-
         closeGallery();
       }
     }
@@ -844,7 +935,7 @@ function setupGalleryModal() {
 
 
 /* =========================================================
-   KEYBOARD CONTROLS
+   KEYBOARD NAVIGATION
    ========================================================= */
 
 function setupGalleryKeyboard() {
@@ -855,41 +946,37 @@ function setupGalleryKeyboard() {
 
       if (
         !galleryModal ||
-        !galleryModal.classList.contains(
-          "open"
-        )
+        !galleryModal.classList.contains("open")
       ) {
         return;
       }
 
 
-      if (event.key === "Escape") {
+      switch (event.key) {
 
-        event.preventDefault();
+        case "Escape":
 
-        closeGallery();
+          closeGallery();
 
-        return;
-      }
-
-
-      if (
-        event.key === "ArrowLeft"
-      ) {
-
-        event.preventDefault();
-
-        showPreviousGalleryImage();
-      }
+          break;
 
 
-      if (
-        event.key === "ArrowRight"
-      ) {
+        case "ArrowLeft":
 
-        event.preventDefault();
+          event.preventDefault();
 
-        showNextGalleryImage();
+          showPreviousGalleryImage();
+
+          break;
+
+
+        case "ArrowRight":
+
+          event.preventDefault();
+
+          showNextGalleryImage();
+
+          break;
       }
     }
   );
@@ -897,26 +984,27 @@ function setupGalleryKeyboard() {
 
 
 /* =========================================================
-   TOUCH / SWIPE SUPPORT
+   TOUCH / SWIPE NAVIGATION
    ========================================================= */
-
-let galleryTouchStartX = 0;
-
-let galleryTouchEndX = 0;
-
 
 function setupGallerySwipe() {
 
-  if (!galleryModalImage) return;
+  if (!galleryModal) return;
 
 
-  galleryModalImage.addEventListener(
+  galleryModal.addEventListener(
     "touchstart",
     (event) => {
 
+      if (
+        !event.touches ||
+        !event.touches.length
+      ) {
+        return;
+      }
+
       galleryTouchStartX =
-        event.changedTouches[0]
-          .screenX;
+        event.touches[0].clientX;
     },
     {
       passive: true
@@ -924,50 +1012,51 @@ function setupGallerySwipe() {
   );
 
 
-  galleryModalImage.addEventListener(
+  galleryModal.addEventListener(
     "touchend",
     (event) => {
 
-      galleryTouchEndX =
-        event.changedTouches[0]
-          .screenX;
+      if (
+        !event.changedTouches ||
+        !event.changedTouches.length
+      ) {
+        return;
+      }
 
-      handleGallerySwipe();
+      galleryTouchEndX =
+        event.changedTouches[0].clientX;
+
+
+      const distance =
+        galleryTouchEndX -
+        galleryTouchStartX;
+
+
+      const minimumSwipe =
+        50;
+
+
+      if (
+        Math.abs(distance) <
+        minimumSwipe
+      ) {
+        return;
+      }
+
+
+      if (distance < 0) {
+
+        showNextGalleryImage();
+
+      } else {
+
+        showPreviousGalleryImage();
+      }
     },
     {
       passive: true
     }
   );
-}
-
-
-function handleGallerySwipe() {
-
-  const distance =
-    galleryTouchEndX -
-    galleryTouchStartX;
-
-
-  const minimumSwipeDistance =
-    50;
-
-
-  if (
-    Math.abs(distance) <
-    minimumSwipeDistance
-  ) {
-    return;
-  }
-
-
-  if (distance > 0) {
-
-    showPreviousGalleryImage();
-
-  } else {
-
-    showNextGalleryImage();
-  }
 }
 
 
@@ -977,29 +1066,26 @@ function handleGallerySwipe() {
 
 function setupMobileNavigation() {
 
-  const menuBtn =
-    document.getElementById(
-      "menuBtn"
+  const menuButton =
+    document.querySelector(
+      ".menu-btn"
     );
 
   const nav =
-    document.getElementById(
+    document.querySelector(
       "nav"
     );
 
 
-  if (!menuBtn || !nav) {
+  if (
+    !menuButton ||
+    !nav
+  ) {
     return;
   }
 
 
-  menuBtn.setAttribute(
-    "aria-expanded",
-    "false"
-  );
-
-
-  menuBtn.addEventListener(
+  menuButton.addEventListener(
     "click",
     () => {
 
@@ -1009,38 +1095,73 @@ function setupMobileNavigation() {
         );
 
 
-      menuBtn.setAttribute(
+      menuButton.setAttribute(
         "aria-expanded",
         isOpen
           ? "true"
           : "false"
       );
+
+
+      menuButton.textContent =
+        isOpen
+          ? "✕"
+          : "☰";
     }
   );
 
 
-  const navLinks =
-    nav.querySelectorAll("a");
+  /* Close mobile menu after
+     selecting a navigation link. */
+
+  nav.querySelectorAll("a")
+    .forEach(
+      (link) => {
+
+        link.addEventListener(
+          "click",
+          () => {
+
+            nav.classList.remove(
+              "open"
+            );
+
+            menuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            menuButton.textContent =
+              "☰";
+          }
+        );
+      }
+    );
 
 
-  navLinks.forEach(
-    (link) => {
+  /* Close menu when clicking outside. */
 
-      link.addEventListener(
-        "click",
-        () => {
+  document.addEventListener(
+    "click",
+    (event) => {
 
-          nav.classList.remove(
-            "open"
-          );
+      if (
+        !nav.contains(event.target) &&
+        !menuButton.contains(event.target)
+      ) {
 
+        nav.classList.remove(
+          "open"
+        );
 
-          menuBtn.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-        }
-      );
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        menuButton.textContent =
+          "☰";
+      }
     }
   );
 }
@@ -1052,30 +1173,28 @@ function setupMobileNavigation() {
 
 function setupBackToTop() {
 
-  const backToTop =
+  const button =
     document.getElementById(
       "backToTop"
     );
 
 
-  if (!backToTop) return;
+  if (!button) return;
 
 
   window.addEventListener(
     "scroll",
     () => {
 
-      if (
-        window.scrollY > 400
-      ) {
+      if (window.scrollY > 500) {
 
-        backToTop.classList.add(
+        button.classList.add(
           "show"
         );
 
       } else {
 
-        backToTop.classList.remove(
+        button.classList.remove(
           "show"
         );
       }
@@ -1086,7 +1205,7 @@ function setupBackToTop() {
   );
 
 
-  backToTop.addEventListener(
+  button.addEventListener(
     "click",
     () => {
 
@@ -1117,14 +1236,11 @@ function createGalleryModal() {
   const modal =
     document.createElement("div");
 
-
   modal.id =
     "galleryModal";
 
-
   modal.className =
     "gallery-lightbox";
-
 
   modal.setAttribute(
     "aria-hidden",
@@ -1134,45 +1250,39 @@ function createGalleryModal() {
 
   modal.innerHTML = `
 
-    <div class="gallery-lightbox-backdrop"></div>
-
-    <div
-      class="gallery-lightbox-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="galleryModalTitle"
-    >
+    <div class="gallery-lightbox-dialog">
 
       <div class="gallery-lightbox-header">
 
-        <div class="gallery-lightbox-heading">
-
-          <div
-            id="galleryModalKicker"
+        <div>
+          <span
             class="gallery-lightbox-kicker"
-          ></div>
+            id="galleryModalKicker"
+          ></span>
 
           <h3
             id="galleryModalTitle"
           ></h3>
-
         </div>
 
-
         <div
-          id="galleryModalCounter"
-          class="gallery-lightbox-counter"
-        ></div>
-
-
-        <button
-          type="button"
-          id="galleryModalClose"
-          class="gallery-lightbox-close"
-          aria-label="Close gallery"
+          class="gallery-lightbox-header-right"
         >
-          &times;
-        </button>
+
+          <span
+            id="galleryModalCounter"
+          ></span>
+
+          <button
+            type="button"
+            class="gallery-lightbox-close"
+            id="galleryModalClose"
+            aria-label="Close gallery"
+          >
+            ✕
+          </button>
+
+        </div>
 
       </div>
 
@@ -1181,11 +1291,11 @@ function createGalleryModal() {
 
         <button
           type="button"
-          id="galleryPrev"
           class="gallery-lightbox-nav gallery-lightbox-prev"
+          id="galleryPrev"
           aria-label="Previous image"
         >
-          &#10094;
+          ‹
         </button>
 
 
@@ -1195,35 +1305,42 @@ function createGalleryModal() {
             id="galleryModalImage"
             src=""
             alt=""
-          />
-
-          <p
-            id="galleryModalCaption"
-            class="gallery-lightbox-caption"
-          ></p>
+          >
 
         </div>
 
 
         <button
           type="button"
-          id="galleryNext"
           class="gallery-lightbox-nav gallery-lightbox-next"
+          id="galleryNext"
           aria-label="Next image"
         >
-          &#10095;
+          ›
         </button>
 
       </div>
 
 
       <div
-        id="galleryThumbnails"
+        class="gallery-lightbox-caption"
+      >
+
+        <p
+          id="galleryModalCaption"
+        ></p>
+
+      </div>
+
+
+      <div
         class="gallery-thumbnails"
+        id="galleryThumbnails"
         aria-label="Gallery thumbnails"
       ></div>
 
     </div>
+
   `;
 
 
@@ -1234,10 +1351,12 @@ function createGalleryModal() {
 
 
 /* =========================================================
-   FALLBACK: CREATE MODERN GALLERY
+   LEGACY GALLERY FALLBACK
    =========================================================
-   This allows the new script to work even if the old
-   Gallery HTML is still present in index.html.
+   
+   Keeps compatibility with older versions
+   of the page if an old album grid exists.
+
    ========================================================= */
 
 function createModernGalleryFromData() {
@@ -1248,13 +1367,13 @@ function createModernGalleryFromData() {
     );
 
 
-  if (!oldGallery) return;
+  if (!oldGallery) {
+    return;
+  }
 
 
-  /*
-   * If the new gallery already exists,
-   * do nothing.
-   */
+  /* Do not replace an already
+     modern gallery. */
 
   if (
     document.querySelector(
@@ -1266,8 +1385,9 @@ function createModernGalleryFromData() {
 
 
   const mosaic =
-    document.createElement("div");
-
+    document.createElement(
+      "div"
+    );
 
   mosaic.className =
     "gallery-mosaic";
@@ -1284,84 +1404,79 @@ function createModernGalleryFromData() {
       album.images.forEach(
         (image, imageIndex) => {
 
-          const tile =
+          const button =
             document.createElement(
               "button"
             );
 
-
-          tile.type =
+          button.type =
             "button";
 
-
-          tile.className =
+          button.className =
             "gallery-tile";
 
+          button.dataset.galleryItem =
+            "";
 
-          if (
-            globalIndex === 0
-          ) {
+          button.dataset.album =
+            albumId;
 
-            tile.classList.add(
+          button.dataset.index =
+            imageIndex;
+
+          button.dataset.category =
+            `${album.category} ${album.category === "2026" ? "community" : ""}`.trim();
+
+
+          /* Create visual variation
+             throughout the mosaic. */
+
+          if (globalIndex === 0) {
+
+            button.classList.add(
               "gallery-tile-featured"
             );
 
           } else if (
-            globalIndex % 5 === 0
+            globalIndex === 1 ||
+            globalIndex === 5
           ) {
 
-            tile.classList.add(
-              "gallery-tile-wide"
+            button.classList.add(
+              "gallery-tile-tall"
             );
 
           } else if (
-            globalIndex % 3 === 0
+            globalIndex === 3 ||
+            globalIndex === 7
           ) {
 
-            tile.classList.add(
-              "gallery-tile-tall"
+            button.classList.add(
+              "gallery-tile-wide"
             );
           }
 
 
-          tile.setAttribute(
-            "data-gallery-item",
-            ""
-          );
+          button.innerHTML = `
 
+            <img
+              src="${image.src}"
+              alt="${image.title || album.title}"
+              loading="lazy"
+            >
 
-          tile.dataset.album =
-            albumId;
+            <span
+              class="gallery-tile-overlay"
+            >
 
+              <span>
+                <strong>
+                  ${image.title || album.title}
+                </strong>
 
-          tile.dataset.index =
-            imageIndex;
-
-
-          tile.dataset.category =
-            album.category;
-
-
-          tile.innerHTML = `
-
-            <span class="gallery-tile-image">
-
-              <img
-                src="${image.src}"
-                alt="${image.title}"
-                loading="lazy"
-              />
-
-            </span>
-
-            <span class="gallery-tile-overlay">
-
-              <span class="gallery-tile-kicker">
-                ${album.title}
-              </span>
-
-              <span class="gallery-tile-title">
-                ${image.title}
+                <small>
+                  ${album.kicker || ""}
+                </small>
               </span>
 
             </span>
@@ -1370,7 +1485,7 @@ function createModernGalleryFromData() {
 
 
           mosaic.appendChild(
-            tile
+            button
           );
 
 
@@ -1381,10 +1496,6 @@ function createModernGalleryFromData() {
   );
 
 
-  /*
-   * Replace old album grid.
-   */
-
   oldGallery.replaceWith(
     mosaic
   );
@@ -1392,7 +1503,39 @@ function createModernGalleryFromData() {
 
 
 /* =========================================================
-   INITIALIZE
+   LAZY IMAGE ERROR HANDLING
+   ========================================================= */
+
+function setupImageErrorHandling() {
+
+  document
+    .querySelectorAll(
+      "img"
+    )
+    .forEach(
+      (image) => {
+
+        image.addEventListener(
+          "error",
+          () => {
+
+            image.classList.add(
+              "image-load-error"
+            );
+
+            image.setAttribute(
+              "data-image-error",
+              "true"
+            );
+          }
+        );
+      }
+    );
+}
+
+
+/* =========================================================
+   INITIALIZE WEBSITE
    ========================================================= */
 
 function initializeKaveriWebsite() {
@@ -1419,16 +1562,12 @@ function initializeKaveriWebsite() {
 
   setupBackToTop();
 
-  /*
-   * Default Gallery filter.
-   */
-
-  filterGallery("all");
+  setupImageErrorHandling();
 }
 
 
 /* =========================================================
-   START WEBSITE
+   START
    ========================================================= */
 
 if (
