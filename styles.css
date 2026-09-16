@@ -237,13 +237,19 @@ ul {
   display: flex;
   align-items: center;
   padding: 130px 0 90px;
-  background:
+
+  background-image:
     linear-gradient(
-      135deg,
-      rgba(16, 55, 73, 0.93),
-      rgba(28, 88, 91, 0.78)
+      90deg,
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.25)
     ),
-    url("images/kaveri-apartment.webp") center / cover no-repeat;
+    url("images/kaveri-apartment.webp");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
   color: #ffffff;
 }
 
