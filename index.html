@@ -7,8 +7,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="#8b4a20" name="theme-color"/>
 <meta content="Kaveri Unnatii Apartment Community — our home, our community, our family." name="description"/>
+<meta content="#8b4a20" name="theme-color"/>
+
 <title>Kaveri Unnatii Apartment | Our Home • Our Community • Our Family</title>
 <link href="styles.css" rel="stylesheet"/>
 <style id="kaveri-alignment-fix">
@@ -687,6 +688,63 @@ div {
   }
 }
 </style>
+
+<style id="kaveri-gallery-polish">
+/* =========================================================
+   GALLERY ORGANISATION
+========================================================= */
+.gallery-section .section-heading p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery-filters {
+  margin-bottom: 36px;
+}
+
+.gallery-filter {
+  min-width: 92px;
+}
+
+.album-card {
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(30,25,20,.10);
+  border-color: #cfd9dc;
+}
+
+.album-card:focus-visible {
+  outline: 3px solid rgba(139,74,32,.28);
+  outline-offset: 3px;
+}
+
+.album-year {
+  display: inline-block;
+  margin-bottom: 7px;
+  letter-spacing: .08em;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+.album-info h3 {
+  margin-bottom: 6px;
+}
+
+.album-info p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .gallery-filter {
+    min-width: 0;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- =========================
@@ -816,7 +874,7 @@ div {
             View Community Memories
           </a>
 </div>
-<img alt="Kaveri Unnatii Apartment" src="images/Gallery/Our%20Apartment/kaveri-brochure.jpg"/>
+<img alt="Kaveri Unnatii Apartment" src="images/kaveri-brochure.jpg"/>
 </div>
 </section>
 <!-- =========================
@@ -944,251 +1002,159 @@ div {
     ========================== -->
 <section class="section gallery-section" id="gallery">
 <div class="section-heading">
-<span class="eyebrow">
-          PHOTO GALLERY
-        </span>
-<h2>
-          Our memories, in pictures.
-        </h2>
+<span class="eyebrow">PHOTO GALLERY</span>
+<h2>Our memories, in pictures.</h2>
 <p>
-          Celebrations, friendships, families
-          and memorable moments from Kaveri Unnatii. All organized gallery photos are included below.
+          Explore Kaveri Unnatii through organised photo albums,
+          from our apartment and community life to festivals and events.
         </p>
 </div>
+
 <div aria-label="Gallery filters" class="gallery-filters" role="group">
-<button aria-pressed="true" class="gallery-filter active" data-filter="all" type="button">
-          All
-        </button>
-<button aria-pressed="false" class="gallery-filter" data-filter="2023" type="button">
-          2023
-        </button>
-<button aria-pressed="false" class="gallery-filter" data-filter="2026" type="button">
-          2026
-        </button>
-<button aria-pressed="false" class="gallery-filter" data-filter="community" type="button">
-          Community
-        </button>
-<button aria-pressed="false" class="gallery-filter" data-filter="festival" type="button">
-          Festivals
-        </button>
+<button aria-pressed="true" class="gallery-filter active" data-filter="all" type="button">All</button>
+<button aria-pressed="false" class="gallery-filter" data-filter="apartment" type="button">Apartment</button>
+<button aria-pressed="false" class="gallery-filter" data-filter="2023" type="button">2023</button>
+<button aria-pressed="false" class="gallery-filter" data-filter="2026" type="button">2026</button>
+<button aria-pressed="false" class="gallery-filter" data-filter="community" type="button">Community</button>
+<button aria-pressed="false" class="gallery-filter" data-filter="festival" type="button">Festivals</button>
 </div>
+
 <div class="album-grid" id="galleryGrid">
 
-<!-- Our Apartment -->
-<a aria-label="Open Kaveri Unnatii apartment photo"
-   class="album-card archive-photo"
-   data-category="community"
-   data-year="2026"
-   href="images/Gallery/Our%20Apartment/kaveri-apartment.webp"
-   rel="noopener"
-   target="_blank">
-  <div class="album-cover">
-    <img alt="Kaveri Unnatii Apartment"
-         loading="lazy"
-         src="images/Gallery/Our%20Apartment/kaveri-apartment.webp"/>
-    <span class="album-open">Open Photo</span>
-    <span class="album-count">1 PHOTO</span>
-  </div>
-  <div class="album-info">
-    <span class="album-year">2026 • COMMUNITY</span>
-    <h3>Our Apartment</h3>
-    <p>Kaveri Unnatii Apartment.</p>
-  </div>
-</a>
+<!-- OUR APARTMENT -->
+<button aria-label="Open Our Apartment album"
+        class="album-card"
+        data-album="our-apartment"
+        data-category="apartment community"
+        data-year=""
+        type="button">
+<div class="album-cover">
+<img alt="Kaveri Unnatii Apartment" loading="lazy"
+     src="images/Gallery/Our%20Apartment/kaveri-apartment.webp"/>
+<span class="album-open">Open Album</span>
+<span class="album-count">4 PHOTOS</span>
+</div>
+<div class="album-info">
+<span class="album-year">APARTMENT</span>
+<h3>Our Apartment</h3>
+<p>Apartment views, brochure and early community memories.</p>
+</div>
+</button>
 
-<a aria-label="Open Kaveri Unnatii brochure"
-   class="album-card archive-photo"
-   data-category="community"
-   data-year="2026"
-   href="images/Gallery/Our%20Apartment/kaveri-brochure.jpg"
-   rel="noopener"
-   target="_blank">
-  <div class="album-cover">
-    <img alt="Kaveri Unnatii Apartment brochure"
-         loading="lazy"
-         src="images/Gallery/Our%20Apartment/kaveri-brochure.jpg"/>
-    <span class="album-open">Open Photo</span>
-    <span class="album-count">1 PHOTO</span>
-  </div>
-  <div class="album-info">
-    <span class="album-year">COMMUNITY</span>
-    <h3>Our Beginning</h3>
-    <p>Kaveri Unnatii Apartment brochure.</p>
-  </div>
-</a>
+<!-- SANKRANTI 2023 -->
+<button aria-label="Open Sankranti 2023 album"
+        class="album-card"
+        data-album="sankranti-2023"
+        data-category="festival"
+        data-year="2023"
+        type="button">
+<div class="album-cover">
+<img alt="Sankranti 2023 community celebration" loading="lazy"
+     src="images/Gallery/2023-sankranti/community-group-01.webp"/>
+<span class="album-open">Open Album</span>
+<span class="album-count">4 PHOTOS</span>
+</div>
+<div class="album-info">
+<span class="album-year">2023 • FESTIVAL</span>
+<h3>Sankranti 2023</h3>
+<p>Community celebration, residents and festive moments.</p>
+</div>
+</button>
 
-<a aria-label="Open Kaveri Unnatii community archive photo"
-   class="album-card archive-photo"
-   data-category="community"
-   data-year="2023"
-   href="images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg"
-   rel="noopener"
-   target="_blank">
-  <div class="album-cover">
-    <img alt="Kaveri Unnatii community archive photo"
-         loading="lazy"
-         src="images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg"/>
-    <span class="album-open">Open Photo</span>
-    <span class="album-count">1 PHOTO</span>
-  </div>
-  <div class="album-info">
-    <span class="album-year">2023 • COMMUNITY</span>
-    <h3>Our Apartment Memory 1</h3>
-    <p>Additional Kaveri Unnatii community memory.</p>
-  </div>
-</a>
+<!-- HOLI 2023 -->
+<button aria-label="Open Holi 2023 album"
+        class="album-card"
+        data-album="holi-2023"
+        data-category="festival"
+        data-year="2023"
+        type="button">
+<div class="album-cover">
+<img alt="Holi 2023 community celebration" loading="lazy"
+     src="images/Gallery/2023-holi/holi-community-01.webp"/>
+<span class="album-open">Open Album</span>
+<span class="album-count">3 PHOTOS</span>
+</div>
+<div class="album-info">
+<span class="album-year">2023 • FESTIVAL</span>
+<h3>Holi 2023</h3>
+<p>Festival fun, colours and family memories.</p>
+</div>
+</button>
 
-<a aria-label="Open Kaveri Unnatii community archive photo"
-   class="album-card archive-photo"
-   data-category="community"
-   data-year="2023"
-   href="images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"
-   rel="noopener"
-   target="_blank">
-  <div class="album-cover">
-    <img alt="Kaveri Unnatii community archive photo"
-         loading="lazy"
-         src="images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"/>
-    <span class="album-open">Open Photo</span>
-    <span class="album-count">1 PHOTO</span>
-  </div>
-  <div class="album-info">
-    <span class="album-year">2023 • COMMUNITY</span>
-    <h3>Our Apartment Memory 2</h3>
-    <p>Additional Kaveri Unnatii community memory.</p>
-  </div>
-</a>
-<!-- Sankranti 2023 -->
-<button aria-label="Open Sankranti 2023 album" class="album-card" data-album="sankranti-2023" data-category="festival" data-year="2023" type="button">
+<!-- COMMUNITY MEMORIES 2023 -->
+<button aria-label="Open Community Memories 2023 album"
+        class="album-card"
+        data-album="community-2023"
+        data-category="community"
+        data-year="2023"
+        type="button">
 <div class="album-cover">
-<img alt="Sankranti 2023 community celebration" loading="lazy" src="images/Gallery/2023-sankranti/community-group-01.webp"/>
-<span class="album-open">
-              Open Album
-            </span>
-<span class="album-count">
-              4 PHOTOS
-            </span>
+<img alt="Kaveri Unnatii community families" loading="lazy"
+     src="images/Gallery/2023-community/families-01.webp"/>
+<span class="album-open">Open Album</span>
+<span class="album-count">2 PHOTOS</span>
 </div>
 <div class="album-info">
-<span class="album-year">
-              2023 • FESTIVAL
-            </span>
-<h3>
-              Sankranti 2023
-            </h3>
-<p>
-              Community celebration and memories.
-            </p>
+<span class="album-year">2023 • COMMUNITY</span>
+<h3>Community Memories</h3>
+<p>Families, visits and memorable community moments.</p>
 </div>
 </button>
-<!-- Holi 2023 -->
-<button aria-label="Open Holi 2023 album" class="album-card" data-album="holi-2023" data-category="festival" data-year="2023" type="button">
+
+<!-- COMMUNITY EVENTS 2026 -->
+<button aria-label="Open Community Events 2026 album"
+        class="album-card"
+        data-album="events-2026"
+        data-category="community"
+        data-year="2026"
+        type="button">
 <div class="album-cover">
-<img alt="Holi 2023 community celebration" loading="lazy" src="images/Gallery/2023-holi/holi-community-01.webp"/>
-<span class="album-open">
-              Open Album
-            </span>
-<span class="album-count">
-              3 PHOTOS
-            </span>
+<img alt="Kaveri Unnatii community event 2026" loading="lazy"
+     src="images/Gallery/2026-events/event-photo-01.webp"/>
+<span class="album-open">Open Album</span>
+<span class="album-count">2 PHOTOS</span>
 </div>
 <div class="album-info">
-<span class="album-year">
-              2023 • FESTIVAL
-            </span>
-<h3>
-              Holi 2023
-            </h3>
-<p>
-              Festival fun, colours and family memories.
-            </p>
+<span class="album-year">2026 • COMMUNITY</span>
+<h3>Community Events 2026</h3>
+<p>Recent community events and celebrations.</p>
 </div>
 </button>
-<!-- Community 2023 -->
-<button aria-label="Open Community Memories 2023 album" class="album-card" data-album="community-2023" data-category="community" data-year="2023" type="button">
-<div class="album-cover">
-<img alt="Kaveri Unnatii community families" loading="lazy" src="images/Gallery/2023-community/families-01.webp"/>
-<span class="album-open">
-              Open Album
-            </span>
-<span class="album-count">
-              2 PHOTOS
-            </span>
+
 </div>
-<div class="album-info">
-<span class="album-year">
-              2023 • COMMUNITY
-            </span>
-<h3>
-              Community Memories
-            </h3>
-<p>
-              Families, visits and community moments.
-            </p>
-</div>
-</button>
-<!-- Community Events 2026 -->
-<button aria-label="Open Community Events 2026 album" class="album-card" data-album="events-2026" data-category="community" data-year="2026" type="button">
-<div class="album-cover">
-<img alt="Kaveri Unnatii community event 2026" loading="lazy" src="images/Gallery/2026-events/event-photo-01.webp"/>
-<span class="album-open">
-              Open Album
-            </span>
-<span class="album-count">
-              2 PHOTOS
-            </span>
-</div>
-<div class="album-info">
-<span class="album-year">
-              2026 • COMMUNITY
-            </span>
-<h3>
-              Community Events 2026
-            </h3>
-<p>
-              Recent community events and celebrations.
-            </p>
-</div>
-</button>
-</div>
+
 <p class="gallery-empty" hidden="" id="galleryEmpty">
         No albums found for this category.
       </p>
 </section>
+
 <!-- =========================
          GALLERY MODAL
     ========================== -->
-<div aria-hidden="true" aria-labelledby="galleryModalTitle" aria-modal="true" class="gallery-modal" id="galleryModal" role="dialog">
-<div class="gallery-modal-backdrop" data-gallery-close="">
-</div>
+<div aria-hidden="true" aria-labelledby="galleryModalTitle" aria-modal="true"
+     class="gallery-modal" id="galleryModal" role="dialog">
+<div class="gallery-modal-backdrop" data-gallery-close=""></div>
 <div class="gallery-modal-dialog">
 <div class="gallery-modal-header">
 <div>
-<h2 id="galleryModalTitle">
-              Gallery
-            </h2>
-<span id="galleryModalCounter">
-              1 / 1
-            </span>
+<h2 id="galleryModalTitle">Gallery</h2>
+<span id="galleryModalCounter">1 / 1</span>
 </div>
-<button aria-label="Close gallery" class="gallery-modal-close" id="galleryModalClose" type="button">
-            ×
-          </button>
+<button aria-label="Close gallery" class="gallery-modal-close"
+        id="galleryModalClose" type="button">×</button>
 </div>
 <div class="gallery-modal-body">
-<button aria-label="Previous photo" class="gallery-arrow gallery-prev" id="galleryPrev" type="button">
-            ‹
-          </button>
+<button aria-label="Previous photo" class="gallery-arrow gallery-prev"
+        id="galleryPrev" type="button">‹</button>
 <div class="gallery-main">
 <img alt="" id="galleryModalImage" src=""/>
 <p id="galleryModalCaption"></p>
 </div>
-<button aria-label="Next photo" class="gallery-arrow gallery-next" id="galleryNext" type="button">
-            ›
-          </button>
+<button aria-label="Next photo" class="gallery-arrow gallery-next"
+        id="galleryNext" type="button">›</button>
 </div>
-<div aria-label="Gallery thumbnails" class="gallery-thumbnails" id="galleryThumbnails">
-</div>
+<div aria-label="Gallery thumbnails" class="gallery-thumbnails"
+     id="galleryThumbnails"></div>
 </div>
 </div>
 <!-- =========================
