@@ -1,580 +1,490 @@
-/* =========================================================
-   KAVERI UNNATII APARTMENT
-   Website JavaScript
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
+  // -----------------------------
+  // Mobile navigation
+  // -----------------------------
+  const menuToggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".site-nav");
 
-  /* =======================================================
-     MOBILE NAVIGATION
-  ======================================================= */
-
-  const menuBtn = document.getElementById("menuBtn");
-  const nav = document.getElementById("nav");
-
-  if (menuBtn && nav) {
-
-    menuBtn.addEventListener("click", () => {
-
+  if (menuToggle && nav) {
+    menuToggle.addEventListener("click", () => {
       const isOpen = nav.classList.toggle("open");
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-      menuBtn.setAttribute(
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
         "aria-label",
-        isOpen ? "Close navigation menu" : "Open navigation menu"
+        isOpen ? "Close menu" : "Open menu"
       );
-
-      menuBtn.textContent = isOpen ? "×" : "☰";
-
     });
 
-
-    /* Close menu after selecting a section */
-
-    nav.querySelectorAll("a").forEach(link => {
-
+    nav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-
         nav.classList.remove("open");
-
-        menuBtn.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        menuBtn.setAttribute(
-          "aria-label",
-          "Open navigation menu"
-        );
-
-        menuBtn.textContent = "☰";
-
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open menu");
       });
-
     });
 
+    // Close menu when clicking outside it
+    document.addEventListener("click", (event) => {
+      if (
+        nav.classList.contains("open") &&
+        !nav.contains(event.target) &&
+        !menuToggle.contains(event.target)
+      ) {
+        nav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open menu");
+      }
+    });
   }
 
+  // -----------------------------
+  // Gallery filtering
+  // -----------------------------
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
 
-  /* =======================================================
-     GALLERY
-  ======================================================= */
-
-  const galleryGrid = document.getElementById("galleryGrid");
-  const filterButtons =
-    document.querySelectorAll(".gallery-filter");
-
-  let galleryItems = [];
-  let visibleItems = [];
-
-  if (galleryGrid) {
-
-    galleryItems =
-      Array.from(
-        galleryGrid.querySelectorAll(".photo-card")
-      );
-
-    visibleItems = [...galleryItems];
-
-  }
-
-
-  /* =======================================================
-     GALLERY FILTERS
-  ======================================================= */
-
-  filterButtons.forEach(button => {
-
+  filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
 
-      const filter =
-        button.dataset.filter || "all";
-
-
-      /* Update active button */
-
-      filterButtons.forEach(btn => {
-
+      filterButtons.forEach((btn) => {
         btn.classList.remove("active");
-
+        btn.setAttribute("aria-pressed", "false");
       });
 
       button.classList.add("active");
+      button.setAttribute("aria-pressed", "true");
 
-
-      /* Filter photos */
-
-      galleryItems.forEach(item => {
-
-        const categories =
-          (item.dataset.category || "")
-            .toLowerCase()
-            .split(/\s+/);
-
+      galleryItems.forEach((item) => {
+        const categories = (item.dataset.category || "").split(/\s+/);
         const shouldShow =
-          filter === "all" ||
-          categories.includes(filter.toLowerCase());
+          filter === "all" || categories.includes(filter);
 
         if (shouldShow) {
-
           item.style.display = "";
 
           requestAnimationFrame(() => {
-
             item.style.opacity = "1";
             item.style.transform = "scale(1)";
-
           });
-
         } else {
-
           item.style.opacity = "0";
           item.style.transform = "scale(0.96)";
 
           setTimeout(() => {
-
             if (item.style.opacity === "0") {
               item.style.display = "none";
             }
-
-          }, 180);
-
+          }, 220);
         }
-
       });
-
-
-      visibleItems =
-        galleryItems.filter(item => {
-
-          const categories =
-            (item.dataset.category || "")
-              .toLowerCase()
-              .split(/\s+/);
-
-          return (
-            filter === "all" ||
-            categories.includes(filter.toLowerCase())
-          );
-
-        });
-
     });
-
-  }
-
-
-  /* =======================================================
-     LIGHTBOX
-  ======================================================= */
-
-  const lightbox =
-    document.getElementById("lightbox");
-
-  const lightboxImg =
-    document.getElementById("lightboxImg");
-
-  const closeLightbox =
-    document.getElementById("closeLightbox");
-
-  const lightboxPrev =
-    document.getElementById("lightboxPrev");
-
-  const lightboxNext =
-    document.getElementById("lightboxNext");
-
-
-  let currentIndex = 0;
-
-
-  function getCurrentItems() {
-
-    return visibleItems.filter(item => {
-
-      return (
-        item.style.display !== "none"
-      );
-
-    });
-
-  }
-
-
-  function showPhoto(index) {
-
-    const items =
-      getCurrentItems();
-
-    if (!items.length) {
-      return;
-    }
-
-    if (index < 0) {
-      index = items.length - 1;
-    }
-
-    if (index >= items.length) {
-      index = 0;
-    }
-
-    currentIndex = index;
-
-    const item = items[currentIndex];
-
-    const fullImage =
-      item.dataset.full ||
-      item.querySelector("img")?.src;
-
-    const thumbnail =
-      item.querySelector("img");
-
-    if (!fullImage || !lightboxImg) {
-      return;
-    }
-
-    lightboxImg.src = fullImage;
-
-    lightboxImg.alt =
-      thumbnail?.alt ||
-      "Kaveri Unnatii community photograph";
-
-  }
-
-
-  function openLightbox(index) {
-
-    const items =
-      getCurrentItems();
-
-    if (!items.length || !lightbox) {
-      return;
-    }
-
-    currentIndex = index;
-
-    showPhoto(currentIndex);
-
-    lightbox.classList.add("open");
-
-    document.body.style.overflow = "hidden";
-
-    closeLightbox?.focus();
-
-  }
-
-
-  function closePhotoViewer() {
-
-    if (!lightbox) {
-      return;
-    }
-
-    lightbox.classList.remove("open");
-
-    document.body.style.overflow = "";
-
-    if (lightboxImg) {
-      lightboxImg.src = "";
-    }
-
-  }
-
-
-  /* Open photo when card is clicked */
-
-  galleryItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-      const items =
-        getCurrentItems();
-
-      const index =
-        items.indexOf(item);
-
-      openLightbox(
-        index >= 0 ? index : 0
-      );
-
-    });
-
   });
 
-
-  /* Previous */
-
-  lightboxPrev?.addEventListener(
-    "click",
-    event => {
-
-      event.stopPropagation();
-
-      const items =
-        getCurrentItems();
-
-      if (!items.length) {
-        return;
-      }
-
-      showPhoto(currentIndex - 1);
-
-    }
-  );
-
-
-  /* Next */
-
-  lightboxNext?.addEventListener(
-    "click",
-    event => {
-
-      event.stopPropagation();
-
-      const items =
-        getCurrentItems();
-
-      if (!items.length) {
-        return;
-      }
-
-      showPhoto(currentIndex + 1);
-
-    }
-  );
-
-
-  /* Close button */
-
-  closeLightbox?.addEventListener(
-    "click",
-    closePhotoViewer
-  );
-
-
-  /* Click outside image */
-
-  lightbox?.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target === lightbox
-      ) {
-
-        closePhotoViewer();
-
-      }
-
-    }
-  );
-
-
-  /* =======================================================
-     KEYBOARD CONTROLS
-  ======================================================= */
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        lightbox &&
-        lightbox.classList.contains("open")
-      ) {
-
-        if (event.key === "Escape") {
-
-          closePhotoViewer();
-
-        }
-
-        if (event.key === "ArrowLeft") {
-
-          showPhoto(currentIndex - 1);
-
-        }
-
-        if (event.key === "ArrowRight") {
-
-          showPhoto(currentIndex + 1);
-
-        }
-
-      }
-
-    }
-  );
-
-
-  /* =======================================================
-     TOUCH / SWIPE SUPPORT
-  ======================================================= */
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-
-  lightbox?.addEventListener(
-    "touchstart",
-    event => {
-
-      touchStartX =
-        event.changedTouches[0].screenX;
-
-    },
-    { passive: true }
-  );
-
-
-  lightbox?.addEventListener(
-    "touchend",
-    event => {
-
-      touchEndX =
-        event.changedTouches[0].screenX;
-
-      const difference =
-        touchStartX - touchEndX;
-
-
-      if (Math.abs(difference) < 50) {
-        return;
-      }
-
-
-      if (difference > 0) {
-
-        showPhoto(currentIndex + 1);
-
-      } else {
-
-        showPhoto(currentIndex - 1);
-
-      }
-
-    },
-    { passive: true }
-  );
-
-
-  /* =======================================================
-     BACK TO TOP
-  ======================================================= */
-
-  const backToTop =
-    document.getElementById("backToTop");
-
-
-  function updateBackToTop() {
-
-    if (!backToTop) {
+  // -----------------------------
+  // Gallery lightbox
+  // -----------------------------
+  const lightbox = document.querySelector(".lightbox");
+  const lightboxImg = document.querySelector(".lightbox img");
+  const lightboxCaption = document.querySelector(".lightbox-caption");
+  const closeLightbox = document.querySelector(".lightbox-close");
+  const prevButton = document.querySelector(".lightbox-prev");
+  const nextButton = document.querySelector(".lightbox-next");
+
+  let currentIndex = 0;
+  let lastFocusedPhoto = null;
+
+  const getCurrentItems = () =>
+    Array.from(galleryItems).filter(
+      (item) =>
+        window.getComputedStyle(item).display !== "none"
+    );
+
+  const getPhotoData = (item) => {
+    const image = item.querySelector("img");
+
+    if (!image) return null;
+
+    return {
+      src: image.currentSrc || image.src,
+
+      alt:
+        image.alt ||
+        "Kaveri Unnatii Apartment gallery photo",
+
+      caption:
+        item.dataset.caption ||
+        image.dataset.caption ||
+        image.alt ||
+        "Kaveri Unnatii Apartment"
+    };
+  };
+
+  const showPhoto = (index) => {
+    const items = getCurrentItems();
+
+    if (!items.length || !lightbox || !lightboxImg) {
       return;
     }
 
-    if (window.scrollY > 500) {
+    currentIndex =
+      (index + items.length) % items.length;
 
-      backToTop.classList.add("show");
+    const data = getPhotoData(items[currentIndex]);
 
-    } else {
+    if (!data) return;
 
-      backToTop.classList.remove("show");
+    // Fade image while changing
+    lightboxImg.style.opacity = "0";
 
+    // Set onload before changing src
+    lightboxImg.onload = () => {
+      lightboxImg.style.opacity = "1";
+    };
+
+    lightboxImg.onerror = () => {
+      lightboxImg.style.opacity = "1";
+      lightboxImg.alt = "Unable to load this image";
+    };
+
+    lightboxImg.src = data.src;
+    lightboxImg.alt = data.alt;
+
+    if (lightboxCaption) {
+      lightboxCaption.textContent = data.caption;
     }
 
+    if (prevButton) {
+      prevButton.disabled = items.length <= 1;
+    }
+
+    if (nextButton) {
+      nextButton.disabled = items.length <= 1;
+    }
+  };
+
+  const openLightbox = (item) => {
+    if (!lightbox) return;
+
+    const items = getCurrentItems();
+    const index = items.indexOf(item);
+
+    if (index < 0) return;
+
+    lastFocusedPhoto =
+      item.querySelector("img") || item;
+
+    showPhoto(index);
+
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("lightbox-open");
+
+    if (closeLightbox) {
+      closeLightbox.focus();
+    }
+  };
+
+  const hideLightbox = () => {
+    if (!lightbox) return;
+
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("lightbox-open");
+
+    if (
+      lastFocusedPhoto &&
+      typeof lastFocusedPhoto.focus === "function"
+    ) {
+      lastFocusedPhoto.focus();
+    }
+
+    lastFocusedPhoto = null;
+  };
+
+  // Make gallery photos clickable and accessible
+  galleryItems.forEach((item) => {
+    const image = item.querySelector("img");
+
+    if (image && !image.hasAttribute("loading")) {
+      image.setAttribute("loading", "lazy");
+    }
+
+    item.addEventListener("click", () => {
+      openLightbox(item);
+    });
+
+    item.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+        event.preventDefault();
+        openLightbox(item);
+      }
+    });
+
+    if (image && !item.hasAttribute("tabindex")) {
+      item.setAttribute("tabindex", "0");
+      item.setAttribute("role", "button");
+
+      item.setAttribute(
+        "aria-label",
+        image.alt
+          ? `Open ${image.alt}`
+          : "Open gallery image"
+      );
+    }
+  });
+
+  // Close button
+  if (closeLightbox) {
+    closeLightbox.addEventListener(
+      "click",
+      hideLightbox
+    );
   }
 
+  // Previous button
+  if (prevButton) {
+    prevButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      showPhoto(currentIndex - 1);
+    });
+  }
 
-  window.addEventListener(
-    "scroll",
-    updateBackToTop,
-    { passive: true }
-  );
+  // Next button
+  if (nextButton) {
+    nextButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      showPhoto(currentIndex + 1);
+    });
+  }
 
+  // Click outside image to close
+  if (lightbox) {
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        hideLightbox();
+      }
+    });
+  }
 
-  updateBackToTop();
+  // -----------------------------
+  // Keyboard controls
+  // -----------------------------
+  document.addEventListener("keydown", (event) => {
 
+    // Escape closes mobile menu
+    if (
+      event.key === "Escape" &&
+      nav &&
+      nav.classList.contains("open")
+    ) {
+      nav.classList.remove("open");
 
-  /* =======================================================
-     SMOOTH INTERNAL LINKS
-  ======================================================= */
+      if (menuToggle) {
+        menuToggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
 
-  document.querySelectorAll(
-    'a[href^="#"]'
-  ).forEach(link => {
+        menuToggle.setAttribute(
+          "aria-label",
+          "Open menu"
+        );
+      }
 
-    link.addEventListener(
-      "click",
-      event => {
+      return;
+    }
 
-        const targetId =
-          link.getAttribute("href");
+    // Lightbox controls
+    if (
+      !lightbox ||
+      !lightbox.classList.contains("open")
+    ) {
+      return;
+    }
 
+    if (event.key === "Escape") {
+      event.preventDefault();
+      hideLightbox();
+    }
+
+    else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPhoto(currentIndex - 1);
+    }
+
+    else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showPhoto(currentIndex + 1);
+    }
+  });
+
+  // -----------------------------
+  // Touch swipe for lightbox
+  // -----------------------------
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  if (lightbox) {
+
+    lightbox.addEventListener(
+      "touchstart",
+      (event) => {
+        const touch =
+          event.changedTouches[0];
+
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true }
+    );
+
+    lightbox.addEventListener(
+      "touchend",
+      (event) => {
+        const touch =
+          event.changedTouches[0];
+
+        const deltaX =
+          touch.clientX - touchStartX;
+
+        const deltaY =
+          touch.clientY - touchStartY;
+
+        // Only process mostly-horizontal swipes
         if (
-          !targetId ||
-          targetId === "#"
+          Math.abs(deltaX) < 50 ||
+          Math.abs(deltaX) < Math.abs(deltaY)
         ) {
           return;
         }
 
-        const target =
-          document.querySelector(targetId);
-
-        if (!target) {
-          return;
+        if (deltaX < 0) {
+          showPhoto(currentIndex + 1);
+        } else {
+          showPhoto(currentIndex - 1);
         }
+      },
+      { passive: true }
+    );
+  }
 
+  // -----------------------------
+  // Back to top button
+  // -----------------------------
+  const backToTop =
+    document.querySelector(".back-to-top");
+
+  if (backToTop) {
+
+    const updateBackToTop = () => {
+      backToTop.classList.toggle(
+        "show",
+        window.scrollY > 500
+      );
+    };
+
+    window.addEventListener(
+      "scroll",
+      updateBackToTop,
+      { passive: true }
+    );
+
+    updateBackToTop();
+
+    backToTop.addEventListener(
+      "click",
+      (event) => {
         event.preventDefault();
 
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
         });
-
       }
     );
+  }
 
-  });
+  // -----------------------------
+  // Smooth internal navigation
+  // -----------------------------
+  document
+    .querySelectorAll('a[href^="#"]')
+    .forEach((link) => {
 
+      link.addEventListener(
+        "click",
+        (event) => {
 
-  /* =======================================================
-     IMAGE FALLBACK
-  ======================================================= */
+          const targetId =
+            link.getAttribute("href");
 
-  document.querySelectorAll(
-    "img"
-  ).forEach(img => {
+          if (
+            !targetId ||
+            targetId === "#"
+          ) {
+            return;
+          }
 
-    img.addEventListener(
-      "error",
-      () => {
+          const target =
+            document.querySelector(targetId);
 
-        img.style.opacity = "0.35";
+          if (!target) return;
 
-        console.warn(
-          "Image could not be loaded:",
-          img.src
-        );
+          event.preventDefault();
 
-      }
-    );
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
 
-  });
+          // Close mobile menu
+          if (nav && menuToggle) {
+            nav.classList.remove("open");
 
+            menuToggle.setAttribute(
+              "aria-expanded",
+              "false"
+            );
 
-  /* =======================================================
-     INITIALIZE
-  ======================================================= */
+            menuToggle.setAttribute(
+              "aria-label",
+              "Open menu"
+            );
+          }
+        }
+      );
+    });
 
+  // -----------------------------
+  // Image error fallback
+  // -----------------------------
+  document
+    .querySelectorAll("img")
+    .forEach((image) => {
+
+      image.addEventListener(
+        "error",
+        () => {
+          image.classList.add("image-error");
+
+          image.setAttribute(
+            "alt",
+            "Image unavailable"
+          );
+        }
+      );
+    });
+
+  // -----------------------------
+  // Website initialized
+  // -----------------------------
   console.log(
-    "Kaveri Unnatii website initialized."
+    "Kaveri Unnatii Apartment website initialized."
   );
-
-  console.log(
-    `${galleryItems.length} gallery photos loaded.`
-  );
-
 });
