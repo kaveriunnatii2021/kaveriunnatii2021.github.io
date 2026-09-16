@@ -1,6 +1,7 @@
 /* =========================================================
    KAVERI UNNATII APARTMENT
    Modern Community Website
+   Complete Stylesheet
    ========================================================= */
 
 :root {
@@ -13,11 +14,14 @@
   --text: #2f2925;
   --muted: #756d66;
   --border: #eadfd2;
+
   --shadow: 0 12px 35px rgba(62, 39, 20, 0.10);
   --shadow-hover: 0 18px 45px rgba(62, 39, 20, 0.18);
+
   --radius: 20px;
   --max-width: 1180px;
 }
+
 
 /* =========================================================
    RESET
@@ -50,6 +54,10 @@ body {
   overflow-x: hidden;
 }
 
+body.gallery-modal-open {
+  overflow: hidden;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -69,6 +77,7 @@ button {
   border: 0;
   cursor: pointer;
 }
+
 
 /* =========================================================
    NAVIGATION
@@ -95,6 +104,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 25px;
 }
 
@@ -102,7 +112,6 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-
   min-width: max-content;
 }
 
@@ -116,13 +125,18 @@ button {
   border-radius: 14px;
 
   background:
-    linear-gradient(135deg, var(--primary), var(--secondary));
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
 
   color: white;
   font-size: 14px;
   font-weight: 800;
 
-  box-shadow: 0 7px 18px rgba(139, 74, 32, 0.22);
+  box-shadow:
+    0 7px 18px rgba(139, 74, 32, 0.22);
 }
 
 .brand strong {
@@ -130,6 +144,7 @@ button {
 
   font-size: 17px;
   line-height: 1.2;
+
   color: var(--primary-dark);
 }
 
@@ -185,6 +200,7 @@ nav a:hover {
   font-size: 21px;
 }
 
+
 /* =========================================================
    HERO
    ========================================================= */
@@ -204,7 +220,7 @@ nav a:hover {
       rgba(39, 24, 13, 0.52),
       rgba(39, 24, 13, 0.20)
     ),
-    url("images/Gallery/Our%20Apartment/kaveri-apartment.webp")
+    url("images/kaveri-apartment.webp")
     center / cover no-repeat;
 
   color: white;
@@ -250,6 +266,7 @@ nav a:hover {
 
   font-size: clamp(54px, 9vw, 105px);
   line-height: 0.95;
+
   letter-spacing: -4px;
 
   margin-bottom: 20px;
@@ -257,7 +274,6 @@ nav a:hover {
 
 .hero h1 span {
   display: block;
-
   color: #f2c477;
 }
 
@@ -283,6 +299,7 @@ nav a:hover {
 
   margin-top: 32px;
 }
+
 
 /* =========================================================
    BUTTONS
@@ -313,19 +330,26 @@ nav a:hover {
 
 .btn.primary {
   background:
-    linear-gradient(135deg, var(--primary), #a9602a);
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #a9602a
+    );
 
   color: white;
 
-  box-shadow: 0 10px 25px rgba(95, 47, 20, 0.20);
+  box-shadow:
+    0 10px 25px rgba(95, 47, 20, 0.20);
 }
 
 .btn.primary:hover {
-  box-shadow: 0 14px 30px rgba(95, 47, 20, 0.28);
+  box-shadow:
+    0 14px 30px rgba(95, 47, 20, 0.28);
 }
 
 .btn.ghost {
   color: white;
+
   border: 1px solid rgba(255, 255, 255, 0.42);
 
   background: rgba(255, 255, 255, 0.10);
@@ -336,6 +360,7 @@ nav a:hover {
 .btn.ghost:hover {
   background: rgba(255, 255, 255, 0.18);
 }
+
 
 /* =========================================================
    GENERAL SECTIONS
@@ -350,7 +375,6 @@ nav a:hover {
 
 .section-heading {
   max-width: 730px;
-
   margin-bottom: 45px;
 }
 
@@ -369,6 +393,7 @@ nav a:hover {
   color: var(--muted);
   font-size: 16px;
 }
+
 
 /* =========================================================
    ABOUT CARDS
@@ -432,6 +457,7 @@ nav a:hover {
   font-size: 14px;
 }
 
+
 /* =========================================================
    INTRO PANEL
    ========================================================= */
@@ -484,6 +510,7 @@ nav a:hover {
   object-fit: cover;
 }
 
+
 /* =========================================================
    FACILITIES
    ========================================================= */
@@ -492,151 +519,822 @@ nav a:hover {
   background: var(--light);
 
   width: 100%;
-  padding-left: max(20px, calc((100% - var(--max-width)) / 2));
-  padding-right: max(20px, calc((100% - var(--max-width)) / 2));
+
+  padding-left:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
+
+  padding-right:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
 }
 
+
 /* =========================================================
-   GALLERY
+   PREMIUM GALLERY
    ========================================================= */
 
 .gallery-section {
-  background: var(--cream);
+  width: 100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffaf2 0%,
+      #f8f1e7 100%
+    );
+
+  padding-left:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
+
+  padding-right:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
 }
+
+
+/* =========================================================
+   GALLERY FILTERS
+   ========================================================= */
 
 .gallery-filters {
   display: flex;
   flex-wrap: wrap;
+
   gap: 9px;
 
   margin-bottom: 30px;
 }
 
 .gallery-filter {
-  padding: 9px 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  padding: 8px 17px;
 
   border: 1px solid var(--border);
   border-radius: 999px;
 
-  background: white;
+  background: rgba(255, 255, 255, 0.92);
 
   color: var(--muted);
 
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 750;
+
+  box-shadow:
+    0 3px 10px rgba(62, 39, 20, 0.04);
 
   transition:
     background 0.2s ease,
     color 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.gallery-filter:hover,
+.gallery-filter:hover {
+  transform: translateY(-2px);
+
+  border-color: var(--secondary);
+
+  color: var(--primary);
+
+  box-shadow:
+    0 6px 16px rgba(62, 39, 20, 0.09);
+}
+
 .gallery-filter.active {
-  background: var(--primary);
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #a9602a
+    );
+
   border-color: var(--primary);
 
   color: white;
+
+  box-shadow:
+    0 8px 18px rgba(95, 47, 20, 0.20);
 }
 
-.gallery {
+
+/* =========================================================
+   MOSAIC GALLERY
+   ========================================================= */
+
+.gallery-mosaic {
   display: grid;
 
   grid-template-columns:
     repeat(4, minmax(0, 1fr));
 
-  grid-auto-rows: 250px;
+  grid-auto-rows: 190px;
 
-  gap: 15px;
+  grid-auto-flow: dense;
+
+  gap: 14px;
 }
 
-.photo-card {
+
+/* =========================================================
+   GALLERY TILE
+   ========================================================= */
+
+.gallery-tile {
   position: relative;
+
+  display: block;
 
   width: 100%;
   height: 100%;
+
+  min-height: 0;
 
   overflow: hidden;
 
   padding: 0;
 
-  border-radius: 17px;
+  border: 0;
+  border-radius: 18px;
 
-  background: #ddd;
+  background: #ded7cf;
 
   text-align: left;
 
-  box-shadow: 0 8px 25px rgba(30, 20, 10, 0.10);
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px rgba(62, 39, 20, 0.11);
+
+  isolation: isolate;
 
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.photo-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
+.gallery-tile:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 18px 38px rgba(62, 39, 20, 0.19);
 }
 
-.photo-card.large {
+.gallery-tile:focus-visible {
+  outline:
+    3px solid var(--secondary);
+
+  outline-offset: 4px;
+}
+
+
+/* =========================================================
+   TILE SIZES
+   ========================================================= */
+
+.gallery-tile-featured {
   grid-column: span 2;
   grid-row: span 2;
 }
 
-.photo-card img {
+.gallery-tile-tall {
+  grid-row: span 2;
+}
+
+.gallery-tile-wide {
+  grid-column: span 2;
+}
+
+.gallery-tile-medium {
+  grid-column: span 1;
+}
+
+.gallery-tile-small {
+  grid-column: span 1;
+}
+
+
+/* =========================================================
+   GALLERY IMAGE
+   ========================================================= */
+
+.gallery-tile img {
   width: 100%;
   height: 100%;
 
   object-fit: cover;
 
+  transform: scale(1.001);
+
   transition:
-    transform 0.55s ease;
+    transform 0.65s
+      cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.4s ease;
 }
 
-.photo-card:hover img {
-  transform: scale(1.055);
+.gallery-tile:hover img {
+  transform: scale(1.075);
+
+  filter: saturate(1.06);
 }
 
-.photo-card::after {
+
+/* =========================================================
+   GALLERY OVERLAY
+   ========================================================= */
+
+.gallery-tile::after {
   content: "";
 
   position: absolute;
+
   inset: 0;
+
+  z-index: 1;
 
   background:
     linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.72),
-      transparent 55%
+      180deg,
+      rgba(0, 0, 0, 0.02) 25%,
+      rgba(0, 0, 0, 0.08) 48%,
+      rgba(0, 0, 0, 0.74) 100%
+    );
+
+  pointer-events: none;
+
+  transition:
+    background 0.35s ease;
+}
+
+.gallery-tile:hover::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.04) 20%,
+      rgba(0, 0, 0, 0.15) 48%,
+      rgba(0, 0, 0, 0.80) 100%
     );
 }
 
-.photo-caption {
+
+/* =========================================================
+   GALLERY CONTENT
+   ========================================================= */
+
+.gallery-tile-content {
   position: absolute;
+
+  z-index: 3;
+
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+
+  color: white;
+
+  pointer-events: none;
+}
+
+.gallery-tile-kicker {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  color: #f2c477;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+}
+
+.gallery-tile-title {
+  display: block;
+
+  font-size: 19px;
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.30);
+}
+
+.gallery-tile-description {
+  display: block;
+
+  margin-top: 4px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   GALLERY OPEN ICON
+   ========================================================= */
+
+.gallery-tile-icon {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 16px;
+  right: 16px;
+
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.34);
+
+  border-radius: 50%;
+
+  background:
+    rgba(20, 12, 7, 0.38);
+
+  color: white;
+
+  font-size: 19px;
+
+  opacity: 0;
+  transform: translateY(-5px) scale(0.92);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.gallery-tile:hover .gallery-tile-icon,
+.gallery-tile:focus-visible .gallery-tile-icon {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* =========================================================
+   GALLERY LIGHTBOX
+   ========================================================= */
+
+.gallery-lightbox {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 5000;
+
+  display: none;
+
+  align-items: stretch;
+  justify-content: center;
+
+  padding: 18px;
+}
+
+.gallery-lightbox.open {
+  display: flex;
+
+  animation:
+    galleryFadeIn 0.25s ease both;
+}
+
+.gallery-lightbox-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(13, 9, 6, 0.94);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   LIGHTBOX DIALOG
+   ========================================================= */
+
+.gallery-lightbox-dialog {
+  position: relative;
+
   z-index: 2;
 
-  left: 17px;
-  right: 17px;
-  bottom: 15px;
+  width: min(1400px, 100%);
+
+  height: min(94vh, 980px);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  border-radius: 22px;
+
+  background:
+    rgba(28, 18, 12, 0.97);
+
+  box-shadow:
+    0 30px 100px
+    rgba(0, 0, 0, 0.55);
+}
+
+
+/* =========================================================
+   LIGHTBOX HEADER
+   ========================================================= */
+
+.gallery-lightbox-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  min-height: 72px;
+
+  padding:
+    14px
+    20px
+    14px
+    24px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
 
   color: white;
 }
 
-.photo-caption strong {
-  display: block;
-
-  font-size: 16px;
+.gallery-lightbox-heading {
+  min-width: 0;
 }
 
-.photo-caption small {
+.gallery-lightbox-kicker {
   display: block;
 
-  margin-top: 1px;
+  margin-bottom: 2px;
 
-  color: rgba(255, 255, 255, 0.76);
+  color: #e0ae61;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.8px;
+
+  text-transform: uppercase;
+}
+
+.gallery-lightbox-title {
+  color: white;
+
+  font-size: 19px;
+  line-height: 1.25;
+
+  font-weight: 750;
+}
+
+.gallery-lightbox-counter {
+  flex: 0 0 auto;
+
+  padding:
+    5px
+    10px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 999px;
+
+  color:
+    rgba(255, 255, 255, 0.68);
 
   font-size: 12px;
 }
+
+
+/* =========================================================
+   LIGHTBOX CLOSE BUTTON
+   ========================================================= */
+
+.gallery-lightbox-close {
+  width: 44px;
+  height: 44px;
+
+  flex: 0 0 44px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.15);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 25px;
+  line-height: 1;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.gallery-lightbox-close:hover {
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  transform: scale(1.06);
+}
+
+
+/* =========================================================
+   LIGHTBOX MAIN AREA
+   ========================================================= */
+
+.gallery-lightbox-main {
+  position: relative;
+
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    24px
+    80px
+    18px;
+}
+
+.gallery-lightbox-main img {
+  display: block;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 22px 70px
+    rgba(0, 0, 0, 0.45);
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   LIGHTBOX CAPTION
+   ========================================================= */
+
+.gallery-lightbox-caption {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+  bottom: 15px;
+
+  z-index: 5;
+
+  text-align: center;
+
+  pointer-events: none;
+}
+
+.gallery-lightbox-caption p {
+  display: inline-block;
+
+  max-width: 800px;
+
+  padding:
+    8px
+    14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(0, 0, 0, 0.48);
+
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-size: 12px;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   LIGHTBOX NAVIGATION BUTTONS
+   ========================================================= */
+
+.gallery-lightbox-nav {
+  position: absolute;
+
+  top: 50%;
+
+  z-index: 6;
+
+  width: 50px;
+  height: 50px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.16);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  color: white;
+
+  font-size: 28px;
+
+  transform:
+    translateY(-50%);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.gallery-lightbox-nav:hover {
+  background:
+    rgba(255, 255, 255, 0.19);
+
+  transform:
+    translateY(-50%)
+    scale(1.06);
+}
+
+.gallery-lightbox-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.gallery-lightbox-prev {
+  left: 18px;
+}
+
+.gallery-lightbox-next {
+  right: 18px;
+}
+
+
+/* =========================================================
+   GALLERY THUMBNAILS
+   ========================================================= */
+
+.gallery-thumbnails {
+  flex: 0 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  min-height: 82px;
+
+  padding:
+    10px
+    18px
+    15px;
+
+  overflow-x: auto;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(255,255,255,0.25)
+    transparent;
+}
+
+.gallery-thumbnail {
+  position: relative;
+
+  flex: 0 0 72px;
+
+  width: 72px;
+  height: 54px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border:
+    2px solid
+    transparent;
+
+  border-radius: 8px;
+
+  background: #241810;
+
+  opacity: 0.62;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.gallery-thumbnail img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.gallery-thumbnail:hover {
+  opacity: 0.90;
+
+  transform: translateY(-2px);
+}
+
+.gallery-thumbnail.active {
+  opacity: 1;
+
+  border-color:
+    #e5b467;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   GALLERY ANIMATION
+   ========================================================= */
+
+@keyframes galleryFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 
 /* =========================================================
    EVENTS
@@ -670,8 +1368,8 @@ nav a:hover {
   min-height: 85px;
 
   display: grid;
-  place-items: center;
 
+  place-items: center;
   align-content: center;
 
   background: #fff2dd;
@@ -685,7 +1383,9 @@ nav a:hover {
 
 .event-date span {
   font-size: 11px;
+
   font-weight: 800;
+
   letter-spacing: 1px;
 }
 
@@ -708,7 +1408,9 @@ nav a:hover {
   color: var(--primary);
 
   font-size: 11px;
+
   font-weight: 800;
+
   text-transform: uppercase;
 }
 
@@ -726,6 +1428,7 @@ nav a:hover {
   font-size: 14px;
 }
 
+
 /* =========================================================
    NOTICES
    ========================================================= */
@@ -735,8 +1438,17 @@ nav a:hover {
 
   width: 100%;
 
-  padding-left: max(20px, calc((100% - var(--max-width)) / 2));
-  padding-right: max(20px, calc((100% - var(--max-width)) / 2));
+  padding-left:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
+
+  padding-right:
+    max(
+      20px,
+      calc((100% - var(--max-width)) / 2)
+    );
 }
 
 .notice-list {
@@ -750,6 +1462,7 @@ nav a:hover {
 
 .notice {
   display: flex;
+
   align-items: flex-start;
 
   gap: 15px;
@@ -761,7 +1474,9 @@ nav a:hover {
   border: 1px solid var(--border);
   border-radius: 17px;
 
-  box-shadow: 0 6px 20px rgba(40, 25, 10, 0.06);
+  box-shadow:
+    0 6px 20px
+    rgba(40, 25, 10, 0.06);
 }
 
 .notice-icon {
@@ -794,6 +1509,7 @@ nav a:hover {
   font-size: 13px;
 }
 
+
 /* =========================================================
    CONTACT
    ========================================================= */
@@ -804,6 +1520,7 @@ nav a:hover {
 
 .contact-card {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
@@ -836,7 +1553,8 @@ nav a:hover {
 .contact-card p {
   max-width: 650px;
 
-  color: rgba(255, 255, 255, 0.78);
+  color:
+    rgba(255, 255, 255, 0.78);
 
   font-size: 14px;
 }
@@ -845,47 +1563,76 @@ nav a:hover {
   color: #f3c477;
 }
 
+
 /* =========================================================
-   PROFESSIONAL GOOGLE MAP
+   GOOGLE MAP
    ========================================================= */
 
 .location-map {
   position: relative;
+
   width: 100%;
   height: 540px;
+
   margin-top: 35px;
+
   overflow: hidden;
+
   border: 1px solid var(--border);
   border-radius: 24px;
+
   background: #e9e3da;
-  box-shadow: 0 18px 50px rgba(62, 39, 20, 0.18);
+
+  box-shadow:
+    0 18px 50px
+    rgba(62, 39, 20, 0.18);
 }
 
 .location-map iframe {
   display: block;
+
   width: 100%;
   height: 100%;
+
   border: 0;
 }
 
 .map-overlay-card {
   position: absolute;
+
   left: 24px;
   bottom: 24px;
+
   z-index: 2;
 
   display: flex;
+
   align-items: center;
+
   gap: 14px;
 
-  width: min(390px, calc(100% - 48px));
-  padding: 17px 20px;
+  width:
+    min(
+      390px,
+      calc(100% - 48px)
+    );
 
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  padding:
+    17px 20px;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.75);
+
   border-radius: 16px;
 
-  box-shadow: 0 10px 30px rgba(40, 25, 10, 0.20);
+  box-shadow:
+    0 10px 30px
+    rgba(40, 25, 10, 0.20);
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -893,53 +1640,75 @@ nav a:hover {
 .map-icon {
   width: 48px;
   height: 48px;
+
   flex: 0 0 48px;
 
   display: grid;
   place-items: center;
 
   border-radius: 50%;
+
   background: #fff1d9;
+
   font-size: 22px;
 }
 
 .map-overlay-card h3 {
   color: var(--primary-dark);
+
   font-size: 17px;
+
   line-height: 1.25;
+
   margin-bottom: 3px;
 }
 
 .map-overlay-card p {
   color: var(--muted);
+
   font-size: 13px;
+
   line-height: 1.4;
 }
 
 .location-actions {
   display: flex;
+
   justify-content: center;
+
   margin-top: 25px;
 }
 
 .map-button {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   gap: 8px;
 
   min-height: 48px;
+
   padding: 0 24px;
 
   border-radius: 999px;
 
-  background: linear-gradient(135deg, var(--primary), #a9602a);
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #a9602a
+    );
+
   color: white;
 
   font-size: 14px;
+
   font-weight: 750;
 
-  box-shadow: 0 10px 25px rgba(95, 47, 20, 0.20);
+  box-shadow:
+    0 10px 25px
+    rgba(95, 47, 20, 0.20);
 
   transition:
     transform 0.2s ease,
@@ -948,8 +1717,132 @@ nav a:hover {
 
 .map-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(95, 47, 20, 0.28);
+
+  box-shadow:
+    0 14px 30px
+    rgba(95, 47, 20, 0.28);
 }
+
+
+/* =========================================================
+   ASSOCIATION COMMITTEE
+   ========================================================= */
+
+.committee-section {
+  background: var(--cream);
+}
+
+.committee-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 28px;
+
+  margin-top: 35px;
+}
+
+.committee-card {
+  background: #ffffff;
+
+  border-radius: var(--radius);
+
+  padding: 30px 24px;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 25px
+    rgba(70, 45, 20, 0.10);
+
+  border:
+    1px solid
+    rgba(170, 120, 60, 0.15);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.committee-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 14px 32px
+    rgba(70, 45, 20, 0.16);
+}
+
+.committee-photo {
+  width: 120px;
+  height: 120px;
+
+  margin:
+    0 auto 20px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8b5e34,
+      #c89552
+    );
+
+  color: #ffffff;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  border:
+    5px solid
+    #f5e4c8;
+
+  overflow: hidden;
+}
+
+.committee-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.committee-card h3 {
+  margin:
+    10px 0 6px;
+
+  font-size: 21px;
+}
+
+.committee-role {
+  margin: 0;
+
+  color: #9a6a32;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+.committee-description {
+  margin-top: 12px;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
 
 /* =========================================================
    FOOTER
@@ -989,103 +1882,12 @@ footer small {
 
   margin-top: 18px;
 
-  color: rgba(255, 255, 255, 0.50);
+  color:
+    rgba(255, 255, 255, 0.50);
 
   font-size: 11px;
 }
 
-/* =========================================================
-   LIGHTBOX
-   ========================================================= */
-
-.lightbox {
-  position: fixed;
-  z-index: 3000;
-
-  inset: 0;
-
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  padding: 40px;
-
-  background: rgba(13, 9, 6, 0.94);
-}
-
-.lightbox.open {
-  display: flex;
-}
-
-.lightbox img {
-  max-width: min(92vw, 1200px);
-  max-height: 88vh;
-
-  object-fit: contain;
-
-  border-radius: 8px;
-
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.50);
-}
-
-.close-lightbox,
-.lightbox-prev,
-.lightbox-next {
-  position: fixed;
-  z-index: 2;
-
-  width: 48px;
-  height: 48px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.12);
-
-  color: white;
-
-  font-size: 32px;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.close-lightbox:hover,
-.lightbox-prev:hover,
-.lightbox-next:hover {
-  background: rgba(255, 255, 255, 0.22);
-
-  transform: scale(1.06);
-}
-
-.close-lightbox {
-  top: 22px;
-  right: 25px;
-
-  font-size: 34px;
-}
-
-.lightbox-prev {
-  left: 22px;
-  top: 50%;
-
-  transform: translateY(-50%);
-}
-
-.lightbox-next {
-  right: 22px;
-  top: 50%;
-
-  transform: translateY(-50%);
-}
-
-.lightbox-prev:hover,
-.lightbox-next:hover {
-  transform: translateY(-50%) scale(1.06);
-}
 
 /* =========================================================
    BACK TO TOP
@@ -1093,6 +1895,7 @@ footer small {
 
 .back-to-top {
   position: fixed;
+
   z-index: 900;
 
   right: 22px;
@@ -1112,7 +1915,9 @@ footer small {
 
   font-size: 20px;
 
-  box-shadow: 0 8px 25px rgba(50, 25, 10, 0.22);
+  box-shadow:
+    0 8px 25px
+    rgba(50, 25, 10, 0.22);
 
   opacity: 0;
   visibility: hidden;
@@ -1127,10 +1932,120 @@ footer small {
 
 .back-to-top.show {
   opacity: 1;
+
   visibility: visible;
 
   transform: translateY(0);
 }
+
+
+/* =========================================================
+   LEGACY LIGHTBOX SUPPORT
+   ========================================================= */
+
+.lightbox {
+  position: fixed;
+
+  z-index: 3000;
+
+  inset: 0;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  background:
+    rgba(13, 9, 6, 0.94);
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox img {
+  max-width:
+    min(92vw, 1200px);
+
+  max-height: 88vh;
+
+  object-fit: contain;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, 0.50);
+}
+
+.close-lightbox,
+.lightbox-prev,
+.lightbox-next {
+  position: fixed;
+
+  z-index: 2;
+
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  color: white;
+
+  font-size: 32px;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.close-lightbox:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background:
+    rgba(255, 255, 255, 0.22);
+
+  transform: scale(1.06);
+}
+
+.close-lightbox {
+  top: 22px;
+  right: 25px;
+
+  font-size: 34px;
+}
+
+.lightbox-prev {
+  left: 22px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+.lightbox-next {
+  right: 22px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  transform:
+    translateY(-50%)
+    scale(1.06);
+}
+
 
 /* =========================================================
    ANIMATIONS
@@ -1139,18 +2054,24 @@ footer small {
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(18px);
+
+    transform:
+      translateY(18px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
 .hero-content {
-  animation: fadeUp 0.8s ease both;
+  animation:
+    fadeUp 0.8s ease both;
 }
+
 
 /* =========================================================
    TABLET
@@ -1164,14 +2085,8 @@ footer small {
 
   nav a {
     padding: 8px 9px;
+
     font-size: 13px;
-  }
-
-  .gallery {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-
-    grid-auto-rows: 220px;
   }
 
   .about-grid {
@@ -1179,7 +2094,24 @@ footer small {
       repeat(2, minmax(0, 1fr));
   }
 
+  .gallery-mosaic {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows: 190px;
+  }
+
+  .gallery-tile-featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .committee-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
 }
+
 
 /* =========================================================
    MOBILE
@@ -1206,14 +2138,20 @@ footer small {
     right: 14px;
 
     display: none;
+
     flex-direction: column;
+
     align-items: stretch;
 
     padding: 10px;
 
-    background: rgba(255, 250, 242, 0.98);
+    background:
+      rgba(255, 250, 242, 0.98);
 
-    border: 1px solid var(--border);
+    border:
+      1px solid
+      var(--border);
+
     border-radius: 16px;
 
     box-shadow: var(--shadow);
@@ -1237,10 +2175,14 @@ footer small {
     font-size: 10px;
   }
 
+
+  /* HERO */
+
   .hero {
     min-height: 610px;
 
-    background-position: 58% center;
+    background-position:
+      58% center;
   }
 
   .hero-content {
@@ -1250,7 +2192,12 @@ footer small {
   }
 
   .hero h1 {
-    font-size: clamp(55px, 19vw, 82px);
+    font-size:
+      clamp(
+        55px,
+        19vw,
+        82px
+      );
 
     letter-spacing: -3px;
   }
@@ -1261,12 +2208,16 @@ footer small {
 
   .hero-actions {
     flex-direction: column;
+
     align-items: stretch;
   }
 
   .btn {
     width: 100%;
   }
+
+
+  /* SECTIONS */
 
   .section {
     width: calc(100% - 32px);
@@ -1282,6 +2233,9 @@ footer small {
     font-size: 35px;
   }
 
+
+  /* CARDS */
+
   .about-grid {
     grid-template-columns: 1fr;
   }
@@ -1289,6 +2243,9 @@ footer small {
   .about-card {
     padding: 24px;
   }
+
+
+  /* INTRO */
 
   .intro-panel {
     grid-template-columns: 1fr;
@@ -1300,45 +2257,204 @@ footer small {
 
   .intro-panel img {
     min-height: 230px;
+
     max-height: 300px;
   }
 
+
+  /* FULL WIDTH SECTIONS */
+
   .facilities-section,
-  .notices-section {
+  .notices-section,
+  .gallery-section {
     padding-left: 16px;
     padding-right: 16px;
   }
 
-  .gallery {
+
+  /* GALLERY */
+
+  .gallery-mosaic {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
 
-    grid-auto-rows: 180px;
+    grid-auto-rows: 170px;
 
     gap: 9px;
   }
 
-  .photo-card.large {
+  .gallery-tile-featured {
     grid-column: span 2;
     grid-row: span 2;
   }
 
-  .photo-caption {
+  .gallery-tile-tall {
+    grid-row: span 2;
+  }
+
+  .gallery-tile-wide {
+    grid-column: span 2;
+  }
+
+  .gallery-tile-content {
     left: 11px;
     right: 11px;
     bottom: 10px;
   }
 
-  .photo-caption strong {
-    font-size: 13px;
+  .gallery-tile-title {
+    font-size: 14px;
   }
 
-  .photo-caption small {
+  .gallery-tile-description {
+    display: none;
+  }
+
+  .gallery-tile-kicker {
+    font-size: 8px;
+
+    letter-spacing: 1.1px;
+  }
+
+  .gallery-tile-icon {
+    top: 10px;
+    right: 10px;
+
+    width: 34px;
+    height: 34px;
+
+    font-size: 15px;
+
+    opacity: 1;
+
+    transform: none;
+  }
+
+  .gallery-filters {
+    gap: 7px;
+
+    margin-bottom: 22px;
+  }
+
+  .gallery-filter {
+    min-height: 37px;
+
+    padding:
+      7px 12px;
+
+    font-size: 11px;
+  }
+
+
+  /* LIGHTBOX */
+
+  .gallery-lightbox {
+    padding: 0;
+  }
+
+  .gallery-lightbox-dialog {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+  }
+
+  .gallery-lightbox-header {
+    min-height: 64px;
+
+    padding:
+      10px
+      12px
+      10px
+      16px;
+  }
+
+  .gallery-lightbox-title {
+    font-size: 16px;
+  }
+
+  .gallery-lightbox-counter {
+    font-size: 10px;
+
+    padding:
+      4px 8px;
+  }
+
+  .gallery-lightbox-close {
+    width: 40px;
+    height: 40px;
+
+    flex-basis: 40px;
+
+    font-size: 22px;
+  }
+
+  .gallery-lightbox-main {
+    padding:
+      15px
+      45px
+      30px;
+  }
+
+  .gallery-lightbox-main img {
+    max-width: 100%;
+    max-height: 100%;
+
+    border-radius: 6px;
+  }
+
+  .gallery-lightbox-nav {
+    width: 40px;
+    height: 40px;
+
+    font-size: 23px;
+  }
+
+  .gallery-lightbox-prev {
+    left: 7px;
+  }
+
+  .gallery-lightbox-next {
+    right: 7px;
+  }
+
+  .gallery-lightbox-caption {
+    left: 12px;
+    right: 12px;
+    bottom: 8px;
+  }
+
+  .gallery-lightbox-caption p {
+    max-width: 90%;
+
+    padding:
+      6px 10px;
+
     font-size: 10px;
   }
 
+  .gallery-thumbnails {
+    min-height: 70px;
+
+    padding:
+      8px
+      10px
+      12px;
+  }
+
+  .gallery-thumbnail {
+    flex-basis: 62px;
+
+    width: 62px;
+    height: 46px;
+  }
+
+
+  /* EVENTS */
+
   .event-card {
-    grid-template-columns: 75px 1fr;
+    grid-template-columns:
+      75px 1fr;
 
     gap: 15px;
 
@@ -1357,20 +2473,32 @@ footer small {
     font-size: 17px;
   }
 
+
+  /* NOTICES */
+
   .notice-list {
     grid-template-columns: 1fr;
   }
 
+
+  /* CONTACT */
+
   .contact-card {
     flex-direction: column;
+
     align-items: stretch;
 
     padding: 30px;
   }
 
+
+  /* MAP */
+
   .location-map {
     height: 410px;
+
     margin-top: 25px;
+
     border-radius: 17px;
   }
 
@@ -1378,14 +2506,19 @@ footer small {
     left: 12px;
     right: 12px;
     bottom: 12px;
+
     width: auto;
-    padding: 13px 15px;
+
+    padding:
+      13px 15px;
   }
 
   .map-icon {
     width: 42px;
     height: 42px;
+
     flex-basis: 42px;
+
     font-size: 19px;
   }
 
@@ -1401,29 +2534,28 @@ footer small {
     width: 100%;
   }
 
-  .lightbox {
-    padding: 15px;
+
+  /* COMMITTEE */
+
+  .committee-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
   }
 
-  .lightbox img {
-    max-width: 96vw;
-    max-height: 82vh;
+  .committee-card {
+    padding: 25px 20px;
   }
 
-  .close-lightbox {
-    top: 12px;
-    right: 12px;
-  }
 
-  .lightbox-prev {
-    left: 10px;
-  }
+  /* BACK TO TOP */
 
-  .lightbox-next {
-    right: 10px;
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
   }
-
 }
+
 
 /* =========================================================
    SMALL PHONES
@@ -1440,27 +2572,39 @@ footer small {
     min-height: 580px;
   }
 
-  .gallery {
-    grid-auto-rows: 155px;
-  }
-
-  .photo-card.large {
-    grid-row: span 2;
+  .gallery-mosaic {
+    grid-auto-rows: 150px;
   }
 
   .gallery-filter {
-    padding: 8px 13px;
-    font-size: 12px;
+    padding:
+      7px 10px;
+
+    font-size: 10px;
   }
 
+  .gallery-tile-title {
+    font-size: 13px;
+  }
+
+  .gallery-lightbox-main {
+    padding:
+      10px
+      40px
+      25px;
+  }
 }
+
 
 /* =========================================================
    ACCESSIBILITY
    ========================================================= */
 
 :focus-visible {
-  outline: 3px solid #e0a84e;
+  outline:
+    3px solid
+    #e0a84e;
+
   outline-offset: 3px;
 }
 
@@ -1473,85 +2617,61 @@ footer small {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   IMAGE LOAD ERROR
+   ========================================================= */
+
+.image-load-error {
+  background:
+    linear-gradient(
+      135deg,
+      #eee4d7,
+      #d8c8b5
+    );
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+  .topbar,
+  .menu-btn,
+  .hero-actions,
+  .gallery-filters,
+  .gallery-lightbox,
+  .back-to-top {
+    display: none !important;
   }
 
-}
-/* ================================
-   ASSOCIATION COMMITTEE
-================================ */
+  body {
+    background: white;
+  }
 
-.committee-section {
-    background: var(--cream);
-}
+  .section {
+    width: 100%;
+    padding: 30px 0;
+  }
 
-.committee-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-top: 35px;
-}
+  .hero {
+    min-height: 400px;
+  }
 
-.committee-card {
-    background: #ffffff;
-    border-radius: var(--radius);
-    padding: 30px 24px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(70, 45, 20, 0.10);
-    border: 1px solid rgba(170, 120, 60, 0.15);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.committee-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(70, 45, 20, 0.16);
-}
-
-.committee-photo {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #8b5e34, #c89552);
-    color: #ffffff;
-    font-size: 32px;
-    font-weight: 700;
-    border: 5px solid #f5e4c8;
-}
-
-.committee-card h3 {
-    margin: 10px 0 6px;
-    font-size: 21px;
-}
-
-.committee-role {
-    margin: 0;
-    color: #9a6a32;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-}
-
-.committee-description {
-    margin-top: 12px;
-    color: #777;
-    font-size: 14px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .committee-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .committee-card {
-        padding: 25px 20px;
-    }
+  footer {
+    margin-top: 0;
+  }
 }
