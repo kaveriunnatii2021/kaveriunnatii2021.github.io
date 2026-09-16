@@ -1,490 +1,717 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // -----------------------------
-  // Mobile navigation
-  // -----------------------------
-  const menuToggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector(".site-nav");
-
-  if (menuToggle && nav) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close menu" : "Open menu"
-      );
-    });
-
-    nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        nav.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open menu");
-      });
-    });
-
-    // Close menu when clicking outside it
-    document.addEventListener("click", (event) => {
-      if (
-        nav.classList.contains("open") &&
-        !nav.contains(event.target) &&
-        !menuToggle.contains(event.target)
-      ) {
-        nav.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open menu");
-      }
-    });
-  }
-
-  // -----------------------------
-  // Gallery filtering
-  // -----------------------------
-  const filterButtons = document.querySelectorAll(".filter-btn");
-  const galleryItems = document.querySelectorAll(".gallery-item");
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.dataset.filter;
-
-      filterButtons.forEach((btn) => {
-        btn.classList.remove("active");
-        btn.setAttribute("aria-pressed", "false");
-      });
-
-      button.classList.add("active");
-      button.setAttribute("aria-pressed", "true");
-
-      galleryItems.forEach((item) => {
-        const categories = (item.dataset.category || "").split(/\s+/);
-        const shouldShow =
-          filter === "all" || categories.includes(filter);
-
-        if (shouldShow) {
-          item.style.display = "";
-
-          requestAnimationFrame(() => {
-            item.style.opacity = "1";
-            item.style.transform = "scale(1)";
-          });
-        } else {
-          item.style.opacity = "0";
-          item.style.transform = "scale(0.96)";
-
-          setTimeout(() => {
-            if (item.style.opacity === "0") {
-              item.style.display = "none";
-            }
-          }, 220);
-        }
-      });
-    });
-  });
-
-  // -----------------------------
-  // Gallery lightbox
-  // -----------------------------
-  const lightbox = document.querySelector(".lightbox");
-  const lightboxImg = document.querySelector(".lightbox img");
-  const lightboxCaption = document.querySelector(".lightbox-caption");
-  const closeLightbox = document.querySelector(".lightbox-close");
-  const prevButton = document.querySelector(".lightbox-prev");
-  const nextButton = document.querySelector(".lightbox-next");
-
-  let currentIndex = 0;
-  let lastFocusedPhoto = null;
-
-  const getCurrentItems = () =>
-    Array.from(galleryItems).filter(
-      (item) =>
-        window.getComputedStyle(item).display !== "none"
-    );
-
-  const getPhotoData = (item) => {
-    const image = item.querySelector("img");
-
-    if (!image) return null;
-
-    return {
-      src: image.currentSrc || image.src,
-
-      alt:
-        image.alt ||
-        "Kaveri Unnatii Apartment gallery photo",
-
-      caption:
-        item.dataset.caption ||
-        image.dataset.caption ||
-        image.alt ||
-        "Kaveri Unnatii Apartment"
-    };
-  };
-
-  const showPhoto = (index) => {
-    const items = getCurrentItems();
-
-    if (!items.length || !lightbox || !lightboxImg) {
-      return;
-    }
-
-    currentIndex =
-      (index + items.length) % items.length;
-
-    const data = getPhotoData(items[currentIndex]);
-
-    if (!data) return;
-
-    // Fade image while changing
-    lightboxImg.style.opacity = "0";
-
-    // Set onload before changing src
-    lightboxImg.onload = () => {
-      lightboxImg.style.opacity = "1";
-    };
-
-    lightboxImg.onerror = () => {
-      lightboxImg.style.opacity = "1";
-      lightboxImg.alt = "Unable to load this image";
-    };
-
-    lightboxImg.src = data.src;
-    lightboxImg.alt = data.alt;
-
-    if (lightboxCaption) {
-      lightboxCaption.textContent = data.caption;
-    }
-
-    if (prevButton) {
-      prevButton.disabled = items.length <= 1;
-    }
-
-    if (nextButton) {
-      nextButton.disabled = items.length <= 1;
-    }
-  };
-
-  const openLightbox = (item) => {
-    if (!lightbox) return;
-
-    const items = getCurrentItems();
-    const index = items.indexOf(item);
-
-    if (index < 0) return;
-
-    lastFocusedPhoto =
-      item.querySelector("img") || item;
-
-    showPhoto(index);
-
-    lightbox.classList.add("open");
-    lightbox.setAttribute("aria-hidden", "false");
-
-    document.body.classList.add("lightbox-open");
-
-    if (closeLightbox) {
-      closeLightbox.focus();
-    }
-  };
-
-  const hideLightbox = () => {
-    if (!lightbox) return;
-
-    lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden", "true");
-
-    document.body.classList.remove("lightbox-open");
-
-    if (
-      lastFocusedPhoto &&
-      typeof lastFocusedPhoto.focus === "function"
-    ) {
-      lastFocusedPhoto.focus();
-    }
-
-    lastFocusedPhoto = null;
-  };
-
-  // Make gallery photos clickable and accessible
-  galleryItems.forEach((item) => {
-    const image = item.querySelector("img");
-
-    if (image && !image.hasAttribute("loading")) {
-      image.setAttribute("loading", "lazy");
-    }
-
-    item.addEventListener("click", () => {
-      openLightbox(item);
-    });
-
-    item.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Enter" ||
-        event.key === " "
-      ) {
-        event.preventDefault();
-        openLightbox(item);
-      }
-    });
-
-    if (image && !item.hasAttribute("tabindex")) {
-      item.setAttribute("tabindex", "0");
-      item.setAttribute("role", "button");
-
-      item.setAttribute(
-        "aria-label",
-        image.alt
-          ? `Open ${image.alt}`
-          : "Open gallery image"
-      );
-    }
-  });
-
-  // Close button
-  if (closeLightbox) {
-    closeLightbox.addEventListener(
-      "click",
-      hideLightbox
-    );
-  }
-
-  // Previous button
-  if (prevButton) {
-    prevButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      showPhoto(currentIndex - 1);
-    });
-  }
-
-  // Next button
-  if (nextButton) {
-    nextButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      showPhoto(currentIndex + 1);
-    });
-  }
-
-  // Click outside image to close
-  if (lightbox) {
-    lightbox.addEventListener("click", (event) => {
-      if (event.target === lightbox) {
-        hideLightbox();
-      }
-    });
-  }
-
-  // -----------------------------
-  // Keyboard controls
-  // -----------------------------
-  document.addEventListener("keydown", (event) => {
-
-    // Escape closes mobile menu
-    if (
-      event.key === "Escape" &&
-      nav &&
-      nav.classList.contains("open")
-    ) {
-      nav.classList.remove("open");
-
-      if (menuToggle) {
-        menuToggle.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        menuToggle.setAttribute(
-          "aria-label",
-          "Open menu"
-        );
-      }
-
-      return;
-    }
-
-    // Lightbox controls
-    if (
-      !lightbox ||
-      !lightbox.classList.contains("open")
-    ) {
-      return;
-    }
-
-    if (event.key === "Escape") {
-      event.preventDefault();
-      hideLightbox();
-    }
-
-    else if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      showPhoto(currentIndex - 1);
-    }
-
-    else if (event.key === "ArrowRight") {
-      event.preventDefault();
-      showPhoto(currentIndex + 1);
-    }
-  });
-
-  // -----------------------------
-  // Touch swipe for lightbox
-  // -----------------------------
-  let touchStartX = 0;
-  let touchStartY = 0;
-
-  if (lightbox) {
-
-    lightbox.addEventListener(
-      "touchstart",
-      (event) => {
-        const touch =
-          event.changedTouches[0];
-
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
-      },
-      { passive: true }
-    );
-
-    lightbox.addEventListener(
-      "touchend",
-      (event) => {
-        const touch =
-          event.changedTouches[0];
-
-        const deltaX =
-          touch.clientX - touchStartX;
-
-        const deltaY =
-          touch.clientY - touchStartY;
-
-        // Only process mostly-horizontal swipes
-        if (
-          Math.abs(deltaX) < 50 ||
-          Math.abs(deltaX) < Math.abs(deltaY)
-        ) {
-          return;
-        }
-
-        if (deltaX < 0) {
-          showPhoto(currentIndex + 1);
-        } else {
-          showPhoto(currentIndex - 1);
-        }
-      },
-      { passive: true }
-    );
-  }
-
-  // -----------------------------
-  // Back to top button
-  // -----------------------------
-  const backToTop =
-    document.querySelector(".back-to-top");
-
-  if (backToTop) {
-
-    const updateBackToTop = () => {
-      backToTop.classList.toggle(
-        "show",
-        window.scrollY > 500
-      );
-    };
-
-    window.addEventListener(
-      "scroll",
-      updateBackToTop,
-      { passive: true }
-    );
-
-    updateBackToTop();
-
-    backToTop.addEventListener(
-      "click",
-      (event) => {
-        event.preventDefault();
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
+    /* =========================================================
+       KAVERI UNNATII APARTMENT
+       Main JavaScript
+       ========================================================= */
+
+    /* ---------------------------------------------------------
+       MOBILE NAVIGATION
+       --------------------------------------------------------- */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+
+    if (menuBtn && nav) {
+        menuBtn.addEventListener("click", () => {
+            const isOpen = nav.classList.toggle("open");
+
+            menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            menuBtn.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
         });
-      }
-    );
-  }
 
-  // -----------------------------
-  // Smooth internal navigation
-  // -----------------------------
-  document
-    .querySelectorAll('a[href^="#"]')
-    .forEach((link) => {
+        // Close menu when a navigation link is clicked
+        nav.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                nav.classList.remove("open");
+                menuBtn.setAttribute("aria-expanded", "false");
+                menuBtn.setAttribute("aria-label", "Open navigation menu");
+            });
+        });
 
-      link.addEventListener(
-        "click",
-        (event) => {
+        // Close menu when clicking outside
+        document.addEventListener("click", (event) => {
+            if (
+                nav.classList.contains("open") &&
+                !nav.contains(event.target) &&
+                !menuBtn.contains(event.target)
+            ) {
+                nav.classList.remove("open");
+                menuBtn.setAttribute("aria-expanded", "false");
+                menuBtn.setAttribute("aria-label", "Open navigation menu");
+            }
+        });
 
-          const targetId =
-            link.getAttribute("href");
+        // Close mobile menu with Escape
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                nav.classList.remove("open");
+                menuBtn.setAttribute("aria-expanded", "false");
+                menuBtn.setAttribute("aria-label", "Open navigation menu");
+            }
+        });
+    }
 
-          if (
-            !targetId ||
-            targetId === "#"
-          ) {
+
+    /* ---------------------------------------------------------
+       GALLERY DATA
+       --------------------------------------------------------- */
+
+    const galleryDataElement = document.getElementById("galleryData");
+
+    let galleryData = {};
+
+    if (galleryDataElement) {
+        try {
+            galleryData = JSON.parse(galleryDataElement.textContent);
+        } catch (error) {
+            console.error("Unable to read gallery data:", error);
+            galleryData = {};
+        }
+    }
+
+
+    /* ---------------------------------------------------------
+       GALLERY FILTERS
+       --------------------------------------------------------- */
+
+    const filterButtons = document.querySelectorAll(".gallery-filter");
+    const albumCards = document.querySelectorAll(".album-card");
+    const galleryEmpty = document.getElementById("galleryEmpty");
+
+    function filterGallery(filter) {
+        let visibleCount = 0;
+
+        albumCards.forEach((card) => {
+            const year = card.dataset.year || "";
+            const category = card.dataset.category || "";
+
+            let showCard = false;
+
+            if (filter === "all") {
+                showCard = true;
+            } else if (filter === "2023") {
+                showCard = year === "2023";
+            } else if (filter === "2026") {
+                showCard = year === "2026";
+            } else if (filter === "community") {
+                showCard = category === "community";
+            } else if (filter === "festival") {
+                showCard = category === "festival";
+            }
+
+            if (showCard) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        if (galleryEmpty) {
+            galleryEmpty.hidden = visibleCount !== 0;
+        }
+    }
+
+    filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const filter = button.dataset.filter || "all";
+
+            filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+                btn.setAttribute("aria-pressed", "false");
+            });
+
+            button.classList.add("active");
+            button.setAttribute("aria-pressed", "true");
+
+            filterGallery(filter);
+        });
+    });
+
+
+    /* ---------------------------------------------------------
+       GALLERY MODAL ELEMENTS
+       --------------------------------------------------------- */
+
+    const galleryModal = document.getElementById("galleryModal");
+    const galleryModalTitle = document.getElementById("galleryModalTitle");
+    const galleryModalCounter = document.getElementById("galleryModalCounter");
+    const galleryModalClose = document.getElementById("galleryModalClose");
+    const galleryPrev = document.getElementById("galleryPrev");
+    const galleryNext = document.getElementById("galleryNext");
+    const galleryModalImage = document.getElementById("galleryModalImage");
+    const galleryModalCaption = document.getElementById("galleryModalCaption");
+    const galleryThumbnails = document.getElementById("galleryThumbnails");
+
+    let currentAlbum = null;
+    let currentIndex = 0;
+    let previousFocusedElement = null;
+
+
+    /* ---------------------------------------------------------
+       GET ALBUM PHOTOS
+       --------------------------------------------------------- */
+
+    function getAlbumPhotos(albumId) {
+        if (!galleryData || !albumId) {
+            return [];
+        }
+
+        const album = galleryData[albumId];
+
+        if (!album || !Array.isArray(album.photos)) {
+            return [];
+        }
+
+        return album.photos;
+    }
+
+
+    /* ---------------------------------------------------------
+       NORMALIZE PHOTO DATA
+       --------------------------------------------------------- */
+
+    function normalizePhoto(photo) {
+        if (typeof photo === "string") {
+            return {
+                src: photo,
+                caption: ""
+            };
+        }
+
+        if (photo && typeof photo === "object") {
+            return {
+                src: photo.src || photo.image || "",
+                caption: photo.caption || photo.title || ""
+            };
+        }
+
+        return {
+            src: "",
+            caption: ""
+        };
+    }
+
+
+    /* ---------------------------------------------------------
+       UPDATE GALLERY IMAGE
+       --------------------------------------------------------- */
+
+    function updateGalleryImage(useTransition = true) {
+        if (!currentAlbum || !galleryModalImage) {
             return;
-          }
+        }
 
-          const target =
-            document.querySelector(targetId);
+        const photos = getAlbumPhotos(currentAlbum);
 
-          if (!target) return;
+        if (!photos.length) {
+            return;
+        }
 
-          event.preventDefault();
+        if (currentIndex < 0) {
+            currentIndex = photos.length - 1;
+        }
 
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+        if (currentIndex >= photos.length) {
+            currentIndex = 0;
+        }
 
-          // Close mobile menu
-          if (nav && menuToggle) {
-            nav.classList.remove("open");
+        const photo = normalizePhoto(photos[currentIndex]);
 
-            menuToggle.setAttribute(
-              "aria-expanded",
-              "false"
+        if (!photo.src) {
+            console.warn("Gallery photo has no image source.");
+            return;
+        }
+
+        if (useTransition) {
+            galleryModalImage.classList.add("is-changing");
+
+            window.setTimeout(() => {
+                galleryModalImage.src = photo.src;
+                galleryModalImage.alt = photo.caption || currentAlbum.title || "Kaveri Unnatii Apartment photo";
+
+                galleryModalImage.onload = () => {
+                    galleryModalImage.classList.remove("is-changing");
+                };
+
+                // Remove transition class even if the image fails to load
+                window.setTimeout(() => {
+                    galleryModalImage.classList.remove("is-changing");
+                }, 500);
+            }, 100);
+        } else {
+            galleryModalImage.src = photo.src;
+            galleryModalImage.alt = photo.caption || currentAlbum.title || "Kaveri Unnatii Apartment photo";
+        }
+
+        if (galleryModalCounter) {
+            galleryModalCounter.textContent =
+                `${currentIndex + 1} / ${photos.length}`;
+        }
+
+        if (galleryModalCaption) {
+            galleryModalCaption.textContent = photo.caption || "";
+        }
+
+        updateThumbnailState();
+        updateGalleryButtons();
+    }
+
+
+    /* ---------------------------------------------------------
+       THUMBNAILS
+       --------------------------------------------------------- */
+
+    function renderThumbnails() {
+        if (!galleryThumbnails || !currentAlbum) {
+            return;
+        }
+
+        const photos = getAlbumPhotos(currentAlbum);
+
+        galleryThumbnails.innerHTML = "";
+
+        photos.forEach((photoData, index) => {
+            const photo = normalizePhoto(photoData);
+
+            const thumbnailButton = document.createElement("button");
+
+            thumbnailButton.type = "button";
+            thumbnailButton.className = "gallery-thumb";
+            thumbnailButton.dataset.index = String(index);
+            thumbnailButton.setAttribute(
+                "aria-label",
+                `View photo ${index + 1}`
             );
 
-            menuToggle.setAttribute(
-              "aria-label",
-              "Open menu"
+            const thumbnailImage = document.createElement("img");
+
+            thumbnailImage.src = photo.src;
+            thumbnailImage.alt = photo.caption || `Photo ${index + 1}`;
+            thumbnailImage.loading = "lazy";
+
+            thumbnailButton.appendChild(thumbnailImage);
+
+            thumbnailButton.addEventListener("click", () => {
+                currentIndex = index;
+                updateGalleryImage();
+            });
+
+            galleryThumbnails.appendChild(thumbnailButton);
+        });
+
+        updateThumbnailState();
+    }
+
+
+    function updateThumbnailState() {
+        if (!galleryThumbnails) {
+            return;
+        }
+
+        const thumbnails =
+            galleryThumbnails.querySelectorAll(".gallery-thumb");
+
+        thumbnails.forEach((thumbnail, index) => {
+            const active = index === currentIndex;
+
+            thumbnail.classList.toggle("active", active);
+            thumbnail.setAttribute(
+                "aria-current",
+                active ? "true" : "false"
             );
-          }
+        });
+    }
+
+
+    /* ---------------------------------------------------------
+       PREVIOUS / NEXT BUTTONS
+       --------------------------------------------------------- */
+
+    function updateGalleryButtons() {
+        if (!currentAlbum) {
+            return;
         }
-      );
+
+        const photos = getAlbumPhotos(currentAlbum);
+        const hasMultiplePhotos = photos.length > 1;
+
+        if (galleryPrev) {
+            galleryPrev.disabled = !hasMultiplePhotos;
+            galleryPrev.setAttribute(
+                "aria-disabled",
+                hasMultiplePhotos ? "false" : "true"
+            );
+        }
+
+        if (galleryNext) {
+            galleryNext.disabled = !hasMultiplePhotos;
+            galleryNext.setAttribute(
+                "aria-disabled",
+                hasMultiplePhotos ? "false" : "true"
+            );
+        }
+    }
+
+
+    function showPreviousPhoto() {
+        if (!currentAlbum) {
+            return;
+        }
+
+        const photos = getAlbumPhotos(currentAlbum);
+
+        if (photos.length <= 1) {
+            return;
+        }
+
+        currentIndex--;
+
+        if (currentIndex < 0) {
+            currentIndex = photos.length - 1;
+        }
+
+        updateGalleryImage();
+    }
+
+
+    function showNextPhoto() {
+        if (!currentAlbum) {
+            return;
+        }
+
+        const photos = getAlbumPhotos(currentAlbum);
+
+        if (photos.length <= 1) {
+            return;
+        }
+
+        currentIndex++;
+
+        if (currentIndex >= photos.length) {
+            currentIndex = 0;
+        }
+
+        updateGalleryImage();
+    }
+
+    if (galleryPrev) {
+        galleryPrev.addEventListener("click", showPreviousPhoto);
+    }
+
+    if (galleryNext) {
+        galleryNext.addEventListener("click", showNextPhoto);
+    }
+
+
+    /* ---------------------------------------------------------
+       OPEN GALLERY
+       --------------------------------------------------------- */
+
+    function openGallery(albumId) {
+        if (!galleryModal) {
+            return;
+        }
+
+        const album = galleryData[albumId];
+
+        if (!album) {
+            console.warn(`Gallery album not found: ${albumId}`);
+            return;
+        }
+
+        const photos = getAlbumPhotos(albumId);
+
+        if (!photos.length) {
+            console.warn(`No photos found for album: ${albumId}`);
+            return;
+        }
+
+        currentAlbum = album;
+        currentAlbum.id = albumId;
+        currentIndex = 0;
+
+        previousFocusedElement = document.activeElement;
+
+        if (galleryModalTitle) {
+            galleryModalTitle.textContent =
+                album.title || "Kaveri Unnatii Apartment Gallery";
+        }
+
+        galleryModal.classList.add("is-open");
+        galleryModal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("no-scroll");
+
+        renderThumbnails();
+        updateGalleryImage(false);
+
+        // Focus close button for keyboard accessibility
+        window.setTimeout(() => {
+            if (galleryModalClose) {
+                galleryModalClose.focus();
+            }
+        }, 50);
+    }
+
+
+    /* ---------------------------------------------------------
+       CLOSE GALLERY
+       --------------------------------------------------------- */
+
+    function closeGallery() {
+        if (!galleryModal) {
+            return;
+        }
+
+        galleryModal.classList.remove("is-open");
+        galleryModal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("no-scroll");
+
+        currentAlbum = null;
+        currentIndex = 0;
+
+        if (galleryModalImage) {
+            galleryModalImage.src = "";
+        }
+
+        if (galleryModalCaption) {
+            galleryModalCaption.textContent = "";
+        }
+
+        if (galleryThumbnails) {
+            galleryThumbnails.innerHTML = "";
+        }
+
+        if (
+            previousFocusedElement &&
+            typeof previousFocusedElement.focus === "function"
+        ) {
+            previousFocusedElement.focus();
+        }
+
+        previousFocusedElement = null;
+    }
+
+
+    if (galleryModalClose) {
+        galleryModalClose.addEventListener("click", closeGallery);
+    }
+
+
+    /* ---------------------------------------------------------
+       CLOSE WHEN CLICKING MODAL BACKDROP
+       --------------------------------------------------------- */
+
+    if (galleryModal) {
+        galleryModal.addEventListener("click", (event) => {
+            const closeTarget = event.target.closest(
+                "[data-gallery-close]"
+            );
+
+            if (closeTarget) {
+                closeGallery();
+            }
+        });
+    }
+
+
+    /* ---------------------------------------------------------
+       ALBUM CARD CLICK
+       --------------------------------------------------------- */
+
+    albumCards.forEach((card) => {
+        const albumId = card.dataset.album;
+
+        if (!albumId) {
+            return;
+        }
+
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+
+        card.addEventListener("click", () => {
+            openGallery(albumId);
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openGallery(albumId);
+            }
+        });
     });
 
-  // -----------------------------
-  // Image error fallback
-  // -----------------------------
-  document
-    .querySelectorAll("img")
-    .forEach((image) => {
 
-      image.addEventListener(
-        "error",
-        () => {
-          image.classList.add("image-error");
+    /* ---------------------------------------------------------
+       KEYBOARD CONTROLS
+       --------------------------------------------------------- */
 
-          image.setAttribute(
-            "alt",
-            "Image unavailable"
-          );
+    document.addEventListener("keydown", (event) => {
+        if (!galleryModal || !galleryModal.classList.contains("is-open")) {
+            return;
         }
-      );
+
+        if (event.key === "Escape") {
+            closeGallery();
+            return;
+        }
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            showPreviousPhoto();
+            return;
+        }
+
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            showNextPhoto();
+            return;
+        }
     });
 
-  // -----------------------------
-  // Website initialized
-  // -----------------------------
-  console.log(
-    "Kaveri Unnatii Apartment website initialized."
-  );
+
+    /* ---------------------------------------------------------
+       TOUCH / SWIPE SUPPORT
+       --------------------------------------------------------- */
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    if (galleryModalImage) {
+        galleryModalImage.addEventListener(
+            "touchstart",
+            (event) => {
+                if (!event.touches || !event.touches.length) {
+                    return;
+                }
+
+                touchStartX = event.touches[0].clientX;
+                touchStartY = event.touches[0].clientY;
+            },
+            { passive: true }
+        );
+
+        galleryModalImage.addEventListener(
+            "touchend",
+            (event) => {
+                if (!event.changedTouches || !event.changedTouches.length) {
+                    return;
+                }
+
+                const touchEndX = event.changedTouches[0].clientX;
+                const touchEndY = event.changedTouches[0].clientY;
+
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+
+                // Only treat mostly-horizontal gestures as swipes
+                if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) {
+                        showPreviousPhoto();
+                    } else {
+                        showNextPhoto();
+                    }
+                }
+
+                touchStartX = 0;
+                touchStartY = 0;
+            },
+            { passive: true }
+        );
+    }
+
+
+    /* ---------------------------------------------------------
+       BACK TO TOP BUTTON
+       --------------------------------------------------------- */
+
+    const backToTop = document.getElementById("backToTop");
+
+    if (backToTop) {
+        const updateBackToTop = () => {
+            if (window.scrollY > 450) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        };
+
+        window.addEventListener("scroll", updateBackToTop, {
+            passive: true
+        });
+
+        updateBackToTop();
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
+
+
+    /* ---------------------------------------------------------
+       SMOOTH SCROLL FOR INTERNAL LINKS
+       --------------------------------------------------------- */
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const targetId = link.getAttribute("href");
+
+            if (!targetId || targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            // Update URL without jumping
+            if (history.pushState) {
+                history.pushState(null, "", targetId);
+            }
+        });
+    });
+
+
+    /* ---------------------------------------------------------
+       IMAGE ERROR HANDLING
+       --------------------------------------------------------- */
+
+    document.querySelectorAll("img").forEach((image) => {
+        image.addEventListener("error", () => {
+            image.classList.add("image-error");
+        });
+    });
+
+
+    /* ---------------------------------------------------------
+       INITIAL GALLERY STATE
+       --------------------------------------------------------- */
+
+    filterGallery("all");
+
+
+    /* ---------------------------------------------------------
+       CONSOLE MESSAGE
+       --------------------------------------------------------- */
+
+    console.log(
+        "Kaveri Unnatii Apartment website loaded successfully."
+    );
 });
