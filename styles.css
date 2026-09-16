@@ -230,7 +230,6 @@ ul {
 /* -------------------------
    HERO
    ------------------------- */
-
 .hero {
   position: relative;
   min-height: 680px;
@@ -238,19 +237,34 @@ ul {
   align-items: center;
   padding: 130px 0 90px;
 
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0.25)
-    ),
-    url("images/kaveri-apartment.webp");
-
-  background-position: center;
+  background-image: url("images/kaveri-apartment.webp");
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 
   color: #ffffff;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.38) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+  z-index: 0;
+}
+
+.hero::after {
+  display: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .hero::after {
