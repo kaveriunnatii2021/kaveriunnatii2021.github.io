@@ -1,37 +1,25 @@
 /* =========================================================
    KAVERI UNNATII APARTMENT
-   FINAL WEBSITE SCRIPT
-   =========================================================
-   Includes:
-   - Correct Gallery image paths
-   - Gallery album popup
-   - Gallery filters
-   - Previous / Next photo
-   - Gallery thumbnails
-   - Keyboard controls
-   - Smooth navigation
-   - Mobile navigation menu
-   - Automatic repair of old image paths
-   - Correct Home hero background
+   Main Website JavaScript
+   Gallery + Lightbox + Navigation
    ========================================================= */
 
-
 /* =========================================================
-   IMAGE PATHS
+   GALLERY IMAGE PATHS
    ========================================================= */
 
 const KAVERI_IMAGES = {
-    apartment:
-        "images/Gallery/Our%20Apartment/kaveri-apartment.webp",
+  apartment:
+    "images/Gallery/Our%20Apartment/kaveri-apartment.webp",
 
-    brochure:
-        "images/Gallery/Our%20Apartment/kaveri-brochure.jpg",
+  brochure:
+    "images/Gallery/Our%20Apartment/kaveri-brochure.jpg",
 
-    archive1:
-        "images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg",
+  archive1:
+    "images/Gallery/Our%20Apartment/ak_1636_1434620735-1636795039_700x700%20(1).jpeg",
 
-    archive2:
-        "images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"
+  archive2:
+    "images/Gallery/Our%20Apartment/ak_284_410379319-1567147494_300x300.png"
 };
 
 
@@ -40,361 +28,176 @@ const KAVERI_IMAGES = {
    ========================================================= */
 
 const galleryData = {
+  "our-apartment": {
+    title: "Our Apartment",
+    kicker: "Kaveri Unnatii",
+    category: "apartment",
+    images: [
+      {
+        src: KAVERI_IMAGES.apartment,
+        title: "Kaveri Unnatii Apartment",
+        caption: "A view of our beautiful apartment community."
+      },
+      {
+        src: KAVERI_IMAGES.brochure,
+        title: "Apartment Brochure",
+        caption: "Kaveri Unnatii Apartment."
+      },
+      {
+        src: KAVERI_IMAGES.archive1,
+        title: "Apartment View",
+        caption: "A glimpse of Kaveri Unnatii."
+      },
+      {
+        src: KAVERI_IMAGES.archive2,
+        title: "Community View",
+        caption: "Our apartment and surrounding community."
+      }
+    ]
+  },
 
-    "our-apartment": {
-        title: "Our Apartment",
-        photos: [
-            {
-                src: KAVERI_IMAGES.apartment,
-                caption: "Kaveri Unnatii Apartment"
-            },
-            {
-                src: KAVERI_IMAGES.brochure,
-                caption: "Kaveri Unnatii Apartment brochure"
-            },
-            {
-                src: KAVERI_IMAGES.archive1,
-                caption: "Kaveri Unnatii community memory"
-            },
-            {
-                src: KAVERI_IMAGES.archive2,
-                caption: "Kaveri Unnatii community memory"
-            }
-        ]
-    },
+  "sankranti-2023": {
+    title: "Sankranti 2023",
+    kicker: "Festival Memories",
+    category: "festival",
+    images: [
+      {
+        src: "images/Gallery/2023-sankranti/community-feast-01.webp",
+        title: "Community Feast",
+        caption: "Residents coming together for Sankranti celebrations."
+      },
+      {
+        src: "images/Gallery/2023-sankranti/community-feast-02.webp",
+        title: "Sankranti Celebration",
+        caption: "A memorable celebration with our apartment community."
+      },
+      {
+        src: "images/Gallery/2023-sankranti/community-group-01.webp",
+        title: "Community Gathering",
+        caption: "Residents celebrating together."
+      },
+      {
+        src: "images/Gallery/2023-sankranti/community-group-02.webp",
+        title: "Festival Gathering",
+        caption: "Wonderful memories from Sankranti 2023."
+      }
+    ]
+  },
 
-    "sankranti-2023": {
-        title: "Sankranti 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-sankranti/community-feast-01.webp",
-                caption: "Sankranti community feast"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-feast-02.webp",
-                caption: "Sankranti community feast"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-group-01.webp",
-                caption: "Sankranti community gathering"
-            },
-            {
-                src: "images/Gallery/2023-sankranti/community-group-02.webp",
-                caption: "Sankranti community gathering"
-            }
-        ]
-    },
+  "holi-2023": {
+    title: "Holi 2023",
+    kicker: "Festival Memories",
+    category: "festival",
+    images: [
+      {
+        src: "images/Gallery/2023-holi/family-01.webp",
+        title: "Holi with Family",
+        caption: "Celebrating the festival of colours together."
+      },
+      {
+        src: "images/Gallery/2023-holi/holi-community-01.webp",
+        title: "Holi Community Celebration",
+        caption: "Residents enjoying Holi together."
+      },
+      {
+        src: "images/Gallery/2023-holi/holi-fun-01.webp",
+        title: "Holi Fun",
+        caption: "Colourful memories from Holi 2023."
+      }
+    ]
+  },
 
-    "holi-2023": {
-        title: "Holi 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-holi/family-01.webp",
-                caption: "Holi family celebration"
-            },
-            {
-                src: "images/Gallery/2023-holi/holi-community-01.webp",
-                caption: "Holi community celebration"
-            },
-            {
-                src: "images/Gallery/2023-holi/holi-fun-01.webp",
-                caption: "Holi celebrations at Kaveri Unnatii"
-            }
-        ]
-    },
+  "community-2023": {
+    title: "Community 2023",
+    kicker: "Community Life",
+    category: "community",
+    images: [
+      {
+        src: "images/Gallery/2023-community/campus-visit-01.webp",
+        title: "Community Visit",
+        caption: "A memorable community activity."
+      },
+      {
+        src: "images/Gallery/2023-community/families-01.webp",
+        title: "Our Families",
+        caption: "Residents and families of Kaveri Unnatii."
+      }
+    ]
+  },
 
-    "community-2023": {
-        title: "Community Memories 2023",
-        photos: [
-            {
-                src: "images/Gallery/2023-community/campus-visit-01.webp",
-                caption: "Community memory 2023"
-            },
-            {
-                src: "images/Gallery/2023-community/families-01.webp",
-                caption: "Kaveri Unnatii families"
-            }
-        ]
-    },
-
-    "events-2026": {
-        title: "Community Events 2026",
-        photos: [
-            {
-                src: "images/Gallery/2026-events/event-photo-01.webp",
-                caption: "Community event 2026"
-            },
-            {
-                src: "images/Gallery/2026-events/event-photo-02.webp",
-                caption: "Community event 2026"
-            }
-        ]
-    }
+  "events-2026": {
+    title: "Events 2026",
+    kicker: "Latest Memories",
+    category: "2026",
+    images: [
+      {
+        src: "images/Gallery/2026-events/event-photo-01.webp",
+        title: "Community Event",
+        caption: "One of our memorable events in 2026."
+      },
+      {
+        src: "images/Gallery/2026-events/event-photo-02.webp",
+        title: "Residents Together",
+        caption: "Celebrating community spirit at Kaveri Unnatii."
+      }
+    ]
+  }
 };
+
+
+/* =========================================================
+   HERO IMAGE
+   ========================================================= */
+
+function setHeroBackground() {
+  const hero = document.querySelector(".hero");
+
+  if (!hero) return;
+
+  hero.style.backgroundImage =
+    `linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.45)), url("${KAVERI_IMAGES.apartment}")`;
+}
 
 
 /* =========================================================
    GALLERY VARIABLES
    ========================================================= */
 
-let galleryModal = null;
-let galleryModalTitle = null;
-let galleryModalImage = null;
-let galleryModalCaption = null;
-let galleryModalClose = null;
-let galleryPrev = null;
-let galleryNext = null;
-let galleryThumbnails = null;
-
 let currentAlbum = null;
-let currentPhotoIndex = 0;
+let currentImageIndex = 0;
 
-
-/* =========================================================
-   HOME HERO BACKGROUND
-   ========================================================= */
-
-function restoreHomeBackground() {
-
-    const hero = document.querySelector(".hero");
-
-    if (!hero) {
-        return;
-    }
-
-    hero.style.backgroundImage =
-        'url("images/Gallery/Our%20Apartment/kaveri-apartment.webp")';
-}
-
-
-/* =========================================================
-   REPAIR OLD IMAGE PATHS
-   ========================================================= */
-
-function repairOldImagePaths() {
-
-    const replacements = {
-
-        "images/kaveri-apartment.webp":
-            KAVERI_IMAGES.apartment,
-
-        "images/kaveri-brochure.jpg":
-            KAVERI_IMAGES.brochure,
-
-        "images/ak_1636_1434620735-1636795039_700x700%20(1).jpeg":
-            KAVERI_IMAGES.archive1,
-
-        "images/ak_1636_1434620735-1636795039_700x700 (1).jpeg":
-            KAVERI_IMAGES.archive1,
-
-        "images/ak_284_410379319-1567147494_300x300.png":
-            KAVERI_IMAGES.archive2
-    };
-
-
-    document.querySelectorAll("img").forEach(img => {
-
-        const src = img.getAttribute("src");
-
-        if (src && replacements[src]) {
-            img.setAttribute("src", replacements[src]);
-        }
-
-    });
-
-
-    document
-        .querySelectorAll("[style*='kaveri-apartment']")
-        .forEach(element => {
-
-            const style = element.getAttribute("style");
-
-            if (!style) {
-                return;
-            }
-
-            element.setAttribute(
-                "style",
-                style.replace(
-                    /images\/kaveri-apartment\.webp/g,
-                    KAVERI_IMAGES.apartment
-                )
-            );
-
-        });
-}
-
-
-/* =========================================================
-   GET GALLERY ELEMENTS
-   ========================================================= */
-
-function getGalleryElements() {
-
-    galleryModal =
-        document.getElementById("galleryModal");
-
-    galleryModalTitle =
-        document.getElementById("galleryModalTitle");
-
-    galleryModalImage =
-        document.getElementById("galleryModalImage");
-
-    galleryModalCaption =
-        document.getElementById("galleryModalCaption");
-
-    galleryModalClose =
-        document.getElementById("galleryModalClose");
-
-    galleryPrev =
-        document.getElementById("galleryPrev");
-
-    galleryNext =
-        document.getElementById("galleryNext");
-
-    galleryThumbnails =
-        document.getElementById("galleryThumbnails");
-}
+const galleryModal = document.getElementById("galleryModal");
+const galleryModalImage = document.getElementById("galleryModalImage");
+const galleryModalTitle = document.getElementById("galleryModalTitle");
+const galleryModalCaption = document.getElementById("galleryModalCaption");
+const galleryModalCounter = document.getElementById("galleryModalCounter");
+const galleryModalKicker = document.getElementById("galleryModalKicker");
+const galleryThumbnails = document.getElementById("galleryThumbnails");
+const galleryPrev = document.getElementById("galleryPrev");
+const galleryNext = document.getElementById("galleryNext");
+const galleryModalClose = document.getElementById("galleryModalClose");
 
 
 /* =========================================================
    OPEN GALLERY
    ========================================================= */
 
-function openGallery(albumId, photoIndex = 0) {
+function openGallery(albumId, imageIndex = 0) {
+  const album = galleryData[albumId];
 
-    const album = galleryData[albumId];
+  if (!album || !galleryModal) return;
 
-    if (!album || !album.photos.length) {
-        console.warn("Gallery album not found:", albumId);
-        return;
-    }
+  currentAlbum = albumId;
+  currentImageIndex = imageIndex;
 
-    currentAlbum = albumId;
-    currentPhotoIndex = photoIndex;
+  renderGalleryImage();
 
-    if (galleryModalTitle) {
-        galleryModalTitle.textContent = album.title;
-    }
+  galleryModal.classList.add("open");
+  galleryModal.setAttribute("aria-hidden", "false");
 
-    renderGalleryThumbnails();
-    showGalleryPhoto(photoIndex);
+  document.body.classList.add("gallery-modal-open");
 
-    if (galleryModal) {
-
-        galleryModal.classList.add("active");
-        galleryModal.classList.add("open");
-
-        galleryModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-    }
-
-    document.body.classList.add("gallery-modal-open");
-    document.body.classList.add("no-scroll");
-}
-
-
-/* =========================================================
-   SHOW PHOTO
-   ========================================================= */
-
-function showGalleryPhoto(index) {
-
-    if (!currentAlbum) {
-        return;
-    }
-
-    const album = galleryData[currentAlbum];
-
-    if (!album || !album.photos.length) {
-        return;
-    }
-
-    if (index < 0) {
-        index = album.photos.length - 1;
-    }
-
-    if (index >= album.photos.length) {
-        index = 0;
-    }
-
-    currentPhotoIndex = index;
-
-    const photo = album.photos[index];
-
-    if (galleryModalImage) {
-
-        galleryModalImage.src = photo.src;
-
-        galleryModalImage.alt =
-            photo.caption || album.title;
-    }
-
-    if (galleryModalCaption) {
-        galleryModalCaption.textContent =
-            photo.caption || "";
-    }
-
-    updateGalleryCounter();
-    updateGalleryThumbnails();
-}
-
-
-/* =========================================================
-   COUNTER
-   ========================================================= */
-
-function updateGalleryCounter() {
-
-    const counter =
-        document.getElementById("galleryModalCounter");
-
-    if (!counter || !currentAlbum) {
-        return;
-    }
-
-    const album = galleryData[currentAlbum];
-
-    if (!album) {
-        return;
-    }
-
-    counter.textContent =
-        `${currentPhotoIndex + 1} / ${album.photos.length}`;
-}
-
-
-/* =========================================================
-   NEXT PHOTO
-   ========================================================= */
-
-function nextGalleryPhoto() {
-
-    if (!currentAlbum) {
-        return;
-    }
-
-    showGalleryPhoto(
-        currentPhotoIndex + 1
-    );
-}
-
-
-/* =========================================================
-   PREVIOUS PHOTO
-   ========================================================= */
-
-function previousGalleryPhoto() {
-
-    if (!currentAlbum) {
-        return;
-    }
-
-    showGalleryPhoto(
-        currentPhotoIndex - 1
-    );
+  renderGalleryThumbnails();
 }
 
 
@@ -403,410 +206,301 @@ function previousGalleryPhoto() {
    ========================================================= */
 
 function closeGallery() {
+  if (!galleryModal) return;
 
-    if (!galleryModal) {
-        return;
-    }
+  galleryModal.classList.remove("open");
+  galleryModal.setAttribute("aria-hidden", "true");
 
-    galleryModal.classList.remove("active");
-    galleryModal.classList.remove("open");
+  document.body.classList.remove("gallery-modal-open");
 
-    galleryModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.classList.remove(
-        "gallery-modal-open"
-    );
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-
-    currentAlbum = null;
-    currentPhotoIndex = 0;
+  currentAlbum = null;
+  currentImageIndex = 0;
 }
 
 
 /* =========================================================
-   RENDER THUMBNAILS
+   DISPLAY CURRENT IMAGE
+   ========================================================= */
+
+function renderGalleryImage() {
+  if (!currentAlbum) return;
+
+  const album = galleryData[currentAlbum];
+
+  if (!album) return;
+
+  const image = album.images[currentImageIndex];
+
+  if (!image) return;
+
+  if (galleryModalImage) {
+    galleryModalImage.src = image.src;
+    galleryModalImage.alt = image.title || album.title;
+  }
+
+  if (galleryModalTitle) {
+    galleryModalTitle.textContent = image.title || album.title;
+  }
+
+  if (galleryModalCaption) {
+    galleryModalCaption.textContent = image.caption || "";
+  }
+
+  if (galleryModalKicker) {
+    galleryModalKicker.textContent = album.kicker || "";
+  }
+
+  if (galleryModalCounter) {
+    galleryModalCounter.textContent =
+      `${currentImageIndex + 1} / ${album.images.length}`;
+  }
+
+  updateGalleryNavigation();
+  updateActiveThumbnail();
+}
+
+
+/* =========================================================
+   PREVIOUS IMAGE
+   ========================================================= */
+
+function showPreviousGalleryImage() {
+  if (!currentAlbum) return;
+
+  const album = galleryData[currentAlbum];
+
+  if (!album || album.images.length === 0) return;
+
+  currentImageIndex =
+    (currentImageIndex - 1 + album.images.length) %
+    album.images.length;
+
+  renderGalleryImage();
+}
+
+
+/* =========================================================
+   NEXT IMAGE
+   ========================================================= */
+
+function showNextGalleryImage() {
+  if (!currentAlbum) return;
+
+  const album = galleryData[currentAlbum];
+
+  if (!album || album.images.length === 0) return;
+
+  currentImageIndex =
+    (currentImageIndex + 1) %
+    album.images.length;
+
+  renderGalleryImage();
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTON STATE
+   ========================================================= */
+
+function updateGalleryNavigation() {
+  if (!currentAlbum) return;
+
+  const album = galleryData[currentAlbum];
+
+  if (!album) return;
+
+  const hasMultipleImages = album.images.length > 1;
+
+  if (galleryPrev) {
+    galleryPrev.disabled = !hasMultipleImages;
+  }
+
+  if (galleryNext) {
+    galleryNext.disabled = !hasMultipleImages;
+  }
+}
+
+
+/* =========================================================
+   CREATE THUMBNAILS
    ========================================================= */
 
 function renderGalleryThumbnails() {
+  if (!galleryThumbnails || !currentAlbum) return;
 
-    if (!galleryThumbnails || !currentAlbum) {
-        return;
+  const album = galleryData[currentAlbum];
+
+  if (!album) return;
+
+  galleryThumbnails.innerHTML = "";
+
+  album.images.forEach((image, index) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "gallery-thumbnail";
+
+    if (index === currentImageIndex) {
+      button.classList.add("active");
     }
 
-    const album = galleryData[currentAlbum];
-
-    if (!album) {
-        return;
-    }
-
-    galleryThumbnails.innerHTML = "";
-
-    album.photos.forEach((photo, index) => {
-
-        const thumbnail =
-            document.createElement("button");
-
-        thumbnail.type = "button";
-
-        thumbnail.className =
-            "gallery-thumb";
-
-        thumbnail.setAttribute(
-            "aria-label",
-            `Open photo ${index + 1}`
-        );
-
-        const image =
-            document.createElement("img");
-
-        image.src = photo.src;
-
-        image.alt =
-            photo.caption || "";
-
-        image.loading = "lazy";
-
-        thumbnail.appendChild(image);
-
-        thumbnail.addEventListener(
-            "click",
-            () => {
-                showGalleryPhoto(index);
-            }
-        );
-
-        galleryThumbnails.appendChild(
-            thumbnail
-        );
-    });
-}
-
-
-/* =========================================================
-   UPDATE ACTIVE THUMBNAIL
-   ========================================================= */
-
-function updateGalleryThumbnails() {
-
-    if (!galleryThumbnails) {
-        return;
-    }
-
-    const thumbnails =
-        galleryThumbnails.querySelectorAll(
-            ".gallery-thumb"
-        );
-
-    thumbnails.forEach(
-        (thumbnail, index) => {
-
-            const active =
-                index === currentPhotoIndex;
-
-            thumbnail.classList.toggle(
-                "active",
-                active
-            );
-
-            if (active) {
-
-                thumbnail.setAttribute(
-                    "aria-current",
-                    "true"
-                );
-
-            } else {
-
-                thumbnail.removeAttribute(
-                    "aria-current"
-                );
-            }
-        }
+    button.setAttribute(
+      "aria-label",
+      `Open image ${index + 1}`
     );
-}
 
+    const img = document.createElement("img");
 
-/* =========================================================
-   ALBUM CARDS
-   ========================================================= */
+    img.src = image.src;
+    img.alt = image.title || "";
 
-function initializeAlbumCards() {
+    button.appendChild(img);
 
-    const albumCards =
-        document.querySelectorAll(
-            ".album-card"
-        );
-
-    albumCards.forEach(card => {
-
-        if (
-            card.dataset.galleryReady ===
-            "true"
-        ) {
-            return;
-        }
-
-        card.dataset.galleryReady =
-            "true";
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                const albumId =
-                    card.dataset.album;
-
-                if (!albumId) {
-                    return;
-                }
-
-                openGallery(
-                    albumId,
-                    0
-                );
-            }
-        );
-
-        card.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    const albumId =
-                        card.dataset.album;
-
-                    if (!albumId) {
-                        return;
-                    }
-
-                    openGallery(
-                        albumId,
-                        0
-                    );
-                }
-            }
-        );
+    button.addEventListener("click", () => {
+      currentImageIndex = index;
+      renderGalleryImage();
     });
+
+    galleryThumbnails.appendChild(button);
+  });
 }
 
 
 /* =========================================================
-   GALLERY FILTERS
-   IMPORTANT:
-   HTML uses data-filter
+   ACTIVE THUMBNAIL
    ========================================================= */
 
-function initializeGalleryFilters() {
+function updateActiveThumbnail() {
+  if (!galleryThumbnails) return;
 
-    const filterButtons =
-        document.querySelectorAll(
-            ".gallery-filter"
-        );
+  const thumbnails =
+    galleryThumbnails.querySelectorAll(".gallery-thumbnail");
 
-    const albumCards =
-        document.querySelectorAll(
-            ".album-card"
-        );
+  thumbnails.forEach((thumbnail, index) => {
+    thumbnail.classList.toggle(
+      "active",
+      index === currentImageIndex
+    );
+  });
+}
 
-    if (!filterButtons.length) {
-        return;
+
+/* =========================================================
+   GALLERY FILTER
+   ========================================================= */
+
+function filterGallery(filter) {
+  const items =
+    document.querySelectorAll("[data-gallery-item]");
+
+  items.forEach((item) => {
+    const category = item.dataset.category;
+
+    let visible = false;
+
+    if (filter === "all") {
+      visible = true;
+    } else if (filter === category) {
+      visible = true;
     }
 
+    item.style.display = visible ? "" : "none";
+  });
 
-    filterButtons.forEach(button => {
+  const filterButtons =
+    document.querySelectorAll(".gallery-filter");
 
-        if (
-            button.dataset.filterReady ===
-            "true"
-        ) {
-            return;
-        }
+  filterButtons.forEach((button) => {
+    const isActive =
+      button.dataset.filter === filter;
 
-        button.dataset.filterReady =
-            "true";
-
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const filter =
-                    (
-                        button.dataset.filter ||
-                        "all"
-                    ).toLowerCase();
+    button.classList.toggle("active", isActive);
+    button.setAttribute(
+      "aria-selected",
+      isActive ? "true" : "false"
+    );
+  });
+}
 
 
-                /* Update active button */
+/* =========================================================
+   GALLERY TILE CLICK
+   ========================================================= */
 
-                filterButtons.forEach(item => {
+function setupGalleryTiles() {
+  const items =
+    document.querySelectorAll("[data-gallery-item]");
 
-                    item.classList.remove(
-                        "active"
-                    );
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      const albumId = item.dataset.album;
+      const index =
+        Number.parseInt(item.dataset.index || "0", 10);
 
-                    item.setAttribute(
-                        "aria-pressed",
-                        "false"
-                    );
-                });
-
-
-                button.classList.add(
-                    "active"
-                );
-
-                button.setAttribute(
-                    "aria-pressed",
-                    "true"
-                );
-
-
-                /* Filter album cards */
-
-                albumCards.forEach(card => {
-
-                    const categories =
-                        (
-                            card.dataset.category ||
-                            ""
-                        )
-                        .toLowerCase()
-                        .split(/\s+/)
-                        .filter(Boolean);
-
-
-                    const year =
-                        (
-                            card.dataset.year ||
-                            ""
-                        ).toLowerCase();
-
-
-                    let show = false;
-
-
-                    if (filter === "all") {
-
-                        show = true;
-
-                    } else if (
-                        filter === "apartment"
-                    ) {
-
-                        show =
-                            categories.includes(
-                                "apartment"
-                            );
-
-                    } else if (
-                        filter === "community"
-                    ) {
-
-                        show =
-                            categories.includes(
-                                "community"
-                            );
-
-                    } else if (
-                        filter === "festival" ||
-                        filter === "festivals"
-                    ) {
-
-                        show =
-                            categories.includes(
-                                "festival"
-                            ) ||
-                            categories.includes(
-                                "festivals"
-                            );
-
-                    } else if (
-                        filter === "2023" ||
-                        filter === "2026"
-                    ) {
-
-                        show =
-                            year === filter;
-
-                    } else {
-
-                        show =
-                            categories.includes(
-                                filter
-                            ) ||
-                            year === filter;
-                    }
-
-
-                    card.style.display =
-                        show ? "" : "none";
-                });
-            }
-        );
+      openGallery(
+        albumId,
+        Number.isNaN(index) ? 0 : index
+      );
     });
+  });
 }
 
 
 /* =========================================================
-   GALLERY MODAL EVENTS
+   GALLERY FILTER BUTTONS
    ========================================================= */
 
-function initializeGalleryModal() {
+function setupGalleryFilters() {
+  const filterButtons =
+    document.querySelectorAll(".gallery-filter");
 
-    if (galleryModalClose) {
-
-        galleryModalClose.addEventListener(
-            "click",
-            closeGallery
-        );
-    }
-
-
-    if (galleryNext) {
-
-        galleryNext.addEventListener(
-            "click",
-            nextGalleryPhoto
-        );
-    }
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterGallery(button.dataset.filter || "all");
+    });
+  });
+}
 
 
-    if (galleryPrev) {
+/* =========================================================
+   LIGHTBOX EVENTS
+   ========================================================= */
 
-        galleryPrev.addEventListener(
-            "click",
-            previousGalleryPhoto
-        );
-    }
+function setupGalleryModal() {
+  if (galleryModalClose) {
+    galleryModalClose.addEventListener(
+      "click",
+      closeGallery
+    );
+  }
 
+  if (galleryPrev) {
+    galleryPrev.addEventListener(
+      "click",
+      showPreviousGalleryImage
+    );
+  }
 
-    /* Close when clicking backdrop */
+  if (galleryNext) {
+    galleryNext.addEventListener(
+      "click",
+      showNextGalleryImage
+    );
+  }
 
-    const backdrop =
-        document.querySelector(
-            ".gallery-modal-backdrop"
-        );
+  /* Close when clicking backdrop */
 
-    if (backdrop) {
-
-        backdrop.addEventListener(
-            "click",
-            closeGallery
-        );
-    }
+  if (galleryModal) {
+    galleryModal.addEventListener("click", (event) => {
+      if (
+        event.target.classList.contains(
+          "gallery-lightbox-backdrop"
+        )
+      ) {
+        closeGallery();
+      }
+    });
+  }
 }
 
 
@@ -814,410 +508,196 @@ function initializeGalleryModal() {
    KEYBOARD CONTROLS
    ========================================================= */
 
-function initializeKeyboardControls() {
+function setupGalleryKeyboard() {
+  document.addEventListener("keydown", (event) => {
+    if (!galleryModal ||
+        !galleryModal.classList.contains("open")) {
+      return;
+    }
 
-    document.addEventListener(
-        "keydown",
-        event => {
+    if (event.key === "Escape") {
+      closeGallery();
+    }
 
-            /* Gallery controls */
+    if (event.key === "ArrowLeft") {
+      showPreviousGalleryImage();
+    }
 
-            const galleryOpen =
-                galleryModal &&
-                (
-                    galleryModal.classList.contains(
-                        "active"
-                    ) ||
-                    galleryModal.classList.contains(
-                        "open"
-                    )
-                );
-
-
-            if (galleryOpen) {
-
-                if (event.key === "Escape") {
-
-                    closeGallery();
-
-                    return;
-                }
-
-                if (event.key === "ArrowRight") {
-
-                    nextGalleryPhoto();
-
-                    return;
-                }
-
-                if (event.key === "ArrowLeft") {
-
-                    previousGalleryPhoto();
-
-                    return;
-                }
-            }
-
-
-            /* Mobile menu */
-
-            if (event.key === "Escape") {
-
-                closeMobileMenu();
-            }
-        }
-    );
+    if (event.key === "ArrowRight") {
+      showNextGalleryImage();
+    }
+  });
 }
 
 
 /* =========================================================
-   SMOOTH NAVIGATION
+   TOUCH / SWIPE SUPPORT
    ========================================================= */
 
-function initializeNavigation() {
+let galleryTouchStartX = 0;
+let galleryTouchEndX = 0;
 
-    const navLinks =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
+function setupGallerySwipe() {
+  if (!galleryModalImage) return;
 
-    navLinks.forEach(link => {
+  galleryModalImage.addEventListener(
+    "touchstart",
+    (event) => {
+      galleryTouchStartX =
+        event.changedTouches[0].screenX;
+    },
+    { passive: true }
+  );
 
-        if (
-            link.dataset.navigationReady ===
-            "true"
-        ) {
-            return;
-        }
+  galleryModalImage.addEventListener(
+    "touchend",
+    (event) => {
+      galleryTouchEndX =
+        event.changedTouches[0].screenX;
 
-        link.dataset.navigationReady =
-            "true";
-
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                const targetId =
-                    link.getAttribute(
-                        "href"
-                    );
-
-                if (
-                    !targetId ||
-                    targetId === "#"
-                ) {
-                    return;
-                }
+      handleGallerySwipe();
+    },
+    { passive: true }
+  );
+}
 
 
-                let target;
+function handleGallerySwipe() {
+  const distance =
+    galleryTouchEndX - galleryTouchStartX;
 
-                try {
+  const minimumSwipeDistance = 50;
 
-                    target =
-                        document.querySelector(
-                            targetId
-                        );
+  if (Math.abs(distance) < minimumSwipeDistance) {
+    return;
+  }
 
-                } catch (error) {
-
-                    return;
-                }
-
-
-                if (!target) {
-                    return;
-                }
-
-
-                event.preventDefault();
-
-
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-
-                /* Close mobile menu */
-
-                closeMobileMenu();
-            }
-        );
-    });
+  if (distance > 0) {
+    showPreviousGalleryImage();
+  } else {
+    showNextGalleryImage();
+  }
 }
 
 
 /* =========================================================
-   MOBILE MENU
+   MOBILE NAVIGATION
    ========================================================= */
 
-let mobileMenuButton = null;
-let mobileNavigation = null;
+function setupMobileNavigation() {
+  const menuBtn = document.getElementById("menuBtn");
+  const nav = document.getElementById("nav");
 
+  if (!menuBtn || !nav) return;
 
-function getMobileMenuElements() {
+  menuBtn.addEventListener("click", () => {
+    const isOpen =
+      nav.classList.toggle("open");
 
-    /*
-     * Your current HTML uses:
-     *
-     * button#menuBtn
-     * nav#nav
-     */
-
-    mobileMenuButton =
-        document.getElementById(
-            "menuBtn"
-        );
-
-    mobileNavigation =
-        document.getElementById(
-            "nav"
-        );
-
-
-    /* Fallback support */
-
-    if (!mobileMenuButton) {
-
-        mobileMenuButton =
-            document.querySelector(
-                ".menu-btn, .menu-toggle, .mobile-menu-toggle, #menuToggle"
-            );
-    }
-
-
-    if (!mobileNavigation) {
-
-        mobileNavigation =
-            document.querySelector(
-                ".mobile-menu, #mobileMenu"
-            );
-    }
-}
-
-
-/* =========================================================
-   OPEN MOBILE MENU
-   ========================================================= */
-
-function openMobileMenu() {
-
-    if (
-        !mobileMenuButton ||
-        !mobileNavigation
-    ) {
-        return;
-    }
-
-
-    mobileNavigation.classList.add(
-        "active"
+    menuBtn.setAttribute(
+      "aria-expanded",
+      isOpen ? "true" : "false"
     );
+  });
 
-    mobileNavigation.classList.add(
-        "open"
-    );
+  /* Close menu after selecting a link */
 
+  const navLinks =
+    nav.querySelectorAll("a");
 
-    mobileMenuButton.classList.add(
-        "active"
-    );
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
 
-
-    mobileMenuButton.setAttribute(
-        "aria-expanded",
-        "true"
-    );
-
-
-    mobileMenuButton.setAttribute(
-        "aria-label",
-        "Close navigation menu"
-    );
-
-
-    document.body.classList.add(
-        "mobile-menu-open"
-    );
-}
-
-
-/* =========================================================
-   CLOSE MOBILE MENU
-   ========================================================= */
-
-function closeMobileMenu() {
-
-    if (
-        !mobileMenuButton ||
-        !mobileNavigation
-    ) {
-        return;
-    }
-
-
-    mobileNavigation.classList.remove(
-        "active"
-    );
-
-    mobileNavigation.classList.remove(
-        "open"
-    );
-
-
-    mobileMenuButton.classList.remove(
-        "active"
-    );
-
-
-    mobileMenuButton.setAttribute(
+      menuBtn.setAttribute(
         "aria-expanded",
         "false"
-    );
-
-
-    mobileMenuButton.setAttribute(
-        "aria-label",
-        "Open navigation menu"
-    );
-
-
-    document.body.classList.remove(
-        "mobile-menu-open"
-    );
+      );
+    });
+  });
 }
 
 
 /* =========================================================
-   TOGGLE MOBILE MENU
+   BACK TO TOP
    ========================================================= */
 
-function toggleMobileMenu() {
+function setupBackToTop() {
+  const backToTop =
+    document.getElementById("backToTop");
 
-    if (
-        !mobileMenuButton ||
-        !mobileNavigation
-    ) {
-        return;
-    }
+  if (!backToTop) return;
 
-
-    const isOpen =
-        mobileNavigation.classList.contains(
-            "active"
-        ) ||
-        mobileNavigation.classList.contains(
-            "open"
-        );
-
-
-    if (isOpen) {
-
-        closeMobileMenu();
-
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 500) {
+      backToTop.classList.add("show");
     } else {
-
-        openMobileMenu();
+      backToTop.classList.remove("show");
     }
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
 }
 
 
 /* =========================================================
-   INITIALIZE MOBILE MENU
+   SMOOTH SCROLL
    ========================================================= */
 
-function initializeMobileMenu() {
-
-    getMobileMenuElements();
-
-
-    if (
-        !mobileMenuButton ||
-        !mobileNavigation
-    ) {
-
-        console.warn(
-            "Mobile navigation elements not found."
-        );
-
-        return;
-    }
-
-
-    if (
-        mobileMenuButton.dataset.mobileMenuReady ===
-        "true"
-    ) {
-        return;
-    }
-
-
-    mobileMenuButton.dataset.mobileMenuReady =
-        "true";
-
-
-    mobileMenuButton.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-            toggleMobileMenu();
-        }
+function setupSmoothScroll() {
+  const links =
+    document.querySelectorAll(
+      'a[href^="#"]'
     );
 
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId =
+        link.getAttribute("href");
 
-    /* Close menu when navigation link is clicked */
+      if (!targetId || targetId === "#") {
+        return;
+      }
 
-    mobileNavigation
-        .querySelectorAll("a")
-        .forEach(link => {
+      const target =
+        document.querySelector(targetId);
 
-            link.addEventListener(
-                "click",
-                () => {
+      if (!target) return;
 
-                    closeMobileMenu();
-                }
-            );
-        });
+      event.preventDefault();
 
-
-    /* Close if user clicks outside */
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            if (
-                !mobileNavigation.classList.contains(
-                    "active"
-                ) &&
-                !mobileNavigation.classList.contains(
-                    "open"
-                )
-            ) {
-                return;
-            }
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  });
+}
 
 
-            if (
-                mobileNavigation.contains(
-                    event.target
-                ) ||
-                mobileMenuButton.contains(
-                    event.target
-                )
-            ) {
-                return;
-            }
+/* =========================================================
+   IMAGE ERROR HANDLING
+   ========================================================= */
 
+function setupImageErrorHandling() {
+  document.addEventListener(
+    "error",
+    (event) => {
+      const image = event.target;
 
-            closeMobileMenu();
-        }
-    );
+      if (!(image instanceof HTMLImageElement)) {
+        return;
+      }
+
+      image.classList.add("image-load-error");
+    },
+    true
+  );
 }
 
 
@@ -1226,48 +706,72 @@ function initializeMobileMenu() {
    ========================================================= */
 
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+  "DOMContentLoaded",
+  () => {
+    setHeroBackground();
 
-        /* Home */
+    setupGalleryTiles();
+    setupGalleryFilters();
+    setupGalleryModal();
+    setupGalleryKeyboard();
+    setupGallerySwipe();
 
-        restoreHomeBackground();
+    setupMobileNavigation();
+    setupBackToTop();
+    setupSmoothScroll();
+    setupImageErrorHandling();
 
+    /* Show all gallery images initially */
 
-        /* Repair old image links */
-
-        repairOldImagePaths();
-
-
-        /* Gallery */
-
-        getGalleryElements();
-
-        initializeAlbumCards();
-
-        initializeGalleryFilters();
-
-        initializeGalleryModal();
-
-
-        /* Keyboard */
-
-        initializeKeyboardControls();
-
-
-        /* Navigation */
-
-        initializeNavigation();
-
-
-        /* Mobile menu */
-
-        initializeMobileMenu();
-
-    }
+    filterGallery("all");
+  }
 );
 
 
 /* =========================================================
-   END OF SCRIPT
+   PREVENT BACKGROUND SCROLL WHILE LIGHTBOX IS OPEN
    ========================================================= */
+
+window.addEventListener("wheel", (event) => {
+  if (
+    galleryModal &&
+    galleryModal.classList.contains("open")
+  ) {
+    const target =
+      event.target.closest(
+        ".gallery-lightbox-dialog"
+      );
+
+    if (!target) {
+      event.preventDefault();
+    }
+  }
+}, { passive: false });
+
+
+/* =========================================================
+   WINDOW RESIZE
+   ========================================================= */
+
+window.addEventListener("resize", () => {
+  /*
+     Keep the page stable when changing between
+     desktop and mobile layouts.
+  */
+
+  const nav = document.getElementById("nav");
+  const menuBtn = document.getElementById("menuBtn");
+
+  if (
+    window.innerWidth > 720 &&
+    nav &&
+    menuBtn
+  ) {
+    nav.classList.remove("open");
+
+    menuBtn.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  }
+});
