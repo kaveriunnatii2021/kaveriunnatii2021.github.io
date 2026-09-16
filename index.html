@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kaveri Unnatii Apartment — our home, our community, our family.">
+  <title>Kaveri Unnatii Apartment</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav-wrap">
+      <a class="brand" href="#home" aria-label="Kaveri Unnatii home">
+        <span class="brand-mark">KU</span>
+        <span>
+          <strong>Kaveri Unnatii</strong>
+          <small>Apartment Community</small>
+        </span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <nav id="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#events">Events</a>
+        <a href="#notices">Notices</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="eyebrow">WELCOME TO OUR COMMUNITY</span>
+        <h1>Kaveri <span>Unnatii</span></h1>
+        <p class="hero-tagline">Our Home • Our Community • Our Family</p>
+        <p class="hero-copy">A place where neighbours become friends, celebrations become memories, and our homes become one community.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#gallery">View Photos</a>
+          <a class="btn ghost" href="#about">Explore Our Community</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-heading">
+        <span class="eyebrow">ABOUT US</span>
+        <h2>More than an apartment.</h2>
+        <p>Kaveri Unnatii is a residential community built around togetherness, responsible living and shared memories.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="icon">🏡</div>
+          <h3>Our Home</h3>
+          <p>A welcoming residential space where families can live, grow and create lasting memories.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🤝</div>
+          <h3>Our Community</h3>
+          <p>Residents working together to keep our surroundings safe, clean, organised and friendly.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🎉</div>
+          <h3>Our Celebrations</h3>
+          <p>Festivals and community activities that bring everyone together throughout the year.</p>
+        </div>
+      </div>
+
+      <div class="intro-panel">
+        <div>
+          <span class="eyebrow">KAVERI UNNATII</span>
+          <h3>Memories worth sharing</h3>
+          <p>This website is our community's digital photo album and information space. We can keep adding photographs, festival memories, announcements and important community updates over time.</p>
+        </div>
+        <img src="images/kaveri-brochure.jpg" alt="Kaveri Unnatii apartment brochure image">
+      </div>
+    </section>
+
+    <section id="gallery" class="section gallery-section">
+      <div class="section-heading">
+        <span class="eyebrow">PHOTO GALLERY</span>
+        <h2>Our home, in pictures.</h2>
+        <p>More albums can be added anytime — festivals, celebrations, facilities and community activities.</p>
+      </div>
+
+      <div class="gallery" id="galleryGrid">
+        <button class="photo-card large" data-full="images/kaveri-apartment.webp" aria-label="View Kaveri Unnatii apartment">
+          <img src="images/kaveri-apartment.webp" alt="Kaveri Unnatii apartment exterior">
+          <span class="photo-caption"><strong>Our Apartment</strong><small>Kaveri Unnatii</small></span>
+        </button>
+        <button class="photo-card" data-full="images/kaveri-brochure.jpg" aria-label="View Kaveri Unnatii brochure">
+          <img src="images/kaveri-brochure.jpg" alt="Kaveri Unnatii brochure">
+          <span class="photo-caption"><strong>Our Beginning</strong><small>Apartment brochure</small></span>
+        </button>
+        <div class="photo-placeholder">
+          <span>📸</span>
+          <strong>Add more photos</strong>
+          <small>Festival and community photos can be added here.</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" class="section">
+      <div class="section-heading">
+        <span class="eyebrow">EVENTS & FESTIVALS</span>
+        <h2>Celebrating together.</h2>
+        <p>A dedicated place for our community celebrations and memorable occasions.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="event-card">
+          <div class="event-date"><span>SEP</span><strong>2026</strong></div>
+          <div>
+            <span class="pill">Festival</span>
+            <h3>Ganesh Chaturthi 2026</h3>
+            <p>Grand welcoming, pooja, community participation and Ganapati Visarjana.</p>
+          </div>
+        </article>
+        <article class="event-card muted-event">
+          <div class="event-date"><span>UPCOMING</span><strong>—</strong></div>
+          <div>
+            <span class="pill">Community</span>
+            <h3>More memories coming soon</h3>
+            <p>Add future festivals, meetings and community activities to this section.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="notices" class="section notices-section">
+      <div class="section-heading">
+        <span class="eyebrow">COMMUNITY NOTICES</span>
+        <h2>Important updates.</h2>
+        <p>Use this section for announcements that residents may want to share or refer to later.</p>
+      </div>
+
+      <div class="notice-list">
+        <article class="notice">
+          <span class="notice-icon">📢</span>
+          <div><strong>Association Updates</strong><p>Important notices and resident communications can be posted here.</p></div>
+        </article>
+        <article class="notice">
+          <span class="notice-icon">🗓️</span>
+          <div><strong>Meetings & Activities</strong><p>Meeting dates, community activities and festival information can be added here.</p></div>
+        </article>
+        <article class="notice">
+          <span class="notice-icon">🔐</span>
+          <div><strong>Privacy Reminder</strong><p>Do not publish private phone numbers, flat numbers, financial details or sensitive resident information on this public website.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="contact-card">
+        <div>
+          <span class="eyebrow">KAVERI UNNATII</span>
+          <h2>Welcome to our community.</h2>
+          <p>For association-related information, please use the official resident communication channels.</p>
+        </div>
+        <a class="btn primary" href="#home">Back to top ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Kaveri Unnatii Apartment</strong>
+      <span>Our Home • Our Community • Our Family</span>
+    </div>
+    <small>Community website • Photos and information maintained by the association</small>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="close-lightbox" id="closeLightbox" aria-label="Close photo viewer">×</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
