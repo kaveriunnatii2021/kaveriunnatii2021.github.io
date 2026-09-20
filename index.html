@@ -9,19 +9,105 @@
 
   <meta
     name="description"
-    content="Kaveri Unnatii Apartment Community — our home, our community, our family."
+    content="Kaveri Unnatii Apartment, Davanagere — a well-managed residential community with reliable water supply, security, parking, lifts and community facilities."
   >
 
   <meta name="theme-color" content="#8b4a20">
 
   <title>
-    Kaveri Unnatii Apartment | Our Home • Our Community • Our Family
+    Kaveri Unnatii Apartment, Davanagere | Our Home • Our Community • Our Family
   </title>
 
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 9999;
+      padding: 10px 16px;
+      background: #fff;
+      color: #222;
+    }
+    .skip-link:focus {
+      left: 12px;
+      top: 12px;
+    }
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 8px;
+    }
+    .hero-highlights span {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.28);
+      backdrop-filter: blur(5px);
+      font-size: .88rem;
+    }
+    .facility-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 0 0 34px;
+    }
+    .facility-stat {
+      text-align: center;
+      padding: 22px 14px;
+      border-radius: 18px;
+      background: rgba(139, 74, 32, .07);
+      border: 1px solid rgba(139, 74, 32, .12);
+    }
+    .facility-stat strong {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .facility-stat span {
+      display: block;
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+    @media (max-width: 800px) {
+      .facility-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 520px) {
+      .facility-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .facility-stat {
+        padding: 16px 8px;
+      }
+      .facility-stat strong {
+        font-size: 1.6rem;
+      }
+      .facility-stat span {
+        font-size: .78rem;
+      }
+      .hero-highlights {
+        gap: 7px;
+      }
+      .hero-highlights span {
+        font-size: .76rem;
+        padding: 6px 9px;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <!-- Urgent Sale Announcement -->
   <div class="sale-announcement" role="region" aria-label="Flat sale announcement">
@@ -89,7 +175,7 @@
   </header>
 
 
-  <main>
+  <main id="main-content">
 
     <!-- =====================================================
          HERO
@@ -119,6 +205,13 @@
           celebrations become memories,
           and our homes become one community.
         </p>
+
+        <div class="hero-highlights" aria-label="Community highlights">
+          <span>💧 Reliable Water Supply</span>
+          <span>🛗 2 Passenger Lifts</span>
+          <span>🛡️ Security &amp; CCTV</span>
+          <span>🚗 Dedicated Parking</span>
+        </div>
 
         <div class="hero-actions">
 
@@ -330,11 +423,31 @@
     </h2>
 
     <p>
-      Well-maintained facilities and shared spaces that
-      support the comfort, safety and convenience of
-      everyone at Kaveri Unnatii.
+      Thoughtfully maintained facilities and shared spaces
+      designed to support the comfort, safety, convenience
+      and everyday needs of everyone at Kaveri Unnatii.
     </p>
 
+  </div>
+
+
+  <div class="facility-stats" aria-label="Key facility highlights">
+    <div class="facility-stat">
+      <strong>5</strong>
+      <span>Municipal Water Connections</span>
+    </div>
+    <div class="facility-stat">
+      <strong>2</strong>
+      <span>Borewells</span>
+    </div>
+    <div class="facility-stat">
+      <strong>2</strong>
+      <span>Passenger Lifts</span>
+    </div>
+    <div class="facility-stat">
+      <strong>365</strong>
+      <span>Days of Water-Supply Support</span>
+    </div>
   </div>
 
 
@@ -516,10 +629,10 @@
 
       <p>
         From dedicated parking and two passenger lifts to
-        security, water facilities and well-maintained
-        common areas, Kaveri Unnatii focuses on providing
-        residents with a comfortable and well-managed
-        living environment.
+        a multi-source water-supply system with <strong>5 municipal
+        connections and 2 borewells</strong>, security and well-maintained
+        common areas, Kaveri Unnatii focuses on providing residents
+        with a comfortable, secure and well-managed living environment.
       </p>
 
     </div>
