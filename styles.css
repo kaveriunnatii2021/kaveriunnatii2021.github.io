@@ -3179,3 +3179,212 @@ button:focus-visible {
   text-shadow:
     0 2px 6px rgba(0, 0, 0, 0.75);
 }
+/* =========================================================
+   STEP 3 — MODERN NAVIGATION BAR
+   ========================================================= */
+
+/* Main navigation */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(255, 250, 244, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(139, 74, 32, 0.14);
+
+  box-shadow:
+    0 4px 18px rgba(45, 28, 18, 0.08);
+
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Navigation container */
+.topbar .container {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* Logo / association name */
+.brand,
+.logo,
+.site-brand {
+  color: var(--primary-dark) !important;
+  font-weight: 850;
+  letter-spacing: -0.3px;
+}
+
+
+/* Navigation links */
+.nav a,
+.nav-links a,
+.topbar nav a {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 10px 12px;
+
+  color: #4d3627;
+  font-size: 13px;
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Animated underline */
+.nav a::after,
+.nav-links a::after,
+.topbar nav a::after {
+  content: "";
+
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
+}
+
+
+/* Hover */
+.nav a:hover,
+.nav-links a:hover,
+.topbar nav a:hover {
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+
+/* Show underline on hover */
+.nav a:hover::after,
+.nav-links a:hover::after,
+.topbar nav a:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* Active navigation item */
+.nav a.active,
+.nav-links a.active,
+.topbar nav a.active {
+  color: var(--primary-dark);
+}
+
+
+/* Active underline */
+.nav a.active::after,
+.nav-links a.active::after,
+.topbar nav a.active::after {
+  transform: scaleX(1);
+}
+
+
+/* Mobile menu button */
+.menu-toggle,
+.nav-toggle,
+.mobile-menu-toggle {
+  border: 1px solid rgba(139, 74, 32, 0.18);
+
+  background: #ffffff;
+
+  color: var(--primary);
+
+  border-radius: 12px;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 12px rgba(45, 28, 18, 0.08);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.menu-toggle:hover,
+.nav-toggle:hover,
+.mobile-menu-toggle:hover {
+  background: #fff7ed;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .topbar .container {
+    min-height: 64px;
+  }
+
+  .nav,
+  .nav-links,
+  .topbar nav {
+    gap: 4px;
+  }
+
+  .nav a,
+  .nav-links a,
+  .topbar nav a {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/* Small phones */
+@media (max-width: 520px) {
+
+  .nav,
+  .nav-links,
+  .topbar nav {
+    gap: 2px;
+  }
+
+  .nav a,
+  .nav-links a,
+  .topbar nav a {
+    padding: 8px 7px;
+    font-size: 11px;
+  }
+
+}
