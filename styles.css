@@ -2492,21 +2492,7 @@ button:focus-visible {
   }
 }
 
-/* =========================================================
-   URGENT SALE ANNOUNCEMENT
-   ========================================================= */
 
-.sale-announcement {
-  width: 100%;
-  overflow: hidden;
-  background: #ffd43b;
-  color: #241a00;
-  padding: 13px 0;
-  white-space: nowrap;
-  position: relative;
-  z-index: 1000;
-  border-bottom: 2px solid #e0a800;
-}
 
 .sale-announcement-track {
   display: inline-block;
@@ -2539,5 +2525,74 @@ button:focus-visible {
 
   .sale-announcement-track {
     font-size: 16px;
+  }
+}
+
+/* =========================================================
+   URGENT SALE ANNOUNCEMENT
+   ========================================================= */
+
+.sale-announcement {
+  width: 100%;
+  overflow: hidden;
+  background: #f4c542;
+  color: #211a14;
+  padding: 13px 0;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1100;
+  border-bottom: 2px solid #c99b20;
+  box-shadow: 0 2px 8px rgba(45, 28, 18, 0.08);
+}
+
+.sale-announcement-track {
+  display: inline-block;
+  padding-left: 100%;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  animation: saleScroll 24s linear infinite;
+}
+
+.sale-announcement-track strong {
+  font-weight: 900;
+}
+
+.sale-announcement-track a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.sale-announcement-track a:hover {
+  text-decoration: underline;
+}
+
+@keyframes saleScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 600px) {
+  .sale-announcement {
+    padding: 11px 0;
+  }
+
+  .sale-announcement-track {
+    font-size: 16px;
+    animation-duration: 20s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sale-announcement-track {
+    animation: none;
+    padding-left: 15px;
   }
 }
