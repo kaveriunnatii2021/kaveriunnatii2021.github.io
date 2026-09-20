@@ -600,6 +600,18 @@ nav a:hover {
   background: var(--light);
 }
 
+/* =========================================================
+   FACILITIES HIGHLIGHT
+   ========================================================= */
+
+.facilities-highlight {
+  margin-top: 25px;
+}
+
+.facilities-highlight p {
+  max-width: 850px;
+}
+
 
 /* =========================================================
    PREMIUM GALLERY
