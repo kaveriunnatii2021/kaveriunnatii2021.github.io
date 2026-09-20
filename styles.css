@@ -3683,3 +3683,386 @@ button:focus-visible {
   }
 
 }
+
+
+/* =========================================================
+   STEP 6 — FINAL OVERALL POLISH + MOBILE OPTIMIZATION
+   ========================================================= */
+
+/* ---------- GLOBAL POLISH ---------- */
+
+html {
+  scroll-padding-top: 88px;
+}
+
+body {
+  background: var(--cream);
+}
+
+::selection {
+  background: rgba(185, 120, 44, 0.22);
+  color: var(--primary-deep);
+}
+
+/* Keep content comfortable on large screens */
+.section,
+.hero-content {
+  max-width: var(--max-width);
+}
+
+/* Consistent section rhythm */
+.section {
+  position: relative;
+}
+
+.section-heading {
+  position: relative;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 10px;
+}
+
+/* ---------- NAVIGATION POLISH ---------- */
+
+.topbar {
+  box-shadow:
+    0 5px 20px rgba(45, 28, 18, 0.08);
+}
+
+.topbar #nav a {
+  border-radius: 10px;
+}
+
+.topbar #nav a:focus-visible {
+  background: rgba(139, 74, 32, 0.08);
+}
+
+/* ---------- HERO POLISH ---------- */
+
+.hero {
+  isolation: isolate;
+}
+
+.hero-content {
+  min-height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero h1 {
+  text-wrap: balance;
+}
+
+.hero-copy {
+  text-wrap: pretty;
+}
+
+.hero-actions .btn {
+  min-width: 145px;
+}
+
+/* ---------- CARD CONSISTENCY ---------- */
+
+.about-card,
+.event-card,
+.contact-card,
+.contact-location-card,
+.contact-enquiry-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before,
+.event-card::before,
+.contact-location-card::before,
+.contact-enquiry-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.about-card:hover::before,
+.event-card:hover::before,
+.contact-location-card:hover::before,
+.contact-enquiry-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- EVENTS ---------- */
+
+.events-section {
+  background:
+    linear-gradient(
+      180deg,
+      #f7f3ed 0%,
+      #f3eee7 100%
+    );
+}
+
+.event-card {
+  height: 100%;
+}
+
+.event-card h3 {
+  line-height: 1.3;
+}
+
+/* ---------- NOTICES ---------- */
+
+.notice-card {
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.notice-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(185, 120, 44, 0.35);
+  box-shadow:
+    0 10px 25px rgba(45, 28, 18, 0.08);
+}
+
+/* ---------- GALLERY POLISH ---------- */
+
+.gallery-section .section-heading {
+  max-width: 780px;
+}
+
+.gallery-filters {
+  align-items: center;
+}
+
+.gallery-filter {
+  min-height: 42px;
+}
+
+.gallery-tile {
+  contain: layout paint;
+}
+
+/* ---------- CONTACT POLISH ---------- */
+
+.contact-section {
+  background:
+    linear-gradient(
+      180deg,
+      #f7f3ed 0%,
+      #f1ebe3 100%
+    );
+}
+
+.contact-location-card,
+.contact-enquiry-card {
+  height: 100%;
+}
+
+.contact-map-wrap iframe {
+  filter: saturate(0.92) contrast(1.02);
+}
+
+/* ---------- BACK TO TOP ---------- */
+
+#backToTop:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 28px rgba(45, 28, 18, 0.24);
+}
+
+/* ---------- MOBILE / TABLET FINAL PASS ---------- */
+
+@media (max-width: 980px) {
+
+  .hero-content {
+    min-height: 600px;
+  }
+
+  .section {
+    padding-top: 82px;
+    padding-bottom: 82px;
+  }
+
+  .about-card,
+  .event-card,
+  .contact-location-card,
+  .contact-enquiry-card {
+    height: 100%;
+  }
+
+}
+
+@media (max-width: 780px) {
+
+  html {
+    scroll-padding-top: 74px;
+  }
+
+  .hero-content {
+    min-height: 600px;
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+  .hero-actions {
+    margin-top: 28px;
+  }
+
+  .hero-actions .btn {
+    min-width: 0;
+  }
+
+  .section {
+    padding-top: 68px;
+    padding-bottom: 68px;
+  }
+
+  .section-heading {
+    margin-bottom: 34px;
+  }
+
+  .section-heading p {
+    font-size: 15px;
+  }
+
+  .about-card,
+  .event-card,
+  .contact-location-card,
+  .contact-enquiry-card {
+    height: auto;
+  }
+
+  .notice-card {
+    align-items: flex-start;
+  }
+
+  .gallery-filters {
+    gap: 7px;
+    margin-bottom: 24px;
+  }
+
+  .gallery-filter {
+    min-height: 38px;
+    padding: 7px 13px;
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .hero-content {
+    min-height: 560px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+
+  .hero h1 {
+    line-height: 0.98;
+    letter-spacing: -2px;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .section-heading h2 {
+    line-height: 1.15;
+  }
+
+  .section-heading p {
+    line-height: 1.65;
+  }
+
+  .about-card,
+  .event-card {
+    padding: 23px;
+    border-radius: 18px;
+  }
+
+  .notice-card {
+    border-radius: 14px;
+  }
+
+  .contact-layout {
+    gap: 18px;
+  }
+
+  .gallery-section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .hero-content {
+    width: calc(100% - 24px);
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 15vw, 64px);
+  }
+
+  .hero-tagline {
+    line-height: 1.35;
+  }
+
+  .hero-copy {
+    line-height: 1.6;
+  }
+
+  .section {
+    width: calc(100% - 24px);
+  }
+
+  .gallery-section {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .gallery-filter {
+    flex: 1 1 auto;
+  }
+
+}
+
+/* ---------- ACCESSIBILITY / MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .about-card,
+  .event-card,
+  .notice-card,
+  .contact-phone-card,
+  .contact-directions-button,
+  #backToTop {
+    transition: none !important;
+  }
+
+  .gallery-tile img {
+    transition: none !important;
+  }
+}
