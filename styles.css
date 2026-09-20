@@ -3388,3 +3388,144 @@ button:focus-visible {
   }
 
 }
+/* =========================================================
+   STEP 4 — COMMITTEE SPACING & RESPONSIVE LAYOUT
+   ========================================================= */
+
+/* Committee section spacing */
+.committee-section {
+  padding-top: 90px;
+  padding-bottom: 95px;
+}
+
+/* Heading spacing */
+.committee-section .section-heading {
+  margin-bottom: 48px;
+}
+
+.committee-section .section-heading h2 {
+  margin-bottom: 14px;
+}
+
+.committee-section .section-heading p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+
+/* Committee cards grid */
+.committee-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+
+  align-items: stretch;
+}
+
+
+/* Make every card equal height */
+.committee-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 430px;
+
+  text-align: center;
+}
+
+
+/* Keep the description aligned nicely */
+.committee-description {
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Give the role badge consistent spacing */
+.committee-role {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .committee-section {
+    padding-top: 75px;
+    padding-bottom: 80px;
+  }
+
+  .committee-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .committee-card {
+    min-height: 420px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .committee-section {
+    padding-top: 65px;
+    padding-bottom: 70px;
+  }
+
+  .committee-section .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .committee-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+
+    max-width: 420px;
+  }
+
+  .committee-card {
+    min-height: auto;
+    padding: 30px 22px 28px;
+  }
+
+  .committee-description {
+    max-width: 320px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .committee-section {
+    padding-top: 55px;
+    padding-bottom: 60px;
+  }
+
+  .committee-card {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+}
