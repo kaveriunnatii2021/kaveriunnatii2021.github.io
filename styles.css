@@ -3179,17 +3179,19 @@ button:focus-visible {
   text-shadow:
     0 2px 6px rgba(0, 0, 0, 0.75);
 }
+
 /* =========================================================
-   STEP 3 — MODERN NAVIGATION BAR
+   STEP 3 — MODERN NAVIGATION — CORRECTED
    ========================================================= */
 
-/* Main navigation */
+/* Main navigation bar */
 .topbar {
   position: sticky;
   top: 0;
   z-index: 1000;
 
   background: rgba(255, 250, 244, 0.97);
+
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
@@ -3204,41 +3206,120 @@ button:focus-visible {
 }
 
 
-/* Navigation container */
-.topbar .container {
+/* Navigation inner wrapper */
+.nav-wrap {
   min-height: 72px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 24px;
 }
 
 
-/* Logo / association name */
-.brand,
-.logo,
-.site-brand {
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.topbar .brand {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
   color: var(--primary-dark) !important;
-  font-weight: 850;
-  letter-spacing: -0.3px;
+
+  text-decoration: none;
+
+  flex-shrink: 0;
 }
 
 
-/* Navigation links */
-.nav a,
-.nav-links a,
-.topbar nav a {
+.topbar .brand strong {
+  display: block;
+
+  font-size: 17px;
+  font-weight: 850;
+
+  line-height: 1.15;
+}
+
+
+.topbar .brand small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 650;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* KU logo */
+.brand-mark {
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 14px rgba(139, 74, 32, 0.22);
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.topbar #nav {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 4px;
+}
+
+
+.topbar #nav a {
   position: relative;
 
   display: inline-flex;
+
   align-items: center;
 
-  padding: 10px 12px;
+  padding: 10px 11px;
 
   color: #4d3627;
-  font-size: 13px;
+
+  font-size: 12.5px;
   font-weight: 750;
 
   text-decoration: none;
+
+  white-space: nowrap;
 
   transition:
     color 0.2s ease,
@@ -3247,89 +3328,80 @@ button:focus-visible {
 
 
 /* Animated underline */
-.nav a::after,
-.nav-links a::after,
-.topbar nav a::after {
+.topbar #nav a::after {
   content: "";
 
   position: absolute;
-  left: 12px;
-  right: 12px;
+
+  left: 10px;
+  right: 10px;
   bottom: 3px;
 
   height: 2px;
 
   border-radius: 999px;
 
-  background: linear-gradient(
-    90deg,
-    var(--primary),
-    var(--secondary)
-  );
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--secondary)
+    );
 
   transform: scaleX(0);
+
   transform-origin: center;
 
-  transition: transform 0.25s ease;
+  transition:
+    transform 0.25s ease;
 }
 
 
 /* Hover */
-.nav a:hover,
-.nav-links a:hover,
-.topbar nav a:hover {
+.topbar #nav a:hover {
   color: var(--primary);
-  transform: translateY(-1px);
+
+  transform:
+    translateY(-1px);
 }
 
 
-/* Show underline on hover */
-.nav a:hover::after,
-.nav-links a:hover::after,
-.topbar nav a:hover::after {
+/* Hover underline */
+.topbar #nav a:hover::after {
   transform: scaleX(1);
 }
 
 
-/* Active navigation item */
-.nav a.active,
-.nav-links a.active,
-.topbar nav a.active {
-  color: var(--primary-dark);
-}
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
 
+.topbar .menu-btn {
+  display: none;
 
-/* Active underline */
-.nav a.active::after,
-.nav-links a.active::after,
-.topbar nav a.active::after {
-  transform: scaleX(1);
-}
+  width: 42px;
+  height: 42px;
 
+  align-items: center;
+  justify-content: center;
 
-/* Mobile menu button */
-.menu-toggle,
-.nav-toggle,
-.mobile-menu-toggle {
-  border: 1px solid rgba(139, 74, 32, 0.18);
+  border:
+    1px solid
+    rgba(139, 74, 32, 0.18);
+
+  border-radius: 12px;
 
   background: #ffffff;
 
   color: var(--primary);
 
-  border-radius: 12px;
-
-  width: 42px;
-  height: 42px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 20px;
 
   cursor: pointer;
 
   box-shadow:
-    0 4px 12px rgba(45, 28, 18, 0.08);
+    0 4px 12px
+    rgba(45, 28, 18, 0.08);
 
   transition:
     background 0.2s ease,
@@ -3337,54 +3409,136 @@ button:focus-visible {
 }
 
 
-.menu-toggle:hover,
-.nav-toggle:hover,
-.mobile-menu-toggle:hover {
+.topbar .menu-btn:hover {
   background: #fff7ed;
-  transform: translateY(-1px);
+
+  transform:
+    translateY(-1px);
 }
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   TABLET
    ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
 
-  .topbar .container {
-    min-height: 64px;
+  .nav-wrap {
+    gap: 12px;
   }
 
-  .nav,
-  .nav-links,
-  .topbar nav {
-    gap: 4px;
+  .topbar #nav {
+    gap: 0;
   }
 
-  .nav a,
-  .nav-links a,
-  .topbar nav a {
-    padding: 9px 10px;
-    font-size: 12px;
+  .topbar #nav a {
+    padding-left: 8px;
+    padding-right: 8px;
+
+    font-size: 11.5px;
   }
 
 }
 
 
-/* Small phones */
-@media (max-width: 520px) {
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-  .nav,
-  .nav-links,
-  .topbar nav {
-    gap: 2px;
+@media (max-width: 768px) {
+
+  .nav-wrap {
+    min-height: 64px;
   }
 
-  .nav a,
-  .nav-links a,
-  .topbar nav a {
-    padding: 8px 7px;
-    font-size: 11px;
+
+  /* Show hamburger */
+  .topbar .menu-btn {
+    display: inline-flex;
+  }
+
+
+  /* Mobile navigation panel */
+  .topbar #nav {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 12px 18px 18px;
+
+    background:
+      rgba(255, 250, 244, 0.98);
+
+    border-bottom:
+      1px solid
+      rgba(139, 74, 32, 0.14);
+
+    box-shadow:
+      0 12px 25px
+      rgba(45, 28, 18, 0.12);
+  }
+
+
+  /* JavaScript opens the menu */
+  .topbar #nav.open {
+    display: flex;
+  }
+
+
+  .topbar #nav a {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+  }
+
+
+  .topbar #nav a:hover {
+    background:
+      rgba(139, 74, 32, 0.06);
+
+    transform: none;
+  }
+
+
+  .topbar #nav a::after {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .topbar .brand strong {
+    font-size: 15px;
+  }
+
+  .topbar .brand small {
+    font-size: 9px;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
   }
 
 }
