@@ -2983,4 +2983,13 @@ button:focus-visible {
     transform: none;
   }
 }
+/* =========================================================
+   KAVERI UNNATII - HOME PAGE BACKGROUND
+   ========================================================= */
 
+.hero {
+  background-image: url("images/04-Our-Apartment/kaveri-apartment.webp") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
