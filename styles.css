@@ -3128,16 +3128,19 @@ button:focus-visible {
 
 }
 /* =========================================================
-   STEP 2 — HOME HERO DARKER / CINEMATIC BACKGROUND
+   STEP 2 — HOME HERO — DARK CINEMATIC VERSION
    ========================================================= */
 
 .hero {
+  position: relative;
+
   background-image:
     linear-gradient(
       90deg,
-      rgba(20, 12, 7, 0.88),
-      rgba(20, 12, 7, 0.68),
-      rgba(20, 12, 7, 0.42)
+      rgba(8, 5, 3, 0.96) 0%,
+      rgba(12, 7, 4, 0.90) 35%,
+      rgba(15, 9, 5, 0.78) 65%,
+      rgba(15, 9, 5, 0.62) 100%
     ),
     url("images/04-Our-Apartment/kaveri-apartment.webp") !important;
 
@@ -3146,8 +3149,33 @@ button:focus-visible {
   background-repeat: no-repeat !important;
 }
 
-/* Remove the bright radial glow from the previous design */
+/* Strong overall dark overlay */
 .hero-overlay {
   background:
-    rgba(10, 7, 5, 0.12) !important;
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.18) 0%,
+      rgba(0, 0, 0, 0.28) 100%
+    ) !important;
+}
+
+/* Keep the main text bright and readable */
+.hero-content {
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.65),
+    0 4px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* Improve tagline readability */
+.hero-tagline {
+  color: #ffffff !important;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.75);
+}
+
+/* Improve description readability */
+.hero-copy {
+  color: rgba(255, 255, 255, 0.94) !important;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.75);
 }
